@@ -31,6 +31,9 @@ function Layout() {
              <Link to="/resume" style={{ textDecoration: 'none', color: '#fff' }}>
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>Qualifications</Typography>
             </Link>
+            <Link to="/mystudents" style={{ textDecoration: 'none', color: '#fff' }}>
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>My Students</Typography>
+            </Link>
           </Stack>
 
           {/* Social Media Icons */}
