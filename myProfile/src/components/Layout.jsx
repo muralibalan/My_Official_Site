@@ -2,66 +2,87 @@ import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { Box, Typography, Stack, IconButton } from '@mui/material';
 import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 
 function Layout() {
-  //Link kukaana styles
-  const styleLink = { fontWeight: 600,
+  //Link kaana Styles
+  const styleLink = {
+                      textDecoration: 'none', 
+                      color: '#fff'
+  }
+  //Link Text kaana styles
+  const styleLinkText = { 
+                      fontWeight: 600,
                       fontWeight: 600,
                       transition: 'all 0.3s ease', // Smooth transition for outline
                       '&:hover': {
                                   outline: '1px solid #cd3ecdff', 
-                                  padding: '2px',
-                                  // boxShadow: '0 0 20px #cd3ecdff',
-                                  borderRadius: '10px',
-                                  bgcolor:'#cd3ecdff'
-                                  
-                                }
-                    }
+                                  padding: '5px',
+                                  borderRadius: '10px',      
+                      }
+  }
+  //Icon kana Style               
+  const styleIcon = {
+                       color: "#fff",
+                       '&:hover': {
+                                  boxShadow: '0 0 20px #f7f1f2ff',
+                      }
+  }
+
   return (
     <>
-      <Box sx={{ minHeight: '90vh', bgcolor: '#181818', color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center', p: 2 }}>
+      <Box sx={{ minHeight: '90vh', 
+        bgcolor: '#181818', 
+        color: '#fff', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'flex-start', 
+        alignItems: 'center', 
+        textAlign: 'center', p: 2 }}>
         
         {/* Top Navigation Row */}
-        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
+        <Box sx={{display: 'flex', 
+          flexDirection: 'row', 
+          justifyContent: 'space-between', 
+          width: '100%', 
+          alignItems: 'center'
+          }}>
           
           {/* Logo */}
-          <Typography variant="h4" sx={{ fontWeight: 800 }}>
+          {/* <Typography variant="h4" sx={{ fontWeight: 800 }}>
             Murali Official Site
-          </Typography>
+          </Typography> */}
 
           {/* Navigation */}
-          <Stack direction="row" spacing={4}>
-            <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
-                <Typography variant="h6" sx={styleLink}>Home</Typography>
+          <Stack direction="row" spacing={6}>
+            <Link to="/" style={styleLink}>
+                <Typography variant="h6" sx={styleLinkText}>Home</Typography>
             </Link>
-            <Link to="/about" style={{ textDecoration: 'none', color: '#fff' }}>
-                <Typography variant="h6" sx={styleLink}>About</Typography>
+
+            <Link to="/about" style={styleLink}>
+                <Typography variant="h6" sx={styleLinkText}>About</Typography>
             </Link>
-            <Link to="/skills" style={{ textDecoration: 'none', color: '#fff' }}>
-                <Typography variant="h6" sx={styleLink}>Skills</Typography>
+
+            <Link to="/education" style={styleLink}>
+                <Typography variant="h6" sx={styleLinkText}>Education</Typography>
             </Link>
-             <Link to="/resume" style={{ textDecoration: 'none', color: '#fff' }}>
-                <Typography variant="h6" sx={styleLink}>Qualifications</Typography>
-            </Link>
-            <Link to="/mystudents" style={{ textDecoration: 'none', color: '#fff' }}>
-                <Typography variant="h6" sx={styleLink}>My Students</Typography>
+            
+            <Link to="/mystudents" style={styleLink}>
+                <Typography variant="h6" sx={styleLinkText}>My Students</Typography>
             </Link>
           </Stack>
 
           {/* Social Media Icons */}
           <Stack direction="row" spacing={2}>
-            <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={{ color: "#fff" }}>
+            <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={styleIcon}>
               <FaGithub />
             </IconButton>
-            <IconButton component="a" href="https://www.linkedin.com/in/muraliriya/" target="_blank" sx={{ color: "#fff" }}>
+            <IconButton component="a" href="https://www.linkedin.com/in/muraliriya/" target="_blank" sx={styleIcon}>
               <FaLinkedin />
             </IconButton>
-            <IconButton component="a" href="https://instagram.com/" target="_blank" sx={{ color: "#fff" }}>
+            <IconButton component="a" href="https://instagram.com/" target="_blank" sx={styleIcon}>
               <FaInstagram />
             </IconButton>
-            <IconButton component="a" href="https://www.youtube.com/@Unlock-360" target="_blank" sx={{ color: "#fff" }}>
-              {/* <FaXTwitter /> */}
+            <IconButton component="a" href="https://www.youtube.com/@Unlock-360" target="_blank" sx={styleIcon}>
               <FaYoutube/>
             </IconButton>
           </Stack>

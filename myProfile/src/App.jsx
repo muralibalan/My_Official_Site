@@ -2,10 +2,9 @@ import './App.css'
 import Layout from './components/Layout'
 import Home from './components/navigations/Home'
 import About from './components/navigations/About'
-import Skills from './components/navigations/Skill'
-import Resume from './components/navigations/Resume'
 import MyStudents from './components/navigations/MyStudents'
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
+import Education from './components/navigations/Education'
 
 function App() {
 
@@ -16,9 +15,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />     
           <Route path="about" element={<About />} /> 
-          <Route path='/skills' element={<Skills/>}/>
-          <Route path='/resume' element={<Resume/>}/>
           <Route path='/mystudents' element={<MyStudents/>}/>
+          <Route path='/education' element={<Education/>}/>
         </Route>
       </Routes>
    </BrowserRouter>
