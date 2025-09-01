@@ -4,27 +4,27 @@ import { Box, Typography, Grid, Paper, LinearProgress } from '@mui/material';
 const frontSkills = [
   { name: "HTML/CSS", value: 95 },
   { name: "JavaScript", value: 85 },
-  { name: "React", value: 80 },
+  { name: "React Js", value: 80 },
 ];
 
 const backSkills = [
   { name: "Node.js", value: 35 },
   { name: "Express Js", value: 30 },
-  { name: "SQL", value: 65 },
+  { name: "My SQL", value: 65 },
 ];
 
 const SkillProgress = ({ name, value }) => (
   <Box sx={{ mb: 3 }}>
     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-      <Typography sx={{ fontWeight: 500, color:"white" }}>{name}</Typography>
+      <Typography sx={{ fontWeight: 500, color:"white",fontSize:20 }}>{name}</Typography>
       <Typography sx={{ fontWeight: 500, color:"white" }}>{value}%</Typography>
     </Box>
     <LinearProgress
       variant="determinate"
       value={value}
       sx={{
-        height: 7,
-        borderRadius: 5,
+        height: 15,
+        borderRadius: 2,
         bgcolor: "#252525",
         "& .MuiLinearProgress-bar": {
           bgcolor: "#fff",
@@ -38,8 +38,9 @@ export default function Skills() {
   return (
     <Box sx={{
       bgcolor: '#181818',
-      minHeight: '100vh',
-      py: 8,
+      // minHeight: '100vh',
+      height:'59vh',
+      py: 2,
       px: { xs: 2, md: 8 }
     }}>
       <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -57,16 +58,16 @@ export default function Skills() {
             Skills
           </span>
         </Typography>
-        <Typography sx={{ color: '#ccc', fontSize: 18, mt: 2 }}>
+        <Typography sx={{ color: '#ccc', fontSize: 28, mt: 2 }}>
           Technical & Training Skills
         </Typography>
       </Box>
 
-      <Grid container spacing={10} justifyContent="center">
+      <Grid container spacing={20} justifyContent="center">
 
         <Grid item xs={12} md={5}>
           <Paper elevation={0} sx={{
-            bgcolor: "#191919",
+            bgcolor: "#3843baff",
             width: 450,
             p: 4,
             borderRadius: 4,
@@ -88,7 +89,7 @@ export default function Skills() {
 
         <Grid item xs={12} md={5}>
           <Paper elevation={0} sx={{
-            bgcolor: "#191919",
+            bgcolor: "#3843baff",
             p: 4,
              width: 450,
             borderRadius: 4,

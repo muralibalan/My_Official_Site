@@ -8,7 +8,7 @@ import { TypeAnimation } from 'react-type-animation';
 
 function Home() {
   return <>
-    <Box sx={{ minHeight: '100vh', bgcolor: '#181818', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Box sx={{ bgcolor: '#181818', color:"white", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 20 }}>
 
@@ -23,11 +23,11 @@ function Home() {
             <TypeAnimation
                 sequence={[
                 "Web Developer",
-                2000,
+                3000,
                 "Technical Trainer",
-                2000,
+                3000,
                 "Freelancer",
-                2000,
+                3000,
                 ]}
                 speed={50}
                 repeat={Infinity}

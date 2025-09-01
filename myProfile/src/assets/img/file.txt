@@ -10,17 +10,14 @@ function Layout() {
                       fontWeight: 600,
                       transition: 'all 0.3s ease', // Smooth transition for outline
                       '&:hover': {
-                                  outline: '1px solid #cd3ecdff', 
+                                  outline: '5px solid #ff4081', 
                                   padding: '2px',
-                                  // boxShadow: '0 0 20px #cd3ecdff',
-                                  borderRadius: '10px',
-                                  bgcolor:'#cd3ecdff'
-                                  
+                                  boxShadow: '0 0 20px #ff4081' 
                                 }
                     }
   return (
     <>
-      <Box sx={{ minHeight: '90vh', bgcolor: '#181818', color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center', p: 2 }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: '#181818', color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center', p: 2 }}>
         
         {/* Top Navigation Row */}
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>

@@ -6,7 +6,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const About = () => {
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#181818', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', px: 3 }}>
+    <Box sx={{ minHeight: '78vh', bgcolor: '#181818', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', px: 3 }}>
       <Stack direction={{ xs: "column", md: "row" }} spacing={5} sx={{ width: '100%', maxWidth: 1100 }}>
 {/* Profile Card */}
 
