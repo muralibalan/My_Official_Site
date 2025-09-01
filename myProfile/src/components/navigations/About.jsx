@@ -39,7 +39,7 @@ const About = () => {
             bgcolor: '#232323',
             p: { xs: 3, md: 4 },
             borderRadius: 4,
-            minWidth: { xs: '100%', sm: 320 },
+            minWidth: { xs: '80%', sm: 320 },
             boxShadow: 6,
             display: 'flex',
             flexDirection: 'column',
