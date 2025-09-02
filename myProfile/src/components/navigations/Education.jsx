@@ -8,8 +8,8 @@ const frontSkills = [
 ];
 
 const backSkills = [
-  { name: 'Node.js', value: 35 },
-  { name: 'Express Js', value: 30 },
+  { name: 'Node.js', value: 65 },
+  { name: 'Express Js', value: 60 },
   { name: 'My SQL', value: 65 },
 ];
 
