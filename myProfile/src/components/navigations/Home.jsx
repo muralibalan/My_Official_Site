@@ -1,8 +1,12 @@
 import React from 'react'
 import { Box, Typography, Button, Stack, Avatar } from '@mui/material';
 import { TypeAnimation } from 'react-type-animation';
+import { useNavigate } from "react-router-dom";
+
 
 function Home() {
+const navigate = useNavigate();
+
   return (
     <>
       <Box 
@@ -52,10 +56,12 @@ function Home() {
                 sequence={[
                   "Web Developer",
                   3000,
-                  "Technical Trainer",
+                  "Technical Mentor",
                   3000,
                   "Freelancer",
                   3000,
+                  "Workshop Facilitator",
+                  3000
                 ]}
                 speed={50}
                 repeat={Infinity}
@@ -82,6 +88,7 @@ function Home() {
             >
               <Button 
                 variant="contained" 
+                 onClick={() => navigate("/projects")}
                 sx={{ 
                   bgcolor: '#fff', 
                   color: '#181818', 
@@ -90,7 +97,7 @@ function Home() {
                   boxShadow: 1 
                 }}
               >
-                View My Work
+                View My Projects
               </Button>
 
               <Button 
@@ -102,7 +109,7 @@ function Home() {
                   borderRadius: '30px' 
                 }}
               >
-                Get In Touch
+                Tech Talks
               </Button>
             </Stack>
           </Box>
@@ -121,7 +128,7 @@ function Home() {
             }}
           >
             <Avatar
-              src='/images/Murali.jpg' 
+              src='/images/Murali.png' 
               alt="Murali Balan"
               sx={{ 
                 width: { xs: 250, sm: 320, md: 480 }, 

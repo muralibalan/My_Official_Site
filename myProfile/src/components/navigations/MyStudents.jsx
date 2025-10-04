@@ -7,7 +7,7 @@ import { Box, Typography, Grid, Paper } from '@mui/material';
 const students = [
   { name: 'Adhithya', photo: 'students/Adhithya.jpeg' },
   { name: 'Arunaja', photo: 'students/Arunaja.jpeg' },
-  { name: 'BarbeenReegan', photo: 'students/BarbeenReegan.jpeg' },
+  { name: 'Barbeen Reegan', photo: 'students/BarbeenReegan.jpeg' },
   { name: 'Dharshayani', photo: 'students/dhatshayani.jpeg' },
   { name: 'Dinesh', photo: 'students/Dhinesh.jpeg' },
   { name: 'Diwakar', photo: 'students/Diwakar.jpeg' },
@@ -21,8 +21,8 @@ const students = [
   { name: 'Keerthika', photo: 'students/Keerthika.jpeg' },
   { name: 'Logaraman', photo: 'students/Logaraman.jpeg' },
   { name: 'MadhuPriya', photo: 'students/MadhuPriya.jpeg' },
-  { name: 'MaryAncita', photo: 'students/MaryAncita.jpeg' },
-  { name: 'MuhamaduMushraf', photo: 'students/MuhamaduMushraf.jpeg' },
+  { name: 'Mary Ancita', photo: 'students/MaryAncita.jpeg' },
+  { name: 'Muhamadu Mushraf', photo: 'students/MuhamaduMushraf.jpeg' },
   { name: 'Naveen', photo: 'students/Naveen.jpeg' },
   { name: 'NaveenKumar', photo: 'students/Naveenkumar.jpeg' },
   { name: 'Prince Anbu Selvan', photo: 'students/princeanbuselvan.jpeg' },
@@ -86,7 +86,7 @@ function MyStudents() {
                 borderRadius: '12px',
                 p: { xs: 1, sm: 2 },
                 textAlign: 'center',
-                bgcolor: '#3f3f9fff',
+                bgcolor: '#676464',
                 boxShadow: '0 1px 4px #eee',
                 width: { xs: 310, sm: 310, md: 310, lg: 310 }, // Fixed width to accommodate 290px image + padding
               }}

@@ -47,7 +47,7 @@ const About = () => {
           }}
         >
           <Avatar
-            src="/images/Murali3.jpg"
+            src="/images/Murali3.png"
             alt="Murali"
             sx={{ width: { xs: 160, sm: 200, md: 220 }, height: { xs: 160, sm: 200, md: 220 } }}
           />
