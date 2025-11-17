@@ -87,7 +87,7 @@ function Layout() {
             <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={styleIcon}>
               <FaGithub />
             </IconButton>
-            <IconButton component="a" href="https://www.linkedin.com/in/muraliriya/" target="_blank" sx={styleIcon}>
+            <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={styleIcon}>
               <FaLinkedin />
             </IconButton>
             <IconButton component="a" href="https://instagram.com/" target="_blank" sx={styleIcon}>
