@@ -126,7 +126,7 @@ const About = () => {
           >
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                120+
+                220+
               </Typography>
               <Typography sx={{ color: '#ccc', fontSize: { xs: '0.85rem', md: '1rem' } }}>
                 Students have learned
@@ -137,7 +137,7 @@ const About = () => {
 
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                2+
+                3+
               </Typography>
               <Typography sx={{ color: '#ccc', fontSize: { xs: '0.85rem', md: '1rem' } }}>Years Experience</Typography>
             </Box>

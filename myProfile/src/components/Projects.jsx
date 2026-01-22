@@ -19,47 +19,78 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // Sample project data with category
 const projects = [
-  {
-    id: 1,
-    title: "Green Apple Institue UI",
-    image: "/projects_Ui/Computer_Institute_UI.png",
-    link: "https://greenappleinstitute.vercel.app/",
-    category: "business",
-  },
+ 
+  
   {
     id: 2,
-    title: "Portfolio Website",
-    image: "/projects_Ui/MyPortfolio.png",
-    link: "https://muraliofficial.vercel.app/",
-    category: "business",
-  },
-  {
-    id: 3,
     title: "Snake Game",
-    image: "/images/project3.png",
+    image: "/projects_Ui/snake.png",
     link: "https://snake-game.vercel.app",
     category: "games",
   },
+  // {
+  //   id: 3,
+  //   title: "Memory Puzzle",
+  //   image: "/images/project4.png",
+  //   link: "https://memory-game.vercel.app",
+  //   category: "games",
+  // },
   {
     id: 4,
-    title: "Memory Puzzle",
-    image: "/images/project4.png",
-    link: "https://memory-game.vercel.app",
-    category: "games",
-  },
-  {
-    id: 5,
     title: "E-Commerce App",
     image: "/images/project5.png",
     link: "https://ecommerce.vercel.app",
     category: "ecommerce",
   },
   {
-    id: 6,
+    id: 5,
     title: "Production CRM",
-    image: "/images/project6.png",
+    image: "/projects_Ui/crm.png",
     link: "https://production-crm.vercel.app",
     category: "production",
+  },
+  {
+    id: 6,
+    title: "Green Apple Computer Education",
+    image: "/projects_Ui/greenApple.png",
+    link: "https://www.greenapple.co.in/",
+    category: "business",
+  },
+   {
+    id: 7,
+    title: "ProgramPARK",
+    image: "/projects_Ui/programPark.png",
+    link: "https://www.programpark.in/",
+    category: "business",
+  },
+   {
+    id: 8,
+    title: "Metrozo Ads",
+    image: "/projects_Ui/Mdp.png",
+    link: "https://mdpsite.vercel.app/",
+    category: "business",
+  },
+  {
+    id: 9,
+    title: "Job Assigner Web Application",
+    image: "/projects_Ui/jobassigner.png",
+    link: "https://production-crm.vercel.app",
+    category: "production",
+  },
+ 
+   {
+    id: 10,
+    title: "Green Apple Institue UI",
+    image: "/projects_Ui/Computer_Institute_UI.png",
+    link: "https://greenappleinstitute.vercel.app/",
+    category: "business",
+  },
+   {
+    id: 11,
+    title: "Portfolio Website",
+    image: "/projects_Ui/MyPortfolio.png",
+    link: "https://muraliofficial.vercel.app/",
+    category: "business",
   },
 ];
 
@@ -130,9 +161,9 @@ function Projects() {
             TabIndicatorProps={{ style: { backgroundColor: "#09ee24ff" } }}
           >
             <Tab label="Business UI" value="business" />
+            <Tab label="Production Sites" value="production" />
             <Tab label="Games" value="games" />
             <Tab label="E-Commerce" value="ecommerce" />
-            <Tab label="Production Sites" value="production" />
           </Tabs>
         )}
       </Box>

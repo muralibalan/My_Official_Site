@@ -37,7 +37,7 @@ function Layout() {
   const navLinks = [
     { to: "/", text: "Home" },
     { to: "/about", text: "About" },
-    { to: "/education", text: "Education" },
+    { to: "/education", text: "Experience" },
     { to: "/students", text: "Students" },
   ];
 
@@ -90,10 +90,10 @@ function Layout() {
             <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={styleIcon}>
               <FaLinkedin />
             </IconButton>
-            <IconButton component="a" href="https://instagram.com/" target="_blank" sx={styleIcon}>
+            <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={styleIcon}>
               <FaInstagram />
             </IconButton>
-            <IconButton component="a" href="https://www.youtube.com/@Unlock-360" target="_blank" sx={styleIcon}>
+            <IconButton component="a" href="https://www.youtube.com/@error2win" target="_blank" sx={styleIcon}>
               <FaYoutube/>
             </IconButton>
           </Stack>

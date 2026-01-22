@@ -10,7 +10,32 @@ const frontSkills = [
 const backSkills = [
   { name: 'Node.js', value: 65 },
   { name: 'Express Js', value: 60 },
-  { name: 'My SQL', value: 65 },
+  { name: 'My SQL', value: 75 },
+  { name: 'Java Programming', value: 67 },
+  { name: 'Python Programming', value: 40 },
+];
+
+const visualizationSkills = [
+  { name: 'Tableau', value: 80 },
+  { name: 'Power BI', value: 85 },
+  { name: 'Excel Analytics', value: 90 },
+  { name: 'Data Storytelling', value: 75 },
+];
+
+
+
+const visualizationPaperStyle = {
+  bgcolor: '#676980ff',
+  width: { xs: '100%', sm: 400, md: 450 },
+  p: { xs: 2, sm: 3, md: 4 },
+  borderRadius: 4,
+  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+};
+
+const workflowSkills = [
+  { name: 'Git & GitHub', value: 90 },
+  { name: 'Vercel Deployment', value: 85 },
+  { name: 'Prompt-based Code Generation', value: 80 },
 ];
 
 const SkillProgress = ({ name, value }) => (
@@ -93,20 +118,138 @@ function Education() {
         Professional Experience
       </Typography>
 
-      {/* Job Present */}
+      {/* __________________________Job Present________________________ */}
+      {/*Green Apple  */}
+      <Box sx={{ textAlign: 'start', mb: 3 }}>
+
+        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
+          Center Head
+        </Typography>
+
+        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
+          November 2025 – Present | Green Apple Computer Education, Kumbakonam - 612 001
+        </Typography>
+
+        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
+          <ul>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Conducting training programs in Java, Web Development, and Computer Fundamentals.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Delivered full-stack MERN training including React.js, Node.js, Express.js, and MongoDB.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Conducted foundational courses in C, C++, Java, JDBC, and Python programming.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Provided Data Science and Analytics training with visualization tools such as Tableau and Power BI.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Conducted skill-oriented training focused on interview preparation and technical confidence building.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Prepared students for interviews through mock tests, coding challenges, and resume reviews.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Designed training roadmaps, curriculum delivery plans, and batch schedules.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Tracked student progress and implemented personalized learning strategies.
+              </Typography>
+            </li>
+          </ul>
+        </Box>
+      </Box>
+
+
+      {/*ProgramPark */}
+      <Box sx={{ textAlign: 'start', mb: 3 }}>
+
+        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
+          Apps & Web Developer
+        </Typography>
+
+        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
+          November 2025 – Present | ProgramPark Technologies Pvt. Ltd Chennai - 33
+        </Typography>
+
+        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
+          <ul>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Designing and developing mobile and web applications in parallel with training commitments.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Working with React, Node.js, and modern tooling for product-based solutions.
+              </Typography>
+            </li>
+          </ul>
+        </Box>
+      </Box>
+
+      {/* BlueTick Coders */}
+      <Box sx={{ textAlign: 'start', mb: 3 }}>
+
+        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
+          Front-end Developer
+        </Typography>
+
+        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
+          March 2024 – November 2025 | BlueTick Coders Pvt. Ltd, Adambakkam, Chennai - 32.
+        </Typography>
+
+        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
+          <ul>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Developed and maintained responsive web applications using React, JavaScript, and REST APIs.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Collaborated with developers on UI components, performance optimization, and code reviews.
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
+                Implemented reusable front-end components aligned with design and UX standards.
+              </Typography>
+            </li>
+          </ul>
+        </Box>
+      </Box>
+
+      {/* Soft Tech Ashram */}
       <Box sx={{ textAlign: 'start', mb: 3 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Center Head At SoftTechAshram
+          Center Head (Training Division)
         </Typography>
         <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          March 2024 – Present | BlueTick Coders Pvt. Ltd, Adambakkam, Chennai - 32.
+          March 2024 – November 2025 | SoftTechAshram (Operated by BlueTick Coders), Chennai - 32.
         </Typography>
         <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
           <ul>
             <li>
               <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
                 Designed and delivered training programs on HTML, CSS, JavaScript, and React,
-                empowering 50+ students to build responsive web applications.
+                empowering 150+ students to build responsive web applications.
               </Typography>
             </li>
             <li>
@@ -315,6 +458,37 @@ function Education() {
               ))}
             </Paper>
           </Grid>
+
+          <Grid item xs={12} sm={6} md={5}>
+            <Paper sx={visualizationPaperStyle}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
+              >
+                Data Visualization & BI Tools
+              </Typography>
+              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
+              {visualizationSkills.map((skill) => (
+                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
+              ))}
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={5}>
+            <Paper sx={skillPaperStyle}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
+              >
+                Workflow & Deployment Tools
+              </Typography>
+              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
+              {workflowSkills.map((skill) => (
+                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
+              ))}
+            </Paper>
+          </Grid>
+
         </Grid>
       </Box>
 
