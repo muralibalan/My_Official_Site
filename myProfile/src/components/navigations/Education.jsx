@@ -99,7 +99,7 @@ function Education() {
           }}
         >
           Passionate and experienced Tech Trainer with a strong commitment to teaching, having
-          successfully guided over 120 students through practical and industry-relevant technology
+          successfully guided over 1000+ students through practical and industry-relevant technology
           training.
         </Typography>
       </Box>

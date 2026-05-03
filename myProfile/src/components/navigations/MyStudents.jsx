@@ -42,6 +42,17 @@ const students = [
   { name: 'Vignesh', photo: 'students/Vignesh.jpeg' },
   { name: 'Vigneshwaran', photo: 'students/Vigneshwaran.jpeg' },
   { name: 'Yamuna', photo: 'students/yamuna.jpeg' },
+
+  { name: 'Angel', photo: 'students/angel.jpeg' },
+  { name: 'Rajapriya', photo: 'students/rajapriya.jpeg' },
+  { name: 'Ashok', photo: 'students/ashok1.jpeg' },
+  { name: 'Yokesh', photo: 'students/yokesh.jpeg' },
+  { name: 'Jenifer', photo: 'students/jenifer.jpeg' },
+  { name: 'Divager', photo: 'students/divagar1.jpeg' },
+  { name: 'Anish', photo: 'students/anish.jpeg' },
+  { name: 'Karthikeyan', photo: 'students/karthikeyan1.jpeg' },
+  { name: 'Sanjay', photo: 'students/sanjay1.jpeg' },
+  { name: 'STA_Finel_Batch', photo: 'students/staFinel.jpeg' },
 ];
 
 function MyStudents() {
