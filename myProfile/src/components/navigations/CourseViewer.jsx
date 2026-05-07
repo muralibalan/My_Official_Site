@@ -1,101 +1,125 @@
-import React from 'react';
-import { Box, Typography, Paper, GlobalStyles } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, GlobalStyles, TextField, InputAdornment, Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const CourseViewer = () => {
-  // Ungaloda Google Doc Embed Link
-  const docUrl =
-    "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true";
+  // 1. Ungaloda Document list (Inge unga ella links-aiyum correct name-oda add pannunga)
+  const courseData = [
+    { id: 1, name: "Callback Function", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
+    { id: 2, name: "HTML Tags", url: "https://docs.google.com/document/d/e/ANOTHER_LINK_HERE/pub?embedded=true" },
+    { id: 3, name: "CSS Basics", url: "https://docs.google.com/document/d/e/CSS_LINK_HERE/pub?embedded=true" },
+  ];
+
+  const [searchInput, setSearchInput] = useState(""); // User type pannura text
+  const [selectedDoc, setSelectedDoc] = useState(courseData[0]); // Current-ah view aagura doc
+
+  // Search function (Enter-kkum Button-kkum ithu pothuvaanathu)
+  const executeSearch = () => {
+    const found = courseData.find(doc => 
+      doc.name.toLowerCase() === searchInput.toLowerCase() || 
+      doc.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    if (found) {
+      setSelectedDoc(found);
+    } else {
+      alert("Sariyaana file name-ai type pannunga! (Eg: HTML Introduction)");
+    }
+  };
+
+  // Keyboard-la Enter press panna...
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      executeSearch();
+    }
+  };
 
   return (
     <Box
       sx={{
-        width: '100vw',
+        width: '100%',
         minHeight: '100vh',
-        bgcolor: '#f5f5f5',
-        margin: 0,
-        padding: 0,
-        overflowX: 'hidden', // Side scroll varaama irukka
-        // Basic selection restriction
+        bgcolor: '#f0f2f5',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         userSelect: 'none',
-        WebkitUserSelect: 'none',
-        msUserSelect: 'none',
-        MozUserSelect: 'none',
       }}
+      onContextMenu={(e) => e.preventDefault()}
     >
-      {/* CSS moolama print edupathai thadukka */}
-      <GlobalStyles
-        styles={{
-          '@media print': {
-            body: { display: 'none !important' },
-          },
-          'body': { margin: 0, padding: 0 }
-        }}
-      />
+      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
 
-      <Paper
-        elevation={0}
-        sx={{
-          width: '100%',
-          minHeight: '100vh',
-          borderRadius: 0,
-          p: { xs: 1, md: 3 }, // Mobile-la kammi padding, desktop-la athigam
-          boxSizing: 'border-box'
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
-          color="primary"
-          sx={{
-            fontWeight: 'bold',
-            mb: 2,
-            fontSize: { xs: '1.5rem', md: '2.125rem' } // Responsive font
-          }}
-        >
-          Course Content
+      {/* Header & Search Section */}
+      <Box sx={{ py: 4, textAlign: 'center', width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 3 }}>
+          E-Learning Portal
         </Typography>
 
-        {/* Iframe Container with Overlay */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, px: 2 }}>
+            <TextField
+                variant="outlined"
+                placeholder="Type File Name (e.g. HTML Introduction)"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={handleKeyPress} // Enter key support
+                sx={{ width: { xs: '70%', md: '500px' }, bgcolor: '#fff' }}
+                size="small"
+                InputProps={{
+                    startAdornment: (
+                    <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                    </InputAdornment>
+                    ),
+                }}
+            />
+            <Button 
+                variant="contained" 
+                onClick={executeSearch}
+                sx={{ textTransform: 'none', fontWeight: 'bold' }}
+            >
+                Search
+            </Button>
+        </Box>
+        
+        <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
+          Now Viewing: {selectedDoc.name}
+        </Typography>
+      </Box>
+
+      {/* Document View - Strict Protection matrum Full Height */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: { xs: '98%', md: '900px' },
+          height: '6000px', // Content length kku yethamaari height adjust pannunga
+          bgcolor: '#fff',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          mb: 5,
+        }}
+      >
+        {/* THE SHIELD LAYER (Copy Restriction) */}
         <Box
           sx={{
-            position: 'relative', // Overlay-kaga relative-ah vaikkurom
+            position: 'absolute',
+            top: 0,
+            left: 0,
             width: '100%',
-            height: '85vh',
-            border: '1px solid #e0e0e0',
-            borderRadius: '8px',
-            overflow: 'hidden',
+            height: '100%',
+            zIndex: 10,
+            background: 'transparent',
+            pointerEvents: 'all',
           }}
-          onContextMenu={(e) => e.preventDefault()} // Right click block
-        >
-          {/* INVISIBLE OVERLAY: 
-            Ithu iframe mela oru kannadikku mela irukira layer maari.
-            Ithu irunthaal text-ai click-o select-o panna mudiyaathu.
-          */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 10,
-              background: 'rgba(255,255,255,0)', // Fully transparent
-              cursor: 'default',
-            }}
-          />
+        />
 
-          <iframe
-            src={docUrl}
-            width="100%"
-            height="100%"
-            title="HTML Course Document"
-            style={{
-              border: 'none',
-              pointerEvents: 'auto', // Ithu scroll-ai allow pannum
-            }}
-          />
-        </Box>
-      </Paper>
+        <iframe
+          key={selectedDoc.id} // Ithu thaan doc-ai reload panna vaikum
+          src={selectedDoc.url}
+          width="100%"
+          height="100%"
+          title={selectedDoc.name}
+          style={{ border: 'none', pointerEvents: 'none' }}
+        />
+      </Box>
     </Box>
   );
 };

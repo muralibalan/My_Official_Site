@@ -1,0 +1,114 @@
+find . -name '._*' -delete
+
+
+import React, { useState } from 'react';
+import { Box, Typography, GlobalStyles, TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
+const CourseViewer = () => {
+  // 1. Ungaloda ellaa Docs link-aiyum inge add pannunga
+  const courseData = [
+    { id: 1, name: "HTML Introduction", url: "https://docs.google.com/document/d/e/YOUR_LINK_1/pub?embedded=true" },
+    { id: 2, name: "HTML Tags", url: "https://docs.google.com/document/d/e/YOUR_LINK_2/pub?embedded=true" },
+    { id: 3, name: "CSS Selectors", url: "https://docs.google.com/document/d/e/YOUR_LINK_3/pub?embedded=true" },
+    // Ithu pola unga 70+ links-aiyum inge add pannikkalam
+  ];
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDoc, setSelectedDoc] = useState(courseData[0]); // Default-ah first doc kaattum
+
+  // Search handle panna
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Exact match moolama doc-ah kandupidippom
+    const found = courseData.find(doc => 
+      doc.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    if (found) {
+      setSelectedDoc(found);
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        minHeight: '100vh',
+        bgcolor: '#f0f2f5',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        userSelect: 'none',
+      }}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
+
+      {/* Header Section */}
+      <Box sx={{ py: 4, textAlign: 'center', width: '100%', bgcolor: '#fff', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
+          E-Learning Content Viewer
+        </Typography>
+
+        {/* Search Input Box */}
+        <TextField
+          variant="outlined"
+          placeholder="Search Document Name (e.g. HTML Tags)"
+          value={searchTerm}
+          onChange={handleSearch}
+          sx={{ width: { xs: '90%', md: '500px' }, bgcolor: '#fff' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Typography variant="body2" sx={{ mt: 1, color: '#666' }}>
+          Viewing: <b>{selectedDoc.name}</b>
+        </Typography>
+      </Box>
+
+      {/* Document Viewer Section */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: { xs: '98%', md: '900px' },
+          height: '6000px', // Content length-ku yetha maari adjust pannunga
+          bgcolor: '#fff',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          mb: 5,
+        }}
+      >
+        {/* NO-COPY SHIELD LAYER */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 10,
+            background: 'transparent',
+            pointerEvents: 'all',
+          }}
+        />
+
+        <iframe
+          key={selectedDoc.id} // Doc maarumbothu iframe refresh aaga ithu mukkiyam
+          src={selectedDoc.url}
+          width="100%"
+          height="100%"
+          title={selectedDoc.name}
+          style={{ border: 'none', pointerEvents: 'none' }}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default CourseViewer;

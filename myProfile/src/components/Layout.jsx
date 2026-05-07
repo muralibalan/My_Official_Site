@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { Box, Typography, Stack, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from "react-icons/fa";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { useTheme, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -16,13 +17,13 @@ function Layout() {
     color: '#fff'
   }
 
-  const styleLinkText = { 
+  const styleLinkText = {
     fontWeight: 600,
-    transition: 'all 0.3s ease', 
+    transition: 'all 0.3s ease',
     '&:hover': {
-      outline: '1px solid #cd3ecdff', 
+      outline: '1px solid #cd3ecdff',
       padding: '5px',
-      borderRadius: '10px',      
+      borderRadius: '10px',
     }
   }
 
@@ -43,24 +44,24 @@ function Layout() {
 
   return (
     <>
-      <Box sx={{ 
-        minHeight: '90vh', 
-        bgcolor: '#181818', 
-        color: '#fff', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'flex-start', 
-        alignItems: 'center', 
-        textAlign: 'center', 
-        p: 2 
+      <Box sx={{
+        minHeight: '90vh',
+        bgcolor: '#181818',
+        color: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        textAlign: 'center',
+        p: 2
       }}>
-        
+
         {/* Top Navigation Row */}
-        <Box sx={{ 
-          display: 'flex', 
+        <Box sx={{
+          display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          width: '100%', 
+          width: '100%',
           alignItems: 'center'
         }}>
 
@@ -94,8 +95,18 @@ function Layout() {
               <FaInstagram />
             </IconButton>
             <IconButton component="a" href="https://www.youtube.com/@error2win" target="_blank" sx={styleIcon}>
-              <FaYoutube/>
+              <FaYoutube />
             </IconButton>
+
+            <IconButton
+              component={Link}
+              to="/study"
+              sx={styleIcon}
+              aria-label="Course Viewer"
+            >
+              <AutoStoriesIcon />
+            </IconButton>
+            
           </Stack>
         </Box>
 
@@ -108,12 +119,12 @@ function Layout() {
         >
           <List>
             {navLinks.map((link, index) => (
-              <ListItem 
-                sx={{color : 'white'}}
-                button 
-                key={index} 
-                component={Link} 
-                to={link.to} 
+              <ListItem
+                sx={{ color: 'white' }}
+                button
+                key={index}
+                component={Link}
+                to={link.to}
                 onClick={() => setDrawerOpen(false)}
               >
                 <ListItemText primary={link.text} />
