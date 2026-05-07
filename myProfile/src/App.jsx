@@ -7,6 +7,7 @@ import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Education from './components/navigations/Education'
 import Projects from './components/Projects'
 import MyWorkshops from './components/MyWorkshops'
+import CourseViewer from './components/navigations/CourseViewer'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/education' element={<Education/>}/>
           <Route path='/projects' element={<Projects/>}/>
           <Route path='/workshop' element={<MyWorkshops/>}/>
+          <Route path='/study' element={<CourseViewer/>}/>
         </Route>
       </Routes>
    </BrowserRouter>
