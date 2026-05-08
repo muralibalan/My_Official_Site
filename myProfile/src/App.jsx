@@ -19,15 +19,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />     
-          <Route path="about" element={<About />} /> 
-          <Route path='students' element={<MyStudents/>}/>
-          <Route path='education' element={<Education/>}/>
-          <Route path='projects' element={<Projects/>}/>
-          <Route path='workshop' element={<MyWorkshops/>}/>
-          
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path='students' element={<MyStudents />} />
+          <Route path='education' element={<Education />} />
+          <Route path='projects' element={<Projects />} />
+          <Route path='workshop' element={<MyWorkshops />} />
+
           {/* Study Route Logic */}
-          <Route 
+          {/* <Route 
             path='study' 
             element={
               isLoggedIn ? (
@@ -36,6 +36,16 @@ function App() {
                 <Login setAuth={setIsLoggedIn} />
               )
             } 
+          /> */}
+          <Route
+            path='study'
+            element={
+              isLoggedIn ? (
+                <CourseViewer setAuth={setIsLoggedIn} /> // setAuth-ah anuppunga
+              ) : (
+                <Login setAuth={setIsLoggedIn} />
+              )
+            }
           />
         </Route>
       </Routes>
