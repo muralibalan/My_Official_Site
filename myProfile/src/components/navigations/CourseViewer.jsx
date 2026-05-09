@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Typography, GlobalStyles, TextField, InputAdornment, Button } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import LogoutIcon from '@mui/icons-material/Logout'; // Logout icon
+import { Box, Typography, GlobalStyles, Button, Autocomplete, TextField } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
+const CourseViewer = ({ setAuth }) => {
   const courseData = [
     { id: 1, name: "Callback Function", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
     { id: 2, name: "HTML Introduction", url: "https://docs.google.com/document/d/e/2PACX-1vRGwueb60T4yEflUkjJoCOanXBjTXfPXKtgL4bdqJeHRRzwT6anwHP6V6ygD_wr55Lz4EMbC7ZNPnWm/pub?embedded=true" },
@@ -22,29 +21,10 @@ const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
     { id: 16, name: "HTML Entities", url: "https://docs.google.com/document/d/e/2PACX-1vQVyGowRraUPMpolpeisxeI8QLkJuXuCi1xDg4DLI8rIcGl1bAlQhqtzCt8NaNuOmtNPLU0nEv4hVsR/pub?embedded=true" },
   ];
 
-  const [searchInput, setSearchInput] = useState("");
   const [selectedDoc, setSelectedDoc] = useState(courseData[0]);
 
-  const executeSearch = () => {
-    const found = courseData.find(doc =>
-      doc.name.toLowerCase() === searchInput.toLowerCase() ||
-      doc.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-
-    if (found) {
-      setSelectedDoc(found);
-    } else {
-      alert("Sariyaana file name-ai type pannunga!");
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') executeSearch();
-  };
-
-  // Logout handle panna
   const handleLogout = () => {
-    setAuth(false); // State-ah false pannuna login page-kku poyidum
+    setAuth(false);
   };
 
   return (
@@ -62,10 +42,8 @@ const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
     >
       <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
 
-      {/* Header Section */}
       <Box sx={{ py: 3, width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
         
-        {/* Top bar with Logout */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
           <Button 
             variant="outlined" 
@@ -84,31 +62,23 @@ const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
             E-Learning Portal
           </Typography>
 
-          {/* Search Bar */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, px: 2 }}>
-            <TextField
-              variant="outlined"
-              placeholder="Type File Name..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              onKeyDown={handleKeyPress}
-              sx={{ width: { xs: '70%', md: '500px' }, bgcolor: '#fff' }}
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                ),
+          {/* Dropdown Search List */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', px: 2 }}>
+            <Autocomplete
+              disablePortal
+              options={courseData}
+              getOptionLabel={(option) => option.name}
+              value={selectedDoc}
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  setSelectedDoc(newValue);
+                }
               }}
+              sx={{ width: { xs: '90%', md: '500px' }, bgcolor: '#fff' }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Topic Name" variant="outlined" />
+              )}
             />
-            <Button
-              variant="contained"
-              onClick={executeSearch}
-              sx={{ textTransform: 'none', fontWeight: 'bold' }}
-            >
-              Search
-            </Button>
           </Box>
 
           <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
@@ -117,12 +87,11 @@ const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
         </Box>
       </Box>
 
-      {/* Document View */}
       <Box
         sx={{
           position: 'relative',
           width: { xs: '98%', md: '900px' },
-          height: '6000px', 
+          height: '12000px', 
           bgcolor: '#fff',
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
           mb: 5,
