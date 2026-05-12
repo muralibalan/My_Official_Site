@@ -1,5 +1,44 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper, LinearProgress } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Paper,
+  Container,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+
+const THEME_COLOR = '#09ee24ff';
+
+// ---------------- ANIMATIONS ----------------
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const fadeInUp = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: 'easeOut',
+    },
+  },
+};
+
+// ---------------- SKILL DATA ----------------
 
 const frontSkills = [
   { name: 'HTML/CSS', value: 95 },
@@ -22,511 +61,565 @@ const visualizationSkills = [
   { name: 'Data Storytelling', value: 75 },
 ];
 
-
-
-const visualizationPaperStyle = {
-  bgcolor: '#676980ff',
-  width: { xs: '100%', sm: 400, md: 450 },
-  p: { xs: 2, sm: 3, md: 4 },
-  borderRadius: 4,
-  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-};
-
 const workflowSkills = [
   { name: 'Git & GitHub', value: 90 },
   { name: 'Vercel Deployment', value: 85 },
   { name: 'Prompt-based Code Generation', value: 80 },
 ];
 
+// ---------------- SKILL BAR ----------------
+
 const SkillProgress = ({ name, value }) => (
-  <Box sx={{ mb: 2, width: '100%' }}>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-      <Typography sx={{ fontWeight: 500, color: 'white', fontSize: { xs: 16, sm: 18, md: 20 } }}>
+  <Box sx={{ mb: 3 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        mb: 1,
+      }}
+    >
+      <Typography
+        sx={{
+          color: '#fff',
+          fontWeight: 700,
+        }}
+      >
         {name}
       </Typography>
-      <Typography sx={{ fontWeight: 500, color: 'white', fontSize: { xs: 14, sm: 16 } }}>
+
+      <Typography
+        sx={{
+          color: THEME_COLOR,
+          fontWeight: 800,
+        }}
+      >
         {value}%
       </Typography>
     </Box>
-    <LinearProgress
-      variant="determinate"
-      value={value}
+
+    <Box
       sx={{
-        height: { xs: 10, sm: 12, md: 15 },
-        borderRadius: 2,
-        bgcolor: '#252525',
-        '& .MuiLinearProgress-bar': {
-          bgcolor: '#fff',
-        },
+        width: '100%',
+        height: 8,
+        bgcolor: '#222',
+        borderRadius: 10,
+        overflow: 'hidden',
       }}
-    />
+    >
+      <motion.div
+        initial={{ width: 0 }}
+        whileInView={{ width: `${value}%` }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5 }}
+        style={{
+          height: '100%',
+          background: THEME_COLOR,
+          borderRadius: 'inherit',
+          boxShadow: `0 0 15px ${THEME_COLOR}`,
+        }}
+      />
+    </Box>
   </Box>
 );
 
+// ---------------- TIMELINE ITEM ----------------
+
+const TimelineItem = ({
+  title,
+  date,
+  subtitle,
+  points,
+  imageUrl,
+}) => (
+  <Box
+    component={motion.div}
+    variants={fadeInUp}
+    sx={{
+      position: 'relative',
+      borderLeft: `2px solid ${THEME_COLOR}33`,
+      pl: { xs: 3, md: 5 },
+      mb: 6,
+      pb: 2,
+
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        left: -10,
+        top: 45,
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: '#111',
+        border: `4px solid ${THEME_COLOR}`,
+        boxShadow: `0 0 20px ${THEME_COLOR}`,
+      },
+    }}
+  >
+    <Paper
+      sx={{
+        bgcolor: 'rgba(255,255,255,0.03)',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        border: '1px solid rgba(255,255,255,0.05)',
+        transition: '0.4s ease',
+
+        '&:hover': {
+          transform: 'translateY(-8px)',
+          boxShadow: `0 0 30px ${THEME_COLOR}22`,
+          borderColor: `${THEME_COLOR}55`,
+        },
+      }}
+    >
+      {/* SAME FLEX LAYOUT */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {
+            xs: 'column',
+            md: 'row',
+          },
+          alignItems: 'stretch',
+          minHeight: 320,
+        }}
+      >
+        {/* LEFT CONTENT */}
+        <Box
+          sx={{
+            flex: 1,
+            p: { xs: 3, md: 5 },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          {/* TITLE */}
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 900,
+              color: '#fff',
+              mb: 1,
+              lineHeight: 1.3,
+            }}
+          >
+            {title}
+          </Typography>
+
+          {/* DATE */}
+          <Typography
+            sx={{
+              color: THEME_COLOR,
+              fontWeight: 800,
+              mb: 1.5,
+              letterSpacing: 1,
+              fontSize: '0.95rem',
+            }}
+          >
+            {date}
+          </Typography>
+
+          {/* SUBTITLE */}
+          <Typography
+            sx={{
+              color: '#aaa',
+              mb: 3,
+              fontWeight: 600,
+              fontSize: '1rem',
+              lineHeight: 1.7,
+            }}
+          >
+            {subtitle}
+          </Typography>
+
+          {/* BULLETS */}
+          <Box
+            component="ul"
+            sx={{
+              m: 0,
+              pl: 2.5,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1.5,
+
+              '& li': {
+                color: '#ccc',
+                lineHeight: 1.9,
+                fontSize: '15px',
+                paddingLeft: '5px',
+              },
+
+              '& li::marker': {
+                color: THEME_COLOR,
+                fontSize: '18px',
+              },
+            }}
+          >
+            {points.map((point, index) => (
+              <motion.li
+                key={index}
+                initial={{
+                  opacity: 0,
+                  x: -20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.08,
+                }}
+              >
+                {point}
+              </motion.li>
+            ))}
+          </Box>
+        </Box>
+
+        {/* RIGHT IMAGE */}
+        <Box
+          sx={{
+            width: {
+              xs: '100%',
+              md: 340,
+            },
+            minHeight: {
+              xs: 260,
+              md: '100%',
+            },
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <motion.img
+            whileHover={{
+              scale: 1.08,
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+            src={imageUrl}
+            alt={title}
+            onError={(e) => {
+              e.target.src =
+                'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop';
+            }}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              inset: 0,
+            }}
+          />
+
+          {/* OVERLAY */}
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.1))',
+            }}
+          />
+        </Box>
+      </Box>
+    </Paper>
+  </Box>
+);
+
+// ---------------- MAIN COMPONENT ----------------
+
 function Education() {
-  const skillPaperStyle = {
-    bgcolor: '#676980ff',
-    width: { xs: '100%', sm: 400, md: 450 }, // Responsive width
-    p: { xs: 2, sm: 3, md: 4 }, // Responsive padding
-    borderRadius: 4,
-    boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+  const cardStyle = {
+    bgcolor: '#181818',
+    p: 4,
+    borderRadius: '24px',
+    border: '1px solid rgba(255,255,255,0.05)',
+    transition: '0.4s ease',
+
+    '&:hover': {
+      transform: 'translateY(-10px)',
+      borderColor: THEME_COLOR,
+      boxShadow: `0 0 25px ${THEME_COLOR}22`,
+    },
   };
 
   return (
-    <Box sx={{ flex: 1, px: { xs: 2, sm: 4, md: 8 }, py: 4 }}>
-      {/* ______________________Heading____________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: 'center',
-          fontWeight: 700,
-          mb: 2,
-          fontSize: { xs: 20, sm: 24, md: 28 }, // Responsive font size
-        }}
-      >
-        QUALIFICATIONS AND EXPERIENCE
-      </Typography>
+    <Box
+      sx={{
+        bgcolor: '#0a0a0a',
+        color: '#fff',
+        py: 12,
+        overflow: 'hidden',
+      }}
+    >
+      <Container maxWidth="lg">
 
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Typography
-          variant="body1"
+        {/* HEADER */}
+
+        <Box
           sx={{
             textAlign: 'center',
-            mb: 3,
-            color: '#ccc',
-            fontSize: { xs: 16, sm: 18, md: 20 },
-            maxWidth: { xs: '100%', sm: 800, md: 1000 },
+            mb: 12,
           }}
         >
-          Passionate and experienced Tech Trainer with a strong commitment to teaching, having
-          successfully guided over 1000+ students through practical and industry-relevant technology
-          training.
-        </Typography>
-      </Box>
-
-      {/* ____________________Professional Experience___________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Professional Experience
-      </Typography>
-
-      {/* __________________________Job Present________________________ */}
-      {/*Green Apple  */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Center Head
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          November 2025 – Present | Green Apple Computer Education, Kumbakonam - 612 001
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducting training programs in Java, Web Development, and Computer Fundamentals.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Delivered full-stack MERN training including React.js, Node.js, Express.js, and MongoDB.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted foundational courses in C, C++, Java, JDBC, and Python programming.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Provided Data Science and Analytics training with visualization tools such as Tableau and Power BI.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted skill-oriented training focused on interview preparation and technical confidence building.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Prepared students for interviews through mock tests, coding challenges, and resume reviews.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designed training roadmaps, curriculum delivery plans, and batch schedules.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Tracked student progress and implemented personalized learning strategies.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-
-      {/*ProgramPark */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Apps & Web Developer
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          November 2025 – Present | ProgramPark Technologies Pvt. Ltd Chennai - 33
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designing and developing mobile and web applications in parallel with training commitments.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Working with React, Node.js, and modern tooling for product-based solutions.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* BlueTick Coders */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Front-end Developer
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          March 2024 – November 2025 | BlueTick Coders Pvt. Ltd, Adambakkam, Chennai - 32.
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Developed and maintained responsive web applications using React, JavaScript, and REST APIs.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Collaborated with developers on UI components, performance optimization, and code reviews.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Implemented reusable front-end components aligned with design and UX standards.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* Soft Tech Ashram */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Center Head (Training Division)
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          March 2024 – November 2025 | SoftTechAshram (Operated by BlueTick Coders), Chennai - 32.
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designed and delivered training programs on HTML, CSS, JavaScript, and React,
-                empowering 150+ students to build responsive web applications.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Mentored learners, providing personalized guidance to strengthen their front-end
-                development skills.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted code reviews, offering constructive feedback to improve code quality and
-                adherence to best practices.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Aligned curriculum with industry trends, incorporating modern frameworks and tools to
-                ensure relevance.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Enhanced students’ practical skills through hands-on projects and real-world coding
-                scenarios.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* Job before Soft Tech Ashram */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          C, Core Java, HTML, CSS, and JDBC Trainer
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          June 2022 – January 2023 | Green Apple, Mayiladuthurai
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Delivered training sessions on C, Core Java, HTML, CSS, SQL, and JDBC to 30+ students,
-                fostering a strong foundation in programming.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Developed engaging course materials and practical exercises to improve learners’
-                understanding of software development.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Managed team of 8 developers across multiple projects.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Guided students in building basic applications, focusing on problem-solving and coding
-                efficiency.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* _____________________Education_________________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Education
-      </Typography>
-
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Master of Science in Computer Science
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          2016 – 2018 | Poompuhar College (Autonomous), Melaiyur, Bharathidasan University
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Programming & Web Technologies (Java, Web Development, Compiler Design)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Algorithms & Advanced Computer Architecture
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Artificial Intelligence, Data Mining & Machine Learning
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Cloud Computing & Distributed Systems
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Mobile & Wireless Computing (including Wireless Sensor Networks & Image Processing)
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Bachelor of Computer Applications
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          2013 – 2016 | Poompuhar College (Autonomous), Melaiyur, Bharathidasan University
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Programming & Data Structures (C, C++, Java, Visual Basic, ASP, HTML)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Database & Information Systems (RDBMS, Financial Accounting, MIS)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Computer Architecture & Operating Systems
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Software Engineering, Numerical Analysis & Statistics
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Artificial Intelligence, Computer Graphics & Multimedia Technologies
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* _____________________Skills Area_____________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Technical & Training Skills
-      </Typography>
-
-      <Box
-        sx={{
-          bgcolor: '#181818',
-          py: { xs: 2, sm: 4 },
-          px: { xs: 2, sm: 4, md: 8 },
-        }}
-      >
-        <Grid container spacing={{ xs: 2, sm: 4, md: 8 }} justifyContent="center">
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Front-end Development
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {frontSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Back-end Development
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {backSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={visualizationPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Data Visualization & BI Tools
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {visualizationSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Workflow & Deployment Tools
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {workflowSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-        </Grid>
-      </Box>
-
-      {/* Technical Skills */}
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: 700, mb: 2, fontSize: { xs: 16, sm: 18, md: 20 } }}
-      >
-        Technical Skills
-      </Typography>
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {[
-          { skill: 'Tech Mentoring', value: 95 },
-          { skill: 'Develop Course Material', value: 85 },
-          { skill: 'Learn Any Technology', value: 90 },
-          { skill: 'Communications', value: 80 },
-        ].map((item, index) => (
-          <Box
-            key={index}
-            sx={{ mb: 2, width: { xs: '100%', sm: 600, md: 700 } }}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -30,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.8,
+            }}
           >
-            <Typography variant="body2" sx={{ mb: 0.5, fontSize: { xs: 14, sm: 16 } }}>
-              {item.skill}
-            </Typography>
-            <LinearProgress
-              variant="determinate"
-              value={item.value}
+            <Typography
+              variant="h2"
               sx={{
-                height: { xs: 10, sm: 12, md: 15 },
-                borderRadius: 5,
-                bgcolor: '#333',
-                '& .MuiLinearProgress-bar': { bgcolor: '#00bfff' },
+                fontWeight: 900,
+                mb: 3,
+                fontSize: {
+                  xs: '2.3rem',
+                  md: '4.5rem',
+                },
               }}
-            />
-          </Box>
-        ))}
-      </Box>
+            >
+              QUALIFICATIONS &{' '}
+              <span
+                style={{
+                  color: THEME_COLOR,
+                  textShadow: `0 0 25px ${THEME_COLOR}`,
+                }}
+              >
+                EXPERIENCE
+              </span>
+            </Typography>
+
+            <Typography
+              sx={{
+                color: '#888',
+                maxWidth: 900,
+                mx: 'auto',
+                lineHeight: 1.8,
+                fontSize: '1.05rem',
+              }}
+            >
+              Passionate and experienced Tech Trainer with a strong commitment
+              to teaching, having successfully guided over 1000+ students
+              through practical and industry-relevant technology training.
+            </Typography>
+          </motion.div>
+        </Box>
+
+        {/* EXPERIENCE */}
+
+        <Box
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 900,
+              mb: 8,
+              borderLeft: `6px solid ${THEME_COLOR}`,
+              pl: 3,
+              textTransform: 'uppercase',
+              textShadow: `0 0 20px ${THEME_COLOR}55`,
+            }}
+          >
+            Professional Experience
+          </Typography>
+
+          {/* GREEN APPLE */}
+
+          <TimelineItem
+            title="Center Head"
+            date="November 2025 – Present"
+            subtitle="Green Apple Computer Education, Kumbakonam"
+            imageUrl="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=500"
+            points={[
+              'Conducting training programs in Java, Web Development, and Computer Fundamentals.',
+              'Delivered full-stack MERN training including React.js, Node.js, Express.js, and MongoDB.',
+              'Conducted foundational courses in C, C++, Java, JDBC, and Python programming.',
+              'Provided Data Science and Analytics training with Tableau and Power BI.',
+              'Conducted interview preparation and technical confidence building.',
+              'Prepared students through mock tests, coding challenges, and resume reviews.',
+              'Designed curriculum delivery plans and schedules.',
+              'Tracked student progress with personalized learning strategies.',
+            ]}
+          />
+
+          {/* PROGRAM PARK */}
+
+          <TimelineItem
+            title="Apps & Web Developer"
+            date="November 2025 – Present"
+            subtitle="ProgramPark Technologies Pvt. Ltd Chennai"
+            imageUrl="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=500"
+            points={[
+              'Designing and developing mobile and web applications.',
+              'Working with React, Node.js, and modern tooling.',
+            ]}
+          />
+
+          {/* BLUETICK */}
+
+          <TimelineItem
+            title="Front-end Developer"
+            date="March 2024 – November 2025"
+            subtitle="BlueTick Coders Pvt. Ltd, Chennai"
+            imageUrl="https://images.unsplash.com/photo-1581291518655-95245be4b50d?auto=format&fit=crop&q=80&w=500"
+            points={[
+              'Developed responsive web applications using React and REST APIs.',
+              'Collaborated on UI components and performance optimization.',
+              'Implemented reusable front-end components aligned with UX standards.',
+            ]}
+          />
+
+          {/* SOFT TECH */}
+
+          <TimelineItem
+            title="Center Head (Training Division)"
+            date="March 2024 – November 2025"
+            subtitle="SoftTechAshram, Chennai"
+            imageUrl="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=500"
+            points={[
+              'Designed and delivered training programs for 150+ students.',
+              'Mentored learners with personalized guidance.',
+              'Conducted code reviews and quality improvements.',
+              'Aligned curriculum with industry trends.',
+              'Enhanced practical skills through projects.',
+            ]}
+          />
+
+          {/* TRAINER */}
+
+          <TimelineItem
+            title="C, Core Java, HTML, CSS, JDBC Trainer"
+            date="June 2022 – January 2023"
+            subtitle="Green Apple, Mayiladuthurai"
+            imageUrl="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=500"
+            points={[
+              'Delivered training sessions for 30+ students.',
+              'Developed engaging course materials and exercises.',
+              'Managed a team of 8 developers.',
+              'Guided students in building applications.',
+            ]}
+          />
+        </Box>
+
+        {/* EDUCATION */}
+
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 900,
+            mt: 12,
+            mb: 8,
+            borderLeft: `6px solid ${THEME_COLOR}`,
+            pl: 3,
+          }}
+        >
+          Education
+        </Typography>
+
+        <TimelineItem
+          title="Master of Science in Computer Science"
+          date="2016 – 2018"
+          subtitle="Poompuhar College (Autonomous)"
+          imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=500"
+          points={[
+            'Programming & Web Technologies.',
+            'Algorithms & Advanced Architecture.',
+            'Artificial Intelligence & Machine Learning.',
+            'Cloud Computing & Distributed Systems.',
+            'Wireless Sensor Networks & Image Processing.',
+          ]}
+        />
+
+        <TimelineItem
+          title="Bachelor of Computer Applications"
+          date="2013 – 2016"
+          subtitle="Poompuhar College (Autonomous)"
+          imageUrl="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=500"
+          points={[
+            'Programming & Data Structures.',
+            'Database & Information Systems.',
+            'Operating Systems & Architecture.',
+            'Software Engineering & Statistics.',
+            'AI, Graphics & Multimedia Technologies.',
+          ]}
+        />
+
+        {/* SKILLS */}
+
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 900,
+            mt: 12,
+            mb: 6,
+            borderLeft: `6px solid ${THEME_COLOR}`,
+            pl: 3,
+          }}
+        >
+          Technical & Training Skills
+        </Typography>
+
+        <Grid container spacing={4}>
+          {[
+            {
+              title: 'Front-end Development',
+              skills: frontSkills,
+            },
+            {
+              title: 'Back-end Development',
+              skills: backSkills,
+            },
+            {
+              title: 'Data Visualization & BI Tools',
+              skills: visualizationSkills,
+            },
+            {
+              title: 'Workflow & Deployment Tools',
+              skills: workflowSkills,
+            },
+          ].map((item, index) => (
+            <Grid item xs={12} md={6} key={index}>
+              <Paper sx={cardStyle}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: THEME_COLOR,
+                    fontWeight: 800,
+                    mb: 4,
+                  }}
+                >
+                  {item.title}
+                </Typography>
+
+                {item.skills.map((skill, i) => (
+                  <SkillProgress
+                    key={i}
+                    name={skill.name}
+                    value={skill.value}
+                  />
+                ))}
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+
+      </Container>
     </Box>
   );
 }

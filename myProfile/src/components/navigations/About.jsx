@@ -1,154 +1,164 @@
-import React from 'react';
-import { Box, Typography, Avatar, Card, Stack } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography, Avatar, Stack, Divider, useMediaQuery, useTheme } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
+
+// --- Count Up Component ---
+const Counter = ({ value, suffix = "" }) => {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest) + suffix);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      const animation = animate(count, value, { duration: 2, ease: "easeOut" });
+      return animation.stop;
+    }
+  }, [isInView, value, count]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+};
 
 const About = () => {
-  //profile card text styles
-  const profileText = {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const contactItemStyle = {
     display: 'flex',
     alignItems: 'center',
-    bgcolor: '#e2d1d1ff',
-    borderRadius: 2,
-    px: 2,
-    py: 1,
+    gap: 1.5,
+    py: 0.8,
+    transition: '0.3s',
+    '&:hover': { color: '#09ee24ff' }
   };
 
   return (
     <Box
       sx={{
-        minHeight: '78vh',
-        bgcolor: '#181818',
+        minHeight: { md: '90vh' },
+        bgcolor: '#121212',
         color: '#fff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        px: { xs: 2, md: 3 },
-        py: { xs: 4, md: 6 },
+        px: { xs: 2, md: 5 },
+        py: { xs: 6, md: 0 },
+        overflow: 'hidden'
       }}
     >
       <Stack
         direction={{ xs: 'column', md: 'row' }}
-        spacing={{ xs: 4, md: 5 }}
-        sx={{ width: '100%', maxWidth: 1100 }}
+        spacing={{ xs: 5, md: 10 }}
+        sx={{ width: '100%', maxWidth: 1200, alignItems: 'center' }}
       >
-        {/* My Profile Card */}
-        <Card
-          sx={{
-            bgcolor: '#232323',
-            p: { xs: 3, md: 4 },
-            borderRadius: 4,
-            minWidth: { xs: '80%', sm: 320 },
-            boxShadow: 6,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+        {/* --- LEFT: Profile --- */}
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          sx={{ flex: 1, textAlign: 'center' }}
         >
-          <Avatar
-            src="/images/Murali3.png"
-            alt="Murali"
-            sx={{ width: { xs: 160, sm: 200, md: 220 }, height: { xs: 160, sm: 200, md: 220 } }}
-          />
+          <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
+            <Avatar
+              src="/images/Murali3.png"
+              alt="Murali"
+              sx={{ 
+                width: { xs: 180, md: 240 }, 
+                height: { xs: 180, md: 240 }, 
+                border: '4px solid #181818',
+                boxShadow: '0 0 30px rgba(9, 238, 36, 0.2)' 
+              }}
+            />
+          </Box>
 
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: 700, color: 'white', mt: 2, fontSize: { xs: '1rem', md: '1.25rem' } }}
-          >
-            Murali
+          <Typography variant="h4" sx={{ fontWeight: 900, mb: 0.5 }}>MURALI BALAN</Typography>
+          <Typography variant="body1" sx={{ color: '#09ee24ff', fontWeight: 700, mb: 3, letterSpacing: 1 }}>
+            SENIOR SKILL ENGINEER
           </Typography>
 
-          <Typography
-            variant="subtitle1"
-            sx={{ color: '#cfcfcf', fontWeight: 500, mb: 3, textAlign: 'center', fontSize: { xs: '0.9rem', md: '1rem' } }}
-          >
-            Senior Skill Engineer & Developer
-          </Typography>
-
-          <Stack spacing={2} sx={{ width: '100%', mt: 1 }}>
-            <Box sx={profileText}>
-              <MailOutlineIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography sx={{ fontSize: { xs: 13, sm: 15 } }}>muralibalan66@gmail.com</Typography>
+          <Stack sx={{ width: 'fit-content', mx: 'auto', textAlign: 'left' }}>
+            <Box sx={contactItemStyle}>
+              <MailOutlineIcon sx={{ fontSize: 18, opacity: 0.6 }} />
+              <Typography variant="body2">muralibalan66@gmail.com</Typography>
             </Box>
-
-            <Box sx={profileText}>
-              <PhoneOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography sx={{ fontSize: { xs: 13, sm: 15 } }}>+91 7010777680</Typography>
+            <Box sx={contactItemStyle}>
+              <PhoneOutlinedIcon sx={{ fontSize: 18, opacity: 0.6 }} />
+              <Typography variant="body2">+91 7010777680</Typography>
             </Box>
-
-            <Box sx={profileText}>
-              <LocationOnOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography sx={{ fontSize: { xs: 13, sm: 15 } }}>Saidapet-West, Chennai-15</Typography>
+            <Box sx={contactItemStyle}>
+              <LocationOnOutlinedIcon sx={{ fontSize: 18, opacity: 0.6 }} />
+              <Typography variant="body2">Chennai, Tamil Nadu</Typography>
             </Box>
           </Stack>
-        </Card>
+        </Box>
 
-        {/* About Details */}
-        <Box sx={{ flex: 1 }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 800,
-              fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2rem' },
-              textAlign: { xs: 'center', md: 'left' },
-            }}
+        {/* --- RIGHT: Content --- */}
+        <Box sx={{ flex: 1.5 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Passion for Teaching and Technology
-          </Typography>
+            <Typography variant="h3" sx={{ fontWeight: 900, fontSize: { xs: '2rem', md: '2.8rem' }, mb: 2 }}>
+              Teaching is my <span style={{ color: '#09ee24ff' }}>Purpose.</span>
+            </Typography>
+            
+            <Typography variant="body1" sx={{ color: '#bbb', lineHeight: 1.7, mb: 3 }}>
+              I am a passionate Tech Trainer currently working at <b>ProgramPark Software Company</b>. 
+              Formerly the Center Head at <b>SoftTechAshram</b>, I now lead as the Center Head at 
+              <span style={{ color: '#fff' }}> Green Apple Computer Education, Kumbakonam.</span>
+              <br /><br />
+              My mission is to empower students with industry-relevant skills, turning their potential into professional excellence.
+            </Typography>
+          </motion.div>
 
-          <Typography
-            variant="body1"
-            sx={{
-              mt: 3,
-              color: '#ccc',
-              fontSize: { xs: '0.9rem', md: '1rem' },
-              textAlign: { xs: 'center', md: 'left' },
-              lineHeight: 1.6,
-            }}
-          >
-            I am deeply passionate about being an inspiring teacher and a steadfast mentor for my students. I always strive
-            to be positive, encouraging, and nurturing, placing the highest importance on guiding learners to realize their
-            full potential. My entire approach focuses on empowering every student with meaningful skills and fostering
-            talent above everything else.
-            <br />
-            <br />
-            For me, teaching is a calling—a vital part of my life. I continually research important topics and emerging
-            trends that shape the future, bringing fresh and relevant insights into every lesson. My commitment is to ensure
-            that every day, students receive not only guidance, but also the knowledge and inspiration they need to succeed.
-          </Typography>
+          {/* Core Expertise Grid */}
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="overline" sx={{ color: '#555', fontWeight: 900 }}>EXPERTISE</Typography>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1.5, mt: 1 }}>
+              {['React JS', 'Python AI', 'Power BI', 'Node.js', 'MySQL', 'Full Stack'].map((skill) => (
+                <Box key={skill} sx={{ 
+                  p: 1, border: '1px solid #333', borderRadius: '8px', textAlign: 'center',
+                  fontSize: '0.85rem', fontWeight: 600, color: '#eee', bgcolor: 'rgba(255,255,255,0.02)'
+                }}>
+                  {skill}
+                </Box>
+              ))}
+            </Box>
+          </Box>
 
-          {/* Stats */}
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={{ xs: 3, sm: 6 }}
-            sx={{ mt: 5, justifyContent: { xs: 'center', sm: 'flex-start' }, alignItems: { xs: 'center', sm: 'flex-start' } }}
+          {/* --- ANIMATED COUNTERS --- */}
+          <Stack 
+            direction="row" 
+            spacing={{ xs: 2, md: 4 }} 
+            sx={{ mt: 5, p: 2, bgcolor: 'rgba(9, 238, 36, 0.05)', borderRadius: '15px' }}
           >
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                1200+
+            <Box sx={{ textAlign: 'center', flex: 1 }}>
+              <Typography variant="h4" sx={{ fontWeight: 900, color: '#09ee24ff' }}>
+                <Counter value={1200} suffix="+" />
               </Typography>
-              <Typography sx={{ color: '#ccc', fontSize: { xs: '0.85rem', md: '1rem' } }}>
-                Students have learned
-                <br />
-                from me.
+              <Typography variant="caption" sx={{ color: '#888', fontWeight: 700 }}>STUDENTS TRAINED</Typography>
+            </Box>
+            
+            <Divider orientation="vertical" flexItem sx={{ bgcolor: '#333' }} />
+
+            <Box sx={{ textAlign: 'center', flex: 1 }}>
+              <Typography variant="h4" sx={{ fontWeight: 900, color: '#fff' }}>
+                <Counter value={4} suffix="+" />
               </Typography>
+              <Typography variant="caption" sx={{ color: '#888', fontWeight: 700 }}>YEARS EXP</Typography>
             </Box>
 
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                4+
-              </Typography>
-              <Typography sx={{ color: '#ccc', fontSize: { xs: '0.85rem', md: '1rem' } }}>Years Experience</Typography>
-            </Box>
+            <Divider orientation="vertical" flexItem sx={{ bgcolor: '#333' }} />
 
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                98%
+            <Box sx={{ textAlign: 'center', flex: 1 }}>
+              <Typography variant="h4" sx={{ fontWeight: 900, color: '#fff' }}>
+                <Counter value={98} suffix="%" />
               </Typography>
-              <Typography sx={{ color: '#ccc', fontSize: { xs: '0.85rem', md: '1rem' } }}>
-                Students Satisfaction
-              </Typography>
+              <Typography variant="caption" sx={{ color: '#888', fontWeight: 700 }}>SATISFACTION</Typography>
             </Box>
           </Stack>
         </Box>

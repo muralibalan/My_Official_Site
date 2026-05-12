@@ -1,9 +1,10 @@
-// src/components/MyStudents.jsx
-
 import React from 'react';
 import { Box, Typography, Grid, Paper } from '@mui/material';
+import { motion } from 'framer-motion';
 
-// Example: public/students/student1.jpg, student2.jpg, ...
+// --- Global Theme Color ---
+const THEME_COLOR = '#09ee24ff';
+
 const students = [
   { name: 'Adhithya', photo: 'students/Adhithya.jpeg' },
   { name: 'Arunaja', photo: 'students/Arunaja.jpeg' },
@@ -42,7 +43,6 @@ const students = [
   { name: 'Vignesh', photo: 'students/Vignesh.jpeg' },
   { name: 'Vigneshwaran', photo: 'students/Vigneshwaran.jpeg' },
   { name: 'Yamuna', photo: 'students/yamuna.jpeg' },
-
   { name: 'Angel', photo: 'students/angel.jpeg' },
   { name: 'Rajapriya', photo: 'students/rajapriya.jpeg' },
   { name: 'Ashok', photo: 'students/ashok1.jpeg' },
@@ -52,76 +52,87 @@ const students = [
   { name: 'Anish', photo: 'students/anish.jpeg' },
   { name: 'Karthikeyan', photo: 'students/karthikeyan1.jpeg' },
   { name: 'Sanjay', photo: 'students/sanjay1.jpeg' },
-  { name: 'STA_Finel_Batch', photo: 'students/staFinel.jpeg' },
+  { name: 'STA Final Batch', photo: 'students/staFinel.jpeg' },
 ];
 
 function MyStudents() {
   return (
-    <Box sx={{ px: { xs: 2, sm: 4, md: 8 }, py: 4, overflowX: 'auto' }}>
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: 'center',
-          fontWeight: 700,
-          mb: 3,
-          fontSize: { xs: 20, sm: 24, md: 28 },
-        }}
-      >
-        My Students
-      </Typography>
-      <Grid
-        container
-        spacing={{ xs: 2, sm: 3, md: 4 }}
-        sx={{
-          justifyContent: { xs: 'flex-start', sm: 'center' },
-          minWidth: { xs: 320, sm: 'auto' }, // Ensure minimum width for mobile scrolling
-        }}
-      >
+    <Box sx={{ bgcolor: '#121212', py: 10, px: { xs: 2, md: 8 } }}>
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 900,
+            color: 'white',
+            mb: 2,
+            fontSize: { xs: '2rem', md: '3.5rem' },
+          }}
+        >
+          MY <span style={{ color: THEME_COLOR }}>STUDENTS</span>
+        </Typography>
+        <Box sx={{ width: 80, height: 4, bgcolor: THEME_COLOR, mx: 'auto', borderRadius: 2 }} />
+      </Box>
+
+      <Grid container spacing={4} justifyContent="center">
         {students.map((student, idx) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            key={idx}
-            sx={{
-              minWidth: { xs: 320, sm: 'auto' }, // Minimum width for each card on mobile
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
+          <Grid item key={idx} xs={12} sm={6} md={4} lg={3} display="flex" justifyContent="center">
             <Paper
+              component={motion.div}
+              whileHover={{ y: -10 }}
               sx={{
-                border: '1px solid #eee',
-                borderRadius: '12px',
-                p: { xs: 1, sm: 2 },
+                bgcolor: '#1c1c1c',
+                borderRadius: '20px',
+                p: 2,
                 textAlign: 'center',
-                bgcolor: '#676464',
-                boxShadow: '0 1px 4px #eee',
-                width: { xs: 310, sm: 310, md: 310, lg: 310 }, // Fixed width to accommodate 290px image + padding
+                width: '100%',
+                maxWidth: 300,
+                border: '1px solid rgba(255,255,255,0.05)',
+                transition: '0.3s',
+                '&:hover': {
+                  borderColor: THEME_COLOR,
+                  boxShadow: `0 10px 30px ${THEME_COLOR}22`,
+                },
               }}
             >
               <Box
-                component="img"
-                src={student.photo}
-                alt={student.name}
                 sx={{
-                  width: 290,
-                  height: 290,
-                  objectFit: 'cover',
-                  borderRadius: '10%',
+                  width: '100%',
+                  aspectRatio: '1/1', // Ensures perfect square
+                  overflow: 'hidden',
+                  borderRadius: '15px',
                   mb: 2,
                 }}
-              />
+              >
+                <Box
+                  component="img"
+                  src={student.photo}
+                  alt={student.name}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                  // Fallback for missing images
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/300?text=Student'; }}
+                />
+              </Box>
+              
               <Typography
+                variant="h6"
                 sx={{
-                  fontWeight: 600,
+                  fontWeight: 700,
                   color: 'white',
-                  fontSize: { xs: 14, sm: 16, md: 18 },
+                  fontSize: '1.1rem',
+                  letterSpacing: 0.5
                 }}
               >
                 {student.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: THEME_COLOR, fontWeight: 500, mt: 0.5, fontSize: '0.8rem' }}
+              >
+                Aspiring Developer
               </Typography>
             </Paper>
           </Grid>

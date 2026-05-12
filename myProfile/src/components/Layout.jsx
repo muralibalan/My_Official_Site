@@ -1,144 +1,518 @@
-import React, { useState } from 'react'
-import { Outlet, Link } from 'react-router-dom'
-import { Box, Typography, Stack, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
-import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from "react-icons/fa";
+import React, { useState } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+
+import {
+  Box,
+  Typography,
+  Stack,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  useTheme,
+  useMediaQuery,
+  Divider,
+} from '@mui/material';
+
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaYoutube,
+} from 'react-icons/fa';
+
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { useTheme, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { motion } from 'framer-motion';
 
 function Layout() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  //Link styles
-  const styleLink = {
-    textDecoration: 'none',
-    color: '#fff'
-  }
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down('md')
+  );
 
-  const styleLinkText = {
-    fontWeight: 600,
-    transition: 'all 0.3s ease',
-    '&:hover': {
-      outline: '1px solid #cd3ecdff',
-      padding: '5px',
-      borderRadius: '10px',
-    }
-  }
+  const [drawerOpen, setDrawerOpen] =
+    useState(false);
 
-  const styleIcon = {
-    color: "#fff",
-    '&:hover': {
-      boxShadow: '0 0 20px #f7f1f2ff',
-    }
-  }
+  const location = useLocation();
 
-  // Drawer Links
+  // ---------------- NAV LINKS ----------------
+
   const navLinks = [
-    { to: "/", text: "Home" },
-    { to: "/about", text: "About" },
-    { to: "/education", text: "Experience" },
-    { to: "/students", text: "Students" },
+    { to: '/', text: 'Home' },
+    { to: '/about', text: 'About' },
+    { to: '/education', text: 'Experience' },
+    { to: '/students', text: 'Students' },
   ];
 
+  // ---------------- NAV TEXT STYLE ----------------
+
+  const navTextStyle = {
+    position: 'relative',
+    fontWeight: 700,
+    letterSpacing: 0.5,
+    transition: '0.4s ease',
+    cursor: 'pointer',
+
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      bottom: -5,
+      width: 0,
+      height: '2px',
+      background:
+        'linear-gradient(to right,#00ff88,#00e5ff)',
+      transition: '0.4s ease',
+      borderRadius: '10px',
+    },
+
+    '&:hover::after': {
+      width: '100%',
+    },
+
+    '&:hover': {
+      color: '#00ffcc',
+      textShadow: '0 0 20px #00ffcc',
+      transform: 'translateY(-2px)',
+    },
+  };
+
+  // ---------------- ICON STYLE ----------------
+
+  const socialStyle = {
+    width: 42,
+    height: 42,
+    color: '#fff',
+    border: '1px solid rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.04)',
+    backdropFilter: 'blur(10px)',
+    transition: '0.4s ease',
+
+    '&:hover': {
+      transform: 'translateY(-4px) scale(1.06)',
+      background:
+        'linear-gradient(135deg,#00ff88,#00e5ff)',
+      color: '#111',
+      boxShadow:
+        '0 0 25px rgba(0,255,200,0.5)',
+    },
+  };
+
   return (
-    <>
-      <Box sx={{
-        minHeight: '90vh',
-        bgcolor: '#181818',
+    <Box
+      sx={{
+        minHeight: '100vh',
+        background:
+          'linear-gradient(to bottom right,#050505,#101010,#161616)',
         color: '#fff',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        textAlign: 'center',
-        p: 2
-      }}>
+        overflowX: 'hidden',
+        position: 'relative',
+      }}
+    >
+      {/* BLUR BACKGROUND */}
 
-        {/* Top Navigation Row */}
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '100%',
-          alignItems: 'center'
-        }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          width: 300,
+          height: 300,
+          background: '#00ff8840',
+          filter: 'blur(130px)',
+          top: -100,
+          left: -100,
+          zIndex: 0,
+        }}
+      />
 
-          {/* Navigation - Desktop ku ethu */}
-          {!isMobile && (
-            <Stack direction="row" spacing={6}>
-              {navLinks.map((link, index) => (
-                <Link key={index} to={link.to} style={styleLink}>
-                  <Typography variant="h6" sx={styleLinkText}>{link.text}</Typography>
-                </Link>
-              ))}
-            </Stack>
-          )}
+      <Box
+        sx={{
+          position: 'absolute',
+          width: 250,
+          height: 250,
+          background: '#00e5ff30',
+          filter: 'blur(120px)',
+          bottom: 0,
+          right: 0,
+          zIndex: 0,
+        }}
+      />
 
-          {/* Mobile Menu Icon */}
-          {isMobile && (
-            <IconButton onClick={() => setDrawerOpen(true)} sx={{ color: "#fff" }}>
-              <MenuIcon />
-            </IconButton>
-          )}
+      {/* NAVBAR */}
 
-          {/* Social Media Icons */}
-          <Stack direction="row" spacing={2}>
-            <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={styleIcon}>
-              <FaGithub />
-            </IconButton>
-            <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={styleIcon}>
-              <FaLinkedin />
-            </IconButton>
-            <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={styleIcon}>
-              <FaInstagram />
-            </IconButton>
-            <IconButton component="a" href="https://www.youtube.com/@error2win" target="_blank" sx={styleIcon}>
-              <FaYoutube />
-            </IconButton>
+      <Box
+        component={motion.div}
+        initial={{
+          y: -80,
+          opacity: 0,
+        }}
+        animate={{
+          y: 0,
+          opacity: 1,
+        }}
+        transition={{
+          duration: 0.7,
+        }}
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 999,
+          backdropFilter: 'blur(18px)',
+          background: 'rgba(0,0,0,0.45)',
+          borderBottom:
+            '1px solid rgba(255,255,255,0.08)',
+        }}
+      >
+        <Box
+          sx={{
+            maxWidth: '1450px',
+            mx: 'auto',
+            px: { xs: 2, md: 5 },
+            py: 2,
 
-            <IconButton
-              component={Link}
-              to="/study"
-              sx={styleIcon}
-              aria-label="Course Viewer"
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          {/* LEFT SIDE */}
+
+          <Stack
+            direction="row"
+            spacing={4}
+            alignItems="center"
+          >
+            {/* MOBILE MENU BUTTON */}
+
+            {isMobile && (
+              <IconButton
+                onClick={() =>
+                  setDrawerOpen(true)
+                }
+                sx={socialStyle}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+
+            {/* DESKTOP MENU */}
+
+            {!isMobile && (
+              <Stack
+                direction="row"
+                spacing={5}
+              >
+                {navLinks.map(
+                  (link, index) => {
+                    const active =
+                      location.pathname ===
+                      link.to;
+
+                    return (
+                      <Link
+                        key={index}
+                        to={link.to}
+                        style={{
+                          textDecoration:
+                            'none',
+                          color: active
+                            ? '#00ffcc'
+                            : '#fff',
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            ...navTextStyle,
+
+                            color: active
+                              ? '#00ffcc'
+                              : '#fff',
+
+                            textShadow:
+                              active
+                                ? '0 0 20px #00ffcc'
+                                : 'none',
+                          }}
+                        >
+                          {link.text}
+                        </Typography>
+                      </Link>
+                    );
+                  }
+                )}
+              </Stack>
+            )}
+          </Stack>
+
+          {/* RIGHT SIDE */}
+
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+          >
+            {/* BOOK ICON */}
+
+            <motion.div
+              whileHover={{
+                scale: 1.08,
+              }}
             >
-              <AutoStoriesIcon />
-            </IconButton>
-            
+              <IconButton
+                component={Link}
+                to="/study"
+                sx={{
+                  width: 42,
+                  height: 42,
+
+                  background:
+                    'linear-gradient(135deg,#00ff88,#00e5ff)',
+
+                  color: '#111',
+
+                  '&:hover': {
+                    background:
+                      'linear-gradient(135deg,#00e5ff,#00ff88)',
+                  },
+                }}
+              >
+                <AutoStoriesIcon />
+              </IconButton>
+            </motion.div>
+
+            {/* SOCIAL ICONS DESKTOP */}
+
+            {!isMobile && (
+              <>
+                <IconButton
+                  component="a"
+                  href="https://github.com/muralibalan"
+                  target="_blank"
+                  sx={socialStyle}
+                >
+                  <FaGithub />
+                </IconButton>
+
+                <IconButton
+                  component="a"
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  sx={socialStyle}
+                >
+                  <FaLinkedin />
+                </IconButton>
+
+                <IconButton
+                  component="a"
+                  href="https://www.instagram.com/murali_webtrainer/"
+                  target="_blank"
+                  sx={socialStyle}
+                >
+                  <FaInstagram />
+                </IconButton>
+
+                <IconButton
+                  component="a"
+                  href="https://www.youtube.com/@error2win"
+                  target="_blank"
+                  sx={socialStyle}
+                >
+                  <FaYoutube />
+                </IconButton>
+              </>
+            )}
           </Stack>
         </Box>
+      </Box>
 
-        {/* Drawer for Mobile */}
-        <Drawer
-          anchor="left"
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-          PaperProps={{ sx: { bgcolor: '#181818', color: '#fff', width: 200 } }}
+      {/* MOBILE DRAWER */}
+
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() =>
+          setDrawerOpen(false)
+        }
+        PaperProps={{
+          sx: {
+            width: 280,
+            background:
+              'linear-gradient(to bottom,#111,#050505)',
+            color: '#fff',
+            borderRight:
+              '1px solid rgba(255,255,255,0.08)',
+          },
+        }}
+      >
+        {/* DRAWER HEADER */}
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent:
+              'space-between',
+            alignItems: 'center',
+            p: 2,
+          }}
         >
-          <List>
-            {navLinks.map((link, index) => (
-              <ListItem
-                sx={{ color: 'white' }}
-                button
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 900,
+              background:
+                'linear-gradient(to right,#00ff88,#00e5ff)',
+              WebkitBackgroundClip:
+                'text',
+              WebkitTextFillColor:
+                'transparent',
+            }}
+          >
+            Navigation
+          </Typography>
+
+          <IconButton
+            onClick={() =>
+              setDrawerOpen(false)
+            }
+            sx={{
+              color: '#fff',
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        <Divider
+          sx={{
+            borderColor:
+              'rgba(255,255,255,0.08)',
+          }}
+        />
+
+        {/* MOBILE LINKS */}
+
+        <List sx={{ mt: 2 }}>
+          {navLinks.map((link, index) => {
+            const active =
+              location.pathname ===
+              link.to;
+
+            return (
+              <ListItemButton
                 key={index}
                 component={Link}
                 to={link.to}
-                onClick={() => setDrawerOpen(false)}
-              >
-                <ListItemText primary={link.text} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
+                onClick={() =>
+                  setDrawerOpen(false)
+                }
+                sx={{
+                  mx: 2,
+                  mb: 1,
+                  borderRadius: '14px',
+                  transition: '0.4s ease',
 
-        {/* Child Page Content */}
-        <Box sx={{ mt: 4, padding: 2 }}>
-          <Outlet />
-        </Box>
+                  background: active
+                    ? 'linear-gradient(135deg,#00ff88,#00e5ff)'
+                    : 'transparent',
+
+                  color: active
+                    ? '#111'
+                    : '#fff',
+
+                  '&:hover': {
+                    background:
+                      'linear-gradient(135deg,#00ff88,#00e5ff)',
+                    color: '#111',
+                    transform:
+                      'translateX(8px)',
+                  },
+                }}
+              >
+                <ListItemText
+                  primary={link.text}
+                  primaryTypographyProps={{
+                    fontWeight: 700,
+                  }}
+                />
+              </ListItemButton>
+            );
+          })}
+        </List>
+
+        {/* MOBILE SOCIALS */}
+
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+          sx={{
+            mt: 4,
+          }}
+        >
+          <IconButton
+            component="a"
+            href="https://github.com/muralibalan"
+            target="_blank"
+            sx={socialStyle}
+          >
+            <FaGithub />
+          </IconButton>
+
+          <IconButton
+            component="a"
+            href="https://www.instagram.com/murali_webtrainer/"
+            target="_blank"
+            sx={socialStyle}
+          >
+            <FaInstagram />
+          </IconButton>
+
+          <IconButton
+            component="a"
+            href="https://www.youtube.com/@error2win"
+            target="_blank"
+            sx={socialStyle}
+          >
+            <FaYoutube />
+          </IconButton>
+        </Stack>
+      </Drawer>
+
+      {/* PAGE CONTENT */}
+
+      <Box
+        component={motion.div}
+        initial={{
+          opacity: 0,
+          y: 40,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.7,
+        }}
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          width: '100%',
+          maxWidth: '1450px',
+          mx: 'auto',
+          px: {
+            xs: 1,
+            md: 3,
+          },
+          py: 4,
+        }}
+      >
+        <Outlet />
       </Box>
-    </>
+    </Box>
   );
 }
 
