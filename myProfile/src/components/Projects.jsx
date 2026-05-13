@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -19,8 +20,15 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // Sample project data with category
 const projects = [
- 
-  
+
+{
+    id: 1,
+    title: "Variable Validation",
+    image: "/projects_Ui/variableVali.png",
+    link: "/variablegame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
   {
     id: 2,
     title: "Snake Game",
@@ -28,13 +36,14 @@ const projects = [
     link: "https://snake-game.vercel.app",
     category: "games",
   },
-  // {
-  //   id: 3,
-  //   title: "Memory Puzzle",
-  //   image: "/images/project4.png",
-  //   link: "https://memory-game.vercel.app",
-  //   category: "games",
-  // },
+  {
+    id: 3,
+    title: "Loop Logic",
+    image: "/projects_Ui/loopGame.png",
+    link: "/loopgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
   {
     id: 4,
     title: "E-Commerce App",
@@ -56,14 +65,14 @@ const projects = [
     link: "https://www.greenapple.co.in/",
     category: "business",
   },
-   {
+  {
     id: 7,
     title: "ProgramPARK",
     image: "/projects_Ui/programPark.png",
     link: "https://www.programpark.in/",
     category: "business",
   },
-   {
+  {
     id: 8,
     title: "Metrozo Ads",
     image: "/projects_Ui/Mdp.png",
@@ -77,20 +86,36 @@ const projects = [
     link: "https://production-crm.vercel.app",
     category: "production",
   },
- 
-   {
+
+  {
     id: 10,
     title: "Green Apple Institue UI",
     image: "/projects_Ui/Computer_Institute_UI.png",
     link: "https://greenappleinstitute.vercel.app/",
     category: "business",
   },
-   {
+  {
     id: 11,
     title: "Portfolio Website",
     image: "/projects_Ui/MyPortfolio.png",
     link: "https://muraliofficial.vercel.app/",
     category: "business",
+  },
+  {
+    id: 12,
+    title: "Array Accessing",
+    image: "/projects_Ui/arrayGame.png",
+    link: "/arraygame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 13,
+    title: "Sort Accessing",
+    image: "/projects_Ui/sortGame.png",
+    link: "/sortgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
 ];
 
@@ -99,8 +124,21 @@ function Projects() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const navigate = useNavigate();
+
   const handleChange = (event, newValue) => {
     setActiveTab(newValue);
+  };
+
+  // 3. View handle panna puthiya function
+  const handleViewProject = (project) => {
+    if (project.isInternal) {
+      // Unga app-kullae irukra component-ku pogum
+      navigate(project.link);
+    } else {
+      // External website-ku puthu tab-la open aagum
+      window.open(project.link, "_blank");
+    }
   };
 
   // Filter projects based on active tab

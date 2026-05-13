@@ -10,6 +10,10 @@ import Projects from './components/Projects'
 import MyWorkshops from './components/MyWorkshops'
 import CourseViewer from './components/navigations/CourseViewer'
 import Login from './components/navigations/Login' // Neenga separate-aa vachirukka file
+import LoopGame from './components/LoopGame'
+import VariableGame from './components/VariableGame'
+import ArrayAccessGame from './components/ArrayAccessGame'
+import SortingGame from './components/SortingGame'
 
 function App() {
   // Login status-ai track panna indha state mukkiyam
@@ -25,18 +29,10 @@ function App() {
           <Route path='education' element={<Education />} />
           <Route path='projects' element={<Projects />} />
           <Route path='workshop' element={<MyWorkshops />} />
-
-          {/* Study Route Logic */}
-          {/* <Route 
-            path='study' 
-            element={
-              isLoggedIn ? (
-                <CourseViewer />
-              ) : (
-                <Login setAuth={setIsLoggedIn} />
-              )
-            } 
-          /> */}
+          <Route path='loopgame' element={<LoopGame />} />
+          <Route path='variablegame' element={<VariableGame />} />
+          <Route path='arraygame' element={<ArrayAccessGame />} />
+          <Route path='sortgame' element={<SortingGame />} />
           <Route
             path='study'
             element={
