@@ -118,11 +118,19 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
+  // {
+  //   id: 14,
+  //   title: "MERN Snake Game",
+  //   image: "/projects_Ui/sortGame.png",
+  //   link: "/mernsnake", // Inga internal route path-ah kudukkuran 
+  //   category: "games",
+  //   isInternal: true, // Idhu internal route-nu identify panna oru flag
+  // },
   {
-    id: 14,
-    title: "MERN Snake Game",
-    image: "/projects_Ui/sortGame.png",
-    link: "/mernsnake", // Inga internal route path-ah kudukkuran 
+    id: 15,
+    title: "Flames Logic Game",
+    image: "/projects_Ui/flames.png",
+    link: "/flames", // Inga internal route path-ah kudukkuran 
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
