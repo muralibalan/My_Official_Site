@@ -14,6 +14,7 @@ import LoopGame from './components/LoopGame'
 import VariableGame from './components/VariableGame'
 import ArrayAccessGame from './components/ArrayAccessGame'
 import SortingGame from './components/SortingGame'
+import MernSnake from './components/MernSnakeFull'
 
 function App() {
   // Login status-ai track panna indha state mukkiyam
@@ -33,6 +34,7 @@ function App() {
           <Route path='variablegame' element={<VariableGame />} />
           <Route path='arraygame' element={<ArrayAccessGame />} />
           <Route path='sortgame' element={<SortingGame />} />
+          <Route path='Mernsnake' element={<MernSnake />} />
           <Route
             path='study'
             element={

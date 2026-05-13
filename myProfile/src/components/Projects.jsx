@@ -21,7 +21,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 // Sample project data with category
 const projects = [
 
-{
+  {
     id: 1,
     title: "Variable Validation",
     image: "/projects_Ui/variableVali.png",
@@ -30,11 +30,12 @@ const projects = [
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
   {
-    id: 2,
-    title: "Snake Game",
-    image: "/projects_Ui/snake.png",
-    link: "https://snake-game.vercel.app",
+    id: 1,
+    title: "MERN Stack Snake Game",
+    image: "/projects_Ui/mernSnake.png",
+    link: "/mernsnake", // Inga internal route path-ah kudukkuran 
     category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
   {
     id: 3,
@@ -114,6 +115,14 @@ const projects = [
     title: "Sort Accessing",
     image: "/projects_Ui/sortGame.png",
     link: "/sortgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 14,
+    title: "MERN Snake Game",
+    image: "/projects_Ui/sortGame.png",
+    link: "/mernsnake", // Inga internal route path-ah kudukkuran 
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
@@ -239,13 +248,13 @@ function Projects() {
                     {project.title}
                   </Typography>
                   <Tooltip title="View Project">
-                    // Indha idathula:
-<IconButton
-  onClick={() => handleViewProject(project)} // Indha change-ah pannunga
-  sx={{ color: "#09ee24ff" }}
->
-  <VisibilityIcon />
-</IconButton>
+
+                    <IconButton
+                      onClick={() => handleViewProject(project)}
+                      sx={{ color: "#09ee24ff" }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
                   </Tooltip>
                 </CardContent>
               </Card>
