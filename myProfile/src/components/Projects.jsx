@@ -239,12 +239,13 @@ function Projects() {
                     {project.title}
                   </Typography>
                   <Tooltip title="View Project">
-                    <IconButton
-                      onClick={() => window.open(project.link, "_blank")}
-                      sx={{ color: "#09ee24ff" }}
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
+                    // Indha idathula:
+<IconButton
+  onClick={() => handleViewProject(project)} // Indha change-ah pannunga
+  sx={{ color: "#09ee24ff" }}
+>
+  <VisibilityIcon />
+</IconButton>
                   </Tooltip>
                 </CardContent>
               </Card>
