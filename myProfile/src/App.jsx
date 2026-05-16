@@ -9,13 +9,19 @@ import Education from './components/navigations/Education'
 import Projects from './components/Projects'
 import MyWorkshops from './components/MyWorkshops'
 import CourseViewer from './components/navigations/CourseViewer'
-import Login from './components/navigations/Login' // Neenga separate-aa vachirukka file
-import LoopGame from './components/LoopGame'
-import VariableGame from './components/VariableGame'
-import ArrayAccessGame from './components/ArrayAccessGame'
-import SortingGame from './components/SortingGame'
-import MernSnake from './components/MernSnakeFull'
-import FlamesGame from './components/FlamesGame'
+import Login from './components/navigations/Login' 
+
+import LoopGame from './components/games/LoopGame'
+import VariableGame from './components/games/VariableGame'
+import ArrayAccessGame from './components/games/ArrayAccessGame'
+import SortingGame from './components/games/SortingGame'
+import MernSnake from './components/games/MernSnakeFull'
+import FlamesGame from './components/games/FlamesGame'
+import HOFGame from './components/games/HOFGame'
+import TimersGame from './components/games/TimersGame'
+import ConditionsGame from './components/games/ConditionsGame'
+import FunctionsGame from './components/games/FunctionsGame'
+import RegexGame from './components/games/RegexGame'
 
 function App() {
   // Login status-ai track panna indha state mukkiyam
@@ -37,6 +43,14 @@ function App() {
           <Route path='sortgame' element={<SortingGame />} />
           <Route path='Mernsnake' element={<MernSnake />} />
           <Route path='flames' element={<FlamesGame />} />
+          <Route path='hof' element={<HOFGame />} />
+          <Route path='timergame' element={<TimersGame />} />
+          <Route path='conditiongame' element={<ConditionsGame />} />
+          <Route path='functiongame' element={<FunctionsGame />} />
+          <Route path='regex' element={<RegexGame />} />
+
+
+
           <Route
             path='study'
             element={

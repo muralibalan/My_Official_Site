@@ -118,19 +118,51 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
-  // {
-  //   id: 14,
-  //   title: "MERN Snake Game",
-  //   image: "/projects_Ui/sortGame.png",
-  //   link: "/mernsnake", // Inga internal route path-ah kudukkuran 
-  //   category: "games",
-  //   isInternal: true, // Idhu internal route-nu identify panna oru flag
-  // },
+  {
+    id: 14,
+    title: "HOF Game",
+    image: "/projects_Ui/HOF.png",
+    link: "/hof", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
   {
     id: 15,
     title: "Flames Logic Game",
     image: "/projects_Ui/flames.png",
     link: "/flames", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 16,
+    title: "Timer Methods for Js",
+    image: "/projects_Ui/timer.png",
+    link: "/timergame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 17,
+    title: "Condition Game",
+    image: "/projects_Ui/condition.png",
+    link: "/conditiongame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 18,
+    title: "Function Game",
+    image: "/projects_Ui/jsFunction.png",
+    link: "/functiongame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+   {
+    id: 19,
+    title: "Regex Game",
+    image: "/projects_Ui/regex.png",
+    link: "/regex", // Inga internal route path-ah kudukkuran 
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
