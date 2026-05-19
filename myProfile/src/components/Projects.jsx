@@ -198,6 +198,14 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
+  {
+    id: 23,
+    title: "C Program Quiz Game",
+    image: "/projects_Ui/cquiz.png",
+    link: "/cgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
 ];
 
 function Projects() {

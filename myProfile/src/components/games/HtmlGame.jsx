@@ -1462,7 +1462,7 @@ function HtmlGame() {
         
         {/* TITLE */}
         <Typography variant="h4" sx={{ fontWeight: 900, textAlign: 'center', mb: 1, textShadow: '0 0 25px rgba(228,77,38,0.2)', fontSize: { xs: '1.8rem', md: '2.8rem' } }}>
-          HTML <span style={{ color: THEME_COLOR, textShadow: `0 0 25px ${THEME_COLOR}` }}>Quiz Master</span> ⚡
+          HTML <span style={{ color: THEME_COLOR, textShadow: `0 0 25px ${THEME_COLOR}` }}>Quiz Master</span>
         </Typography>
         <Typography sx={{ textAlign: 'center', color: '#bfaaa3', mb: 5, fontSize: '0.95rem' }}>
           Choose the best answers to test your HTML core knowledge!

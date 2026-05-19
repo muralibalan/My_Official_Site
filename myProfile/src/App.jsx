@@ -32,6 +32,7 @@ const EventLoopGame = lazy(() => import('./components/games/EventLoopGame'));
 const HtmlGame = lazy(() => import('./components/games/HtmlGame'));
 const CssGame = lazy(() => import('./components/games/CssGame'));
 const JsGame = lazy(() => import('./components/games/JsGame'));
+const CGame = lazy(() => import('./components/games/CGame'));
 const StudentCardList = lazy(()=> import('./components/StudentCardList'));
 const TextToSpeech = lazy(()=> import('./components/games/TextToSpeech'))
 
@@ -85,6 +86,7 @@ function App() {
             <Route path='htmlgame' element={<HtmlGame />} />
             <Route path='jsgame' element={<JsGame />} />
             <Route path='cssgame' element={<CssGame />} />
+            <Route path='cgame' element={<CGame />} />
             <Route path='speech' element={<TextToSpeech />} />
 
             {/* Protected Route Logic */}

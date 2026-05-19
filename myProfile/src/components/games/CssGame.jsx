@@ -1636,8 +1636,7 @@ function CssGame() {
             }}
           >
             Quiz Master
-          </span>{' '}
-          🎨
+          </span>
         </Typography>
 
         {/* DESCRIPTION */}

@@ -1644,8 +1644,7 @@ function JsGame() {
             }}
           >
             Quiz Master
-          </span>{' '}
-          ⚡
+          </span>
         </Typography>
 
         {/* DESCRIPTION */}
