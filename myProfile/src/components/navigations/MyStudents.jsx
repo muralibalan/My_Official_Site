@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper } from '@mui/material';
+import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // Navigation redirect hooks
+import LanguageIcon from '@mui/icons-material/Language';
 
 // --- Global Theme Color ---
 const THEME_COLOR = '#09ee24ff';
@@ -56,23 +58,68 @@ const students = [
 ];
 
 function MyStudents() {
+  const navigate = useNavigate(); // Page trigger mechanism inline routing instance
+
   return (
     <Box sx={{ bgcolor: '#121212', py: 10, px: { xs: 2, md: 8 } }}>
-      <Box sx={{ textAlign: 'center', mb: 8 }}>
-        <Typography
-          variant="h3"
+      
+      {/* HEADER BLOCK WITH ACTION ROUTE ALIGNMENT */}
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' }, 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          gap: 3,
+          mb: 8 
+        }}
+      >
+        {/* Placeholder spacer element for perfect centering on desktop layout */}
+        <Box sx={{ width: 180, display: { xs: 'none', sm: 'block' } }} />
+
+        {/* CENTER TITLE AREA */}
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 900,
+              color: 'white',
+              mb: 1,
+              fontSize: { xs: '2rem', md: '3.5rem' },
+            }}
+          >
+            MY <span style={{ color: THEME_COLOR }}>STUDENTS</span>
+          </Typography>
+          <Box sx={{ width: 80, height: 4, bgcolor: THEME_COLOR, mx: 'auto', borderRadius: 2 }} />
+        </Box>
+
+        {/* RIGHT ALIGNED BUTTON COMPONENT LINKED TO STUDENT CARD LIST */}
+        <Button
+          variant="outlined"
+          startIcon={<LanguageIcon />}
+          onClick={() => navigate('/mystudents')} // Navigates to your exact App.jsx path
           sx={{
-            fontWeight: 900,
-            color: 'white',
-            mb: 2,
-            fontSize: { xs: '2rem', md: '3.5rem' },
+            borderColor: 'rgba(255,255,255,0.15)',
+            color: '#fff',
+            fontWeight: 600,
+            borderRadius: '12px',
+            px: 3,
+            py: 1.2,
+            textTransform: 'none',
+            fontSize: '0.9rem',
+            transition: '0.3s',
+            '&:hover': {
+              borderColor: THEME_COLOR,
+              bgcolor: `${THEME_COLOR}11`,
+              boxShadow: `0 0 15px ${THEME_COLOR}33`
+            }
           }}
         >
-          MY <span style={{ color: THEME_COLOR }}>STUDENTS</span>
-        </Typography>
-        <Box sx={{ width: 80, height: 4, bgcolor: THEME_COLOR, mx: 'auto', borderRadius: 2 }} />
+          View Portfolios
+        </Button>
       </Box>
 
+      {/* CARDS CONTAINER ARCHITECTURE */}
       <Grid container spacing={4} justifyContent="center">
         {students.map((student, idx) => (
           <Grid item key={idx} xs={12} sm={6} md={4} lg={3} display="flex" justifyContent="center">
@@ -97,7 +144,7 @@ function MyStudents() {
               <Box
                 sx={{
                   width: '100%',
-                  aspectRatio: '1/1', // Ensures perfect square
+                  aspectRatio: '1/1', 
                   overflow: 'hidden',
                   borderRadius: '15px',
                   mb: 2,
@@ -112,7 +159,6 @@ function MyStudents() {
                     height: '100%',
                     objectFit: 'cover',
                   }}
-                  // Fallback for missing images
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/300?text=Student'; }}
                 />
               </Box>

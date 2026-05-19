@@ -166,6 +166,38 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
+  {
+    id: 20,
+    title: "Event Loop Game",
+    image: "/projects_Ui/eventloop.png",
+    link: "/eventloop", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 21,
+    title: "HTML Quiz Game",
+    image: "/projects_Ui/htmlquiz.png",
+    link: "/htmlgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 22,
+    title: "CSS Quiz Game",
+    image: "/projects_Ui/cssquiz.png",
+    link: "/cssgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
+  {
+    id: 22,
+    title: "JavaScript Quiz Game",
+    image: "/projects_Ui/jsquiz.png",
+    link: "/jsgame", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
 ];
 
 function Projects() {
