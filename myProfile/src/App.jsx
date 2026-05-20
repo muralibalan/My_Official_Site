@@ -29,12 +29,9 @@ const ConditionsGame = lazy(() => import('./components/games/ConditionsGame'));
 const FunctionsGame = lazy(() => import('./components/games/FunctionsGame'));
 const RegexGame = lazy(() => import('./components/games/RegexGame'));
 const EventLoopGame = lazy(() => import('./components/games/EventLoopGame'));
-const HtmlGame = lazy(() => import('./components/games/HtmlGame'));
-const CssGame = lazy(() => import('./components/games/CssGame'));
-const JsGame = lazy(() => import('./components/games/JsGame'));
-const CGame = lazy(() => import('./components/games/CGame'));
 const StudentCardList = lazy(()=> import('./components/StudentCardList'));
-const TextToSpeech = lazy(()=> import('./components/games/TextToSpeech'))
+const TextToSpeech = lazy(()=> import('./components/games/TextToSpeech'));
+const UniversalQuizGame = lazy(()=> import('./components/games/UniversalQuizGame'))
 
 // Global Fallback Loader Component
 const PageLoader = () => (
@@ -83,11 +80,8 @@ function App() {
             <Route path='functiongame' element={<FunctionsGame />} />
             <Route path='regex' element={<RegexGame />} />
             <Route path='eventloop' element={<EventLoopGame />} />
-            <Route path='htmlgame' element={<HtmlGame />} />
-            <Route path='jsgame' element={<JsGame />} />
-            <Route path='cssgame' element={<CssGame />} />
-            <Route path='cgame' element={<CGame />} />
             <Route path='speech' element={<TextToSpeech />} />
+            <Route path='quizgame' element={<UniversalQuizGame />} />
 
             {/* Protected Route Logic */}
             <Route

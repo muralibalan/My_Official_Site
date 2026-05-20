@@ -176,36 +176,14 @@ const projects = [
   },
   {
     id: 21,
-    title: "HTML Quiz Game",
-    image: "/projects_Ui/htmlquiz.png",
-    link: "/htmlgame", // Inga internal route path-ah kudukkuran 
+    title: "Quiz Game",
+    image: "/projects_Ui/quizstill.png",
+    link: "/quizgame", // Inga internal route path-ah kudukkuran 
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
-  {
-    id: 22,
-    title: "CSS Quiz Game",
-    image: "/projects_Ui/cssquiz.png",
-    link: "/cssgame", // Inga internal route path-ah kudukkuran 
-    category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
-  },
-  {
-    id: 22,
-    title: "JavaScript Quiz Game",
-    image: "/projects_Ui/jsquiz.png",
-    link: "/jsgame", // Inga internal route path-ah kudukkuran 
-    category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
-  },
-  {
-    id: 23,
-    title: "C Program Quiz Game",
-    image: "/projects_Ui/cgame.png",
-    link: "/cgame", // Inga internal route path-ah kudukkuran 
-    category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
-  },
+  
+ 
 ];
 
 function Projects() {
