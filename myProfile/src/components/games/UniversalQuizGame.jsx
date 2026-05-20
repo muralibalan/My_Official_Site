@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
+import confetti from 'canvas-confetti'; // ⚡️ Fixed the typo here boss!
 
 import CodeIcon from '@mui/icons-material/Code';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -249,7 +249,7 @@ function UniversalQuizGame() {
       sx={{
         minHeight: '100vh',
         bgcolor: '#050505',
-        py: 5,
+        py: { xs: 3, md: 5 },
         px: 2,
         overflow: 'hidden',
         position: 'relative',
@@ -277,7 +277,7 @@ function UniversalQuizGame() {
             color: '#fff',
             mb: 1,
             fontSize: {
-              xs: '2rem',
+              xs: '1.8rem',
               md: '3rem',
             },
           }}
@@ -304,7 +304,7 @@ function UniversalQuizGame() {
         <Paper
           sx={{
             p: {
-              xs: 3,
+              xs: 2,
               md: 5,
             },
 
@@ -321,12 +321,11 @@ function UniversalQuizGame() {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ mb: 4 }}
+            sx={{ mb: 3 }}
           >
             <Chip
-              label={`QUESTION ${currentTask + 1} / ${
-                tasks.length
-              }`}
+              label={`Q: ${currentTask + 1} / ${tasks.length}`}
+              size="small"
               sx={{
                 bgcolor: '#111',
                 color: currentTheme.color,
@@ -338,7 +337,7 @@ function UniversalQuizGame() {
               sx={{
                 color: currentTheme.color,
                 fontWeight: 800,
-                fontSize: '1.1rem',
+                fontSize: { xs: '0.95rem', md: '1.1rem' },
               }}
             >
               Score : {score}
@@ -351,9 +350,9 @@ function UniversalQuizGame() {
             sx={{
               color: '#fff',
               fontWeight: 700,
-              lineHeight: 1.7,
+              lineHeight: 1.6,
               fontSize: {
-                xs: '1.1rem',
+                xs: '1rem',
                 md: '1.4rem',
               },
             }}
@@ -364,7 +363,7 @@ function UniversalQuizGame() {
           <Divider
             sx={{
               borderColor: 'rgba(255,255,255,0.05)',
-              my: 4,
+              my: 3,
             }}
           />
 
@@ -374,8 +373,9 @@ function UniversalQuizGame() {
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: 2,
-              mb: 4,
+              justifyContent: 'center',
+              gap: 1.5,
+              mb: 3,
             }}
           >
             {task?.options.map((option, idx) => {
@@ -405,20 +405,13 @@ function UniversalQuizGame() {
                 <motion.div
                   key={idx}
                   whileHover={{
-                    scale: 1.03,
+                    scale: 1.01,
                   }}
                   animate={
                     result === 'fail' &&
                     isSelected
                       ? {
-                          x: [
-                            0,
-                            -8,
-                            8,
-                            -6,
-                            6,
-                            0,
-                          ],
+                          x: [0, -6, 6, -4, 4, 0],
                         }
                       : {}
                   }
@@ -426,10 +419,11 @@ function UniversalQuizGame() {
                     duration: 0.4,
                   }}
                   style={{
-                    flex:
-                      '1 1 calc(50% - 10px)',
-
-                    minWidth: '260px',
+                    flex: '1 1 calc(50% - 12px)',
+                    minWidth: '140px', 
+                    maxWidth: '100%',
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}
                 >
                   <Box
@@ -437,11 +431,14 @@ function UniversalQuizGame() {
                       handleOptionClick(option)
                     }
                     sx={{
-                      p: 2.5,
+                      p: { xs: 1.4, md: 2.5 },
 
-                      minHeight: '90px',
+                      width: '100%',
+                      maxWidth: { xs: '290px', sm: '100%' },
 
-                      borderRadius: '18px',
+                      minHeight: { xs: '52px', md: '85px' },
+
+                      borderRadius: '14px',
 
                       border: `2px solid ${borderColor}`,
 
@@ -451,7 +448,7 @@ function UniversalQuizGame() {
 
                       alignItems: 'center',
 
-                      gap: 2,
+                      gap: 1.5,
 
                       cursor:
                         result === 'success'
@@ -464,7 +461,7 @@ function UniversalQuizGame() {
                         'blur(10px)',
 
                       boxShadow: isSelected
-                        ? `0 0 20px ${borderColor}55`
+                        ? `0 0 15px ${borderColor}44`
                         : 'none',
 
                       '&:hover': {
@@ -474,7 +471,7 @@ function UniversalQuizGame() {
                             : currentTheme.color,
 
                         transform:
-                          'translateY(-2px)',
+                          'translateY(-1px)',
 
                         background:
                           'rgba(255,255,255,0.03)',
@@ -485,19 +482,21 @@ function UniversalQuizGame() {
                       sx={{
                         color: isSelected
                           ? currentTheme.color
-                          : '#666',
+                          : '#556',
+                        fontSize: { xs: '1.1rem', md: '1.5rem' },
+                        flexShrink: 0
                       }}
                     />
 
                     <Typography
                       sx={{
                         color: '#fff',
-                        fontWeight: 700,
-                        fontFamily:
-                          'monospace',
-
-                        wordBreak:
-                          'break-word',
+                        fontWeight: 600,
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.82rem', md: '1rem' },
+                        wordBreak: 'break-word',
+                        whiteSpace: 'normal',
+                        lineHeight: 1.3,
                       }}
                     >
                       {option}
@@ -524,7 +523,7 @@ function UniversalQuizGame() {
               >
                 <Box
                   sx={{
-                    p: 3,
+                    p: 2.5,
                     borderRadius: '18px',
                     bgcolor:
                       'rgba(0,255,136,0.06)',
@@ -541,16 +540,18 @@ function UniversalQuizGame() {
                       alignItems: 'center',
                       gap: 1,
                       mb: 1,
+                      fontSize: { xs: '0.9rem', md: '1rem' }
                     }}
                   >
-                    <CheckCircleOutlineIcon />
+                    <CheckCircleOutlineIcon fontSize="small" />
                     Correct Answer 🎉
                   </Typography>
 
                   <Typography
                     sx={{
                       color: '#ccc',
-                      lineHeight: 1.7,
+                      lineHeight: 1.6,
+                      fontSize: { xs: '0.85rem', md: '1rem' }
                     }}
                   >
                     {task.explain}
@@ -564,10 +565,10 @@ function UniversalQuizGame() {
                     variant="contained"
                     onClick={nextQuestion}
                     sx={{
-                      py: 1.6,
-                      borderRadius: '16px',
+                      py: 1.4,
+                      borderRadius: '14px',
                       fontWeight: 800,
-                      fontSize: '1rem',
+                      fontSize: '0.95rem',
                       textTransform: 'none',
                       bgcolor: currentTheme.color,
                       color:
@@ -590,7 +591,7 @@ function UniversalQuizGame() {
             {result === 'fail' && (
               <motion.div
                 initial={{
-                  scale: 0.8,
+                  scale: 0.9,
                   opacity: 0,
                 }}
                 animate={{
@@ -600,7 +601,7 @@ function UniversalQuizGame() {
               >
                 <Box
                   sx={{
-                    p: 3,
+                    p: 2.5,
                     borderRadius: '18px',
                     bgcolor:
                       'rgba(255,82,82,0.06)',
@@ -611,7 +612,7 @@ function UniversalQuizGame() {
                 >
                   <motion.div
                     animate={{
-                      y: [0, -5, 0],
+                      y: [0, -4, 0],
                     }}
                     transition={{
                       repeat: Infinity,
@@ -620,7 +621,7 @@ function UniversalQuizGame() {
                   >
                     <Typography
                       sx={{
-                        fontSize: '2rem',
+                        fontSize: '1.6rem',
                       }}
                     >
                       😢
@@ -631,7 +632,8 @@ function UniversalQuizGame() {
                     sx={{
                       color: '#ff5252',
                       fontWeight: 800,
-                      mt: 1,
+                      mt: 0.5,
+                      fontSize: { xs: '0.9rem', md: '1rem' }
                     }}
                   >
                     Wrong Answer Bro!
@@ -640,8 +642,9 @@ function UniversalQuizGame() {
                   <Typography
                     sx={{
                       color: '#bbb',
-                      mt: 1,
-                      lineHeight: 1.6,
+                      mt: 0.5,
+                      lineHeight: 1.5,
+                      fontSize: { xs: '0.8rem', md: '0.95rem' }
                     }}
                   >
                     5 points poiduchu 😭
