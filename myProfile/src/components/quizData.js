@@ -5899,3 +5899,3900 @@ export const cTasks = [
 }
 
 ];
+
+export const cppTasks = [
+
+  {
+    id: 1,
+    title: "History of C++",
+    question: "C++ language-ai uruvakkina person yaaru?",
+    options: [
+      "Dennis Ritchie",
+      "Bjarne Stroustrup",
+      "James Gosling",
+      "Guido van Rossum"
+    ],
+    answer: "Bjarne Stroustrup",
+    explain:
+      "Bjarne Stroustrup Bell Labs-la C++ language develop panninar."
+  },
+
+  {
+    id: 2,
+    title: "C++ Extension",
+    question: "C++ source file extension edhu?",
+    options: [
+      ".java",
+      ".cpp",
+      ".py",
+      ".html"
+    ],
+    answer: ".cpp",
+    explain:
+      ".cpp extension C++ source files-ku use pannuvanga."
+  },
+
+  {
+    id: 3,
+    title: "Features of C++",
+    question: "C++-oda mukkiya feature edhu?",
+    options: [
+      "Object Oriented",
+      "No Functions",
+      "Slow Execution",
+      "No Classes"
+    ],
+    answer: "Object Oriented",
+    explain:
+      "C++ object oriented programming concepts support pannum."
+  },
+
+  {
+    id: 4,
+    title: "Applications of C++",
+    question: "Game development-ku adhigama use aagura language edhu?",
+    options: [
+      "HTML",
+      "CSS",
+      "C++",
+      "Excel"
+    ],
+    answer: "C++",
+    explain:
+      "High performance gaming engines-la C++ use pannuvanga."
+  },
+
+  {
+    id: 5,
+    title: "Compilation",
+    question: "C++ code machine code-ah convert panna enna use pannuvanga?",
+    options: [
+      "Compiler",
+      "Browser",
+      "Editor",
+      "Database"
+    ],
+    answer: "Compiler",
+    explain:
+      "Compiler source code-ah machine code-ah convert pannum."
+  },
+
+  {
+    id: 6,
+    title: "Structure",
+    question: "C++ program execution start aagura function edhu?",
+    options: [
+      "run()",
+      "execute()",
+      "main()",
+      "start()"
+    ],
+    answer: "main()",
+    explain:
+      "main() function-lendhu execution start aagum."
+  },
+
+  {
+    id: 7,
+    title: "Input Output",
+    question: "Output display panna C++-la enna use pannuvanga?",
+    options: [
+      "printf",
+      "cout",
+      "scanf",
+      "cin"
+    ],
+    answer: "cout",
+    explain:
+      "cout output display panna use pannuvanga."
+  },
+
+  {
+    id: 8,
+    title: "Input Output",
+    question: "Keyboard input edukka enna use pannuvanga?",
+    options: [
+      "cout",
+      "printf",
+      "cin",
+      "echo"
+    ],
+    answer: "cin",
+    explain:
+      "cin keyboard-lendhu values read pannum."
+  },
+
+  {
+    id: 9,
+    title: "Escape Sequence",
+    question: "New line create panna enna use pannuvanga?",
+    options: [
+      "\\t",
+      "\\n",
+      "\\a",
+      "\\b"
+    ],
+    answer: "\\n",
+    explain:
+      "\\n next line-ku move pannum."
+  },
+
+  {
+    id: 10,
+    title: "endl",
+    question: "C++-la new line-ku alternative keyword edhu?",
+    options: [
+      "break",
+      "next",
+      "endl",
+      "line"
+    ],
+    answer: "endl",
+    explain:
+      "endl output stream-la next line create pannum."
+  },
+
+  {
+    id: 11,
+    title: "Keywords",
+    question: "Reserved words-ku enna peyar?",
+    options: [
+      "Functions",
+      "Variables",
+      "Keywords",
+      "Operators"
+    ],
+    answer: "Keywords",
+    explain:
+      "Keywords predefined special meaning irukkura words."
+  },
+
+  {
+    id: 12,
+    title: "Identifiers",
+    question: "Variable name-ku use pannura term edhu?",
+    options: [
+      "Keyword",
+      "Identifier",
+      "Operator",
+      "Header"
+    ],
+    answer: "Identifier",
+    explain:
+      "Identifiers variables/functions names represent pannum."
+  },
+
+  {
+    id: 13,
+    title: "Variables",
+    question: "Value store panna enna use pannuvanga?",
+    options: [
+      "Variable",
+      "Loop",
+      "Compiler",
+      "Keyword"
+    ],
+    answer: "Variable",
+    explain:
+      "Variables data store panna use pannuvanga."
+  },
+
+  {
+    id: 14,
+    title: "Data Types",
+    question: "Integer values store panna use pannura datatype edhu?",
+    options: [
+      "float",
+      "char",
+      "int",
+      "double"
+    ],
+    answer: "int",
+    explain:
+      "int datatype integer values store pannum."
+  },
+
+  {
+    id: 15,
+    title: "Data Types",
+    question: "Decimal numbers-ku use pannura datatype edhu?",
+    options: [
+      "char",
+      "float",
+      "void",
+      "bool"
+    ],
+    answer: "float",
+    explain:
+      "float datatype decimal values store pannum."
+  },
+
+  {
+    id: 16,
+    title: "Operators",
+    question: "Addition operation-ku use pannura operator edhu?",
+    options: [
+      "+",
+      "-",
+      "*",
+      "/"
+    ],
+    answer: "+",
+    explain:
+      "+ operator addition perform pannum."
+  },
+
+  {
+    id: 17,
+    title: "Relational Operator",
+    question: "Equal comparison-ku use pannura operator edhu?",
+    options: [
+      "=",
+      "==",
+      "!=",
+      ">"
+    ],
+    answer: "==",
+    explain:
+      "== operator values equal-ah irukka check pannum."
+  },
+
+  {
+    id: 18,
+    title: "Logical Operator",
+    question: "Logical AND operator edhu?",
+    options: [
+      "&&",
+      "||",
+      "!",
+      "&"
+    ],
+    answer: "&&",
+    explain:
+      "&& operator rendu conditions true-ah irukkanum."
+  },
+
+  {
+    id: 19,
+    title: "Increment Operator",
+    question: "Increment operator edhu?",
+    options: [
+      "--",
+      "++",
+      "+=",
+      "-="
+    ],
+    answer: "++",
+    explain:
+      "++ variable value 1 increase pannum."
+  },
+
+  {
+    id: 20,
+    title: "Decision Making",
+    question: "Condition check panna use pannura statement edhu?",
+    options: [
+      "if",
+      "for",
+      "while",
+      "goto"
+    ],
+    answer: "if",
+    explain:
+      "if statement condition evaluate pannum."
+  },
+
+  {
+    id: 21,
+    title: "if else",
+    question: "Alternative execution-ku use pannura statement edhu?",
+    options: [
+      "if-else",
+      "loop",
+      "break",
+      "continue"
+    ],
+    answer: "if-else",
+    explain:
+      "if-else true/false conditions handle pannum."
+  },
+
+  {
+    id: 22,
+    title: "Switch",
+    question: "Multiple choices handle panna use pannura statement edhu?",
+    options: [
+      "if",
+      "switch",
+      "goto",
+      "for"
+    ],
+    answer: "switch",
+    explain:
+      "switch statement multiple cases handle pannum."
+  },
+
+  {
+    id: 23,
+    title: "Loops",
+    question: "Fixed iterations-ku best loop edhu?",
+    options: [
+      "for",
+      "goto",
+      "break",
+      "switch"
+    ],
+    answer: "for",
+    explain:
+      "for loop known iterations-ku use pannuvanga."
+  },
+
+  {
+    id: 24,
+    title: "Loops",
+    question: "Condition true varaikkum run aagura loop edhu?",
+    options: [
+      "if",
+      "while",
+      "switch",
+      "class"
+    ],
+    answer: "while",
+    explain:
+      "while loop condition true varaikkum execute aagum."
+  },
+
+  {
+    id: 25,
+    title: "Loops",
+    question: "Minimum oru thadava execute aagura loop edhu?",
+    options: [
+      "for",
+      "while",
+      "do-while",
+      "if"
+    ],
+    answer: "do-while",
+    explain:
+      "do-while loop atleast once execute aagum."
+  },
+
+  {
+    id: 26,
+    title: "Break",
+    question: "Loop-ah immediate stop panna use pannura keyword edhu?",
+    options: [
+      "continue",
+      "stop",
+      "break",
+      "exit"
+    ],
+    answer: "break",
+    explain:
+      "break loop execution stop pannum."
+  },
+
+  {
+    id: 27,
+    title: "Continue",
+    question: "Current iteration skip panna use pannura keyword edhu?",
+    options: [
+      "break",
+      "goto",
+      "continue",
+      "skip"
+    ],
+    answer: "continue",
+    explain:
+      "continue current iteration skip pannum."
+  },
+
+  {
+    id: 28,
+    title: "Functions",
+    question: "Reusable block of code-ku enna peyar?",
+    options: [
+      "Variable",
+      "Function",
+      "Loop",
+      "Header"
+    ],
+    answer: "Function",
+    explain:
+      "Functions reusable code blocks."
+  },
+
+  {
+    id: 29,
+    title: "Call by Value",
+    question: "Original value change aagatha method edhu?",
+    options: [
+      "Call by Reference",
+      "Call by Value",
+      "Pointer",
+      "Class"
+    ],
+    answer: "Call by Value",
+    explain:
+      "Copy of value pass pannuvanga."
+  },
+
+  {
+    id: 30,
+    title: "Call by Reference",
+    question: "Original value modify panna use pannura method edhu?",
+    options: [
+      "Call by Value",
+      "Call by Reference",
+      "Loop",
+      "Array"
+    ],
+    answer: "Call by Reference",
+    explain:
+      "Reference use pannitu original value modify pannuvanga."
+  },
+  {
+    id: 31,
+    title: "Inline Function",
+    question: "Execution speed improve panna small function-ku use pannura keyword edhu?",
+    options: [
+      "inline",
+      "static",
+      "virtual",
+      "friend"
+    ],
+    answer: "inline",
+    explain:
+      "inline function compiler function call overhead reduce pannum."
+  },
+
+  {
+    id: 32,
+    title: "Default Arguments",
+    question: "Function parameters-ku default value kudukka use pannura concept edhu?",
+    options: [
+      "Pointer",
+      "Default Arguments",
+      "Loop",
+      "Class"
+    ],
+    answer: "Default Arguments",
+    explain:
+      "Arguments pass pannaama irundhaalum default value use aagum."
+  },
+
+  {
+    id: 33,
+    title: "Function Overloading",
+    question: "Ore function name multiple forms-la use pannura concept edhu?",
+    options: [
+      "Inheritance",
+      "Function Overloading",
+      "Encapsulation",
+      "Abstraction"
+    ],
+    answer: "Function Overloading",
+    explain:
+      "Different parameters use pannitu same function name use pannalaam."
+  },
+
+  {
+    id: 34,
+    title: "Arrays",
+    question: "Multiple values same datatype-la store panna use pannura structure edhu?",
+    options: [
+      "Loop",
+      "Array",
+      "Pointer",
+      "Function"
+    ],
+    answer: "Array",
+    explain:
+      "Arrays same datatype values collection store pannum."
+  },
+
+  {
+    id: 35,
+    title: "1D Array",
+    question: "Single row values store pannura array type edhu?",
+    options: [
+      "1D Array",
+      "2D Array",
+      "3D Array",
+      "Pointer"
+    ],
+    answer: "1D Array",
+    explain:
+      "One dimensional array linear values store pannum."
+  },
+
+  {
+    id: 36,
+    title: "2D Array",
+    question: "Rows and columns structure use pannura array type edhu?",
+    options: [
+      "1D Array",
+      "Pointer Array",
+      "2D Array",
+      "Character Array"
+    ],
+    answer: "2D Array",
+    explain:
+      "2D arrays matrix format-la data store pannum."
+  },
+
+  {
+    id: 37,
+    title: "Strings",
+    question: "Characters collection-ku enna peyar?",
+    options: [
+      "Integer",
+      "String",
+      "Pointer",
+      "Loop"
+    ],
+    answer: "String",
+    explain:
+      "Characters sequence-ah store pannradhu string."
+  },
+
+  {
+    id: 38,
+    title: "String Function",
+    question: "String length find panna use pannura function edhu?",
+    options: [
+      "strlen()",
+      "size()",
+      "append()",
+      "copy()"
+    ],
+    answer: "strlen()",
+    explain:
+      "strlen() string length calculate pannum."
+  },
+
+  {
+    id: 39,
+    title: "Pointers",
+    question: "Memory address store panna use pannura variable edhu?",
+    options: [
+      "Array",
+      "Pointer",
+      "Loop",
+      "Class"
+    ],
+    answer: "Pointer",
+    explain:
+      "Pointers memory address-ah store pannum."
+  },
+
+  {
+    id: 40,
+    title: "Pointer Symbol",
+    question: "Pointer declaration-ku use pannura symbol edhu?",
+    options: [
+      "&",
+      "*",
+      "#",
+      "@"
+    ],
+    answer: "*",
+    explain:
+      "* symbol pointer declare panna use pannuvanga."
+  },
+
+  {
+    id: 41,
+    title: "Address Operator",
+    question: "Variable address edukka use pannura operator edhu?",
+    options: [
+      "*",
+      "&",
+      "%",
+      "#"
+    ],
+    answer: "&",
+    explain:
+      "& operator variable memory address return pannum."
+  },
+
+  {
+    id: 42,
+    title: "Dynamic Memory",
+    question: "Dynamic memory allocate panna C++-la use pannura keyword edhu?",
+    options: [
+      "malloc",
+      "alloc",
+      "new",
+      "create"
+    ],
+    answer: "new",
+    explain:
+      "new keyword runtime-la memory allocate pannum."
+  },
+
+  {
+    id: 43,
+    title: "Delete Operator",
+    question: "Allocated memory release panna use pannura keyword edhu?",
+    options: [
+      "remove",
+      "delete",
+      "free",
+      "clear"
+    ],
+    answer: "delete",
+    explain:
+      "delete dynamically allocated memory free pannum."
+  },
+
+  {
+    id: 44,
+    title: "OOP",
+    question: "C++ mainly entha programming paradigm follow pannum?",
+    options: [
+      "Procedural",
+      "Object Oriented",
+      "Markup",
+      "Functional Only"
+    ],
+    answer: "Object Oriented",
+    explain:
+      "C++ object oriented programming support pannum."
+  },
+
+  {
+    id: 45,
+    title: "Class",
+    question: "Objects create panna blueprint-ah use pannradhu edhu?",
+    options: [
+      "Function",
+      "Array",
+      "Class",
+      "Loop"
+    ],
+    answer: "Class",
+    explain:
+      "Class objects-ku blueprint madhiri work pannum."
+  },
+
+  {
+    id: 46,
+    title: "Object",
+    question: "Class instance-ku enna peyar?",
+    options: [
+      "Variable",
+      "Object",
+      "Function",
+      "Pointer"
+    ],
+    answer: "Object",
+    explain:
+      "Class lendhu create pannradhu object."
+  },
+
+  {
+    id: 47,
+    title: "Access Specifier",
+    question: "Class members private access-ku use pannura keyword edhu?",
+    options: [
+      "public",
+      "protected",
+      "private",
+      "friend"
+    ],
+    answer: "private",
+    explain:
+      "private members class-kulla mattum access panna mudiyum."
+  },
+
+  {
+    id: 48,
+    title: "Constructor",
+    question: "Object create aagumbodhu automatic-ah call aagura special function edhu?",
+    options: [
+      "Destructor",
+      "Constructor",
+      "Main",
+      "Inline"
+    ],
+    answer: "Constructor",
+    explain:
+      "Constructor object initialization-ku use pannuvanga."
+  },
+
+  {
+    id: 49,
+    title: "Destructor",
+    question: "Object destroy aagumbodhu automatic-ah call aagura function edhu?",
+    options: [
+      "Constructor",
+      "Main",
+      "Destructor",
+      "Delete"
+    ],
+    answer: "Destructor",
+    explain:
+      "Destructor cleanup operations handle pannum."
+  },
+
+  {
+    id: 50,
+    title: "this Pointer",
+    question: "Current object reference panna use pannura pointer edhu?",
+    options: [
+      "self",
+      "object",
+      "this",
+      "current"
+    ],
+    answer: "this",
+    explain:
+      "this pointer current object-ah indicate pannum."
+  },
+  {
+    id: 51,
+    title: "Inheritance",
+    question: "Existing class properties inherit panna use pannura concept edhu?",
+    options: [
+      "Polymorphism",
+      "Inheritance",
+      "Abstraction",
+      "Encapsulation"
+    ],
+    answer: "Inheritance",
+    explain:
+      "Inheritance existing class features reuse panna help pannum."
+  },
+
+  {
+    id: 52,
+    title: "Single Inheritance",
+    question: "One base class lendhu one derived class inherit pannradhu enna type?",
+    options: [
+      "Multiple",
+      "Hybrid",
+      "Single",
+      "Hierarchical"
+    ],
+    answer: "Single",
+    explain:
+      "Single inheritance-la oru base class mattum irukkum."
+  },
+
+  {
+    id: 53,
+    title: "Multiple Inheritance",
+    question: "One class multiple base classes inherit pannradhu enna type?",
+    options: [
+      "Single",
+      "Multiple",
+      "Multilevel",
+      "Hybrid"
+    ],
+    answer: "Multiple",
+    explain:
+      "Multiple inheritance-la one class many classes inherit pannum."
+  },
+
+  {
+    id: 54,
+    title: "Multilevel Inheritance",
+    question: "Class chain structure-la inherit pannradhu enna type?",
+    options: [
+      "Hierarchical",
+      "Hybrid",
+      "Multilevel",
+      "Single"
+    ],
+    answer: "Multilevel",
+    explain:
+      "Derived class next base class madhiri work pannum."
+  },
+
+  {
+    id: 55,
+    title: "Hierarchical Inheritance",
+    question: "One base class-ah multiple derived classes inherit pannradhu enna type?",
+    options: [
+      "Hierarchical",
+      "Hybrid",
+      "Multiple",
+      "Single"
+    ],
+    answer: "Hierarchical",
+    explain:
+      "One parent class multiple child classes-ku base aagum."
+  },
+
+  {
+    id: 56,
+    title: "Hybrid Inheritance",
+    question: "Different inheritance types combination-ku enna peyar?",
+    options: [
+      "Hybrid",
+      "Multiple",
+      "Single",
+      "Multilevel"
+    ],
+    answer: "Hybrid",
+    explain:
+      "Hybrid inheritance different inheritance mix pannum."
+  },
+
+  {
+    id: 57,
+    title: "Method Overriding",
+    question: "Base class method-ah derived class-la redefine pannradhu enna?",
+    options: [
+      "Function Overloading",
+      "Method Overriding",
+      "Inheritance",
+      "Template"
+    ],
+    answer: "Method Overriding",
+    explain:
+      "Derived class own implementation kudukkum."
+  },
+
+  {
+    id: 58,
+    title: "Polymorphism",
+    question: "One function many forms-la behave pannradhu enna concept?",
+    options: [
+      "Inheritance",
+      "Polymorphism",
+      "Abstraction",
+      "Encapsulation"
+    ],
+    answer: "Polymorphism",
+    explain:
+      "Polymorphism same interface-ku different behavior kudukkum."
+  },
+
+  {
+    id: 59,
+    title: "Compile Time Polymorphism",
+    question: "Function overloading entha type polymorphism?",
+    options: [
+      "Runtime",
+      "Compile Time",
+      "Dynamic",
+      "Virtual"
+    ],
+    answer: "Compile Time",
+    explain:
+      "Compile time-la decision edukka padum."
+  },
+
+  {
+    id: 60,
+    title: "Runtime Polymorphism",
+    question: "Virtual functions use pannura polymorphism type edhu?",
+    options: [
+      "Compile Time",
+      "Runtime",
+      "Static",
+      "Inline"
+    ],
+    answer: "Runtime",
+    explain:
+      "Execution time-la method decide pannuvanga."
+  },
+
+  {
+    id: 61,
+    title: "Operator Overloading",
+    question: "Operators-ku custom meaning kudukkura concept edhu?",
+    options: [
+      "Function Overloading",
+      "Operator Overloading",
+      "Inheritance",
+      "Pointer"
+    ],
+    answer: "Operator Overloading",
+    explain:
+      "Operators objects-kooda work panna redefine pannalaam."
+  },
+
+  {
+    id: 62,
+    title: "Virtual Function",
+    question: "Runtime polymorphism achieve panna use pannura function type edhu?",
+    options: [
+      "Inline",
+      "Static",
+      "Virtual",
+      "Friend"
+    ],
+    answer: "Virtual",
+    explain:
+      "Virtual functions dynamic binding support pannum."
+  },
+
+  {
+    id: 63,
+    title: "Encapsulation",
+    question: "Data and methods-ah single unit-la wrap pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction",
+      "Template"
+    ],
+    answer: "Encapsulation",
+    explain:
+      "Encapsulation data protection provide pannum."
+  },
+
+  {
+    id: 64,
+    title: "Abstraction",
+    question: "Unnecessary details hide pannradhu enna concept?",
+    options: [
+      "Abstraction",
+      "Inheritance",
+      "Pointer",
+      "Loop"
+    ],
+    answer: "Abstraction",
+    explain:
+      "Important details mattum show pannradhu abstraction."
+  },
+
+  {
+    id: 65,
+    title: "Abstract Class",
+    question: "Object create panna mudiyatha class type edhu?",
+    options: [
+      "Normal Class",
+      "Abstract Class",
+      "Friend Class",
+      "Inline Class"
+    ],
+    answer: "Abstract Class",
+    explain:
+      "Abstract classes incomplete implementation contain pannum."
+  },
+
+  {
+    id: 66,
+    title: "Pure Virtual Function",
+    question: "Abstract class create panna use pannura function type edhu?",
+    options: [
+      "Inline Function",
+      "Pure Virtual Function",
+      "Friend Function",
+      "Default Function"
+    ],
+    answer: "Pure Virtual Function",
+    explain:
+      "Pure virtual functions '= 0' use pannuvanga."
+  },
+
+  {
+    id: 67,
+    title: "File Handling",
+    question: "Files handle panna C++-la use pannura library edhu?",
+    options: [
+      "fstream",
+      "math",
+      "string",
+      "iomanip"
+    ],
+    answer: "fstream",
+    explain:
+      "fstream file input/output operations support pannum."
+  },
+
+  {
+    id: 68,
+    title: "File Modes",
+    question: "File write panna use pannura mode edhu?",
+    options: [
+      "ios::in",
+      "ios::out",
+      "ios::app",
+      "ios::binary"
+    ],
+    answer: "ios::out",
+    explain:
+      "ios::out write mode-ku use pannuvanga."
+  },
+
+  {
+    id: 69,
+    title: "Binary Files",
+    question: "Binary file mode-ku use pannura keyword edhu?",
+    options: [
+      "ios::text",
+      "ios::binary",
+      "ios::char",
+      "ios::normal"
+    ],
+    answer: "ios::binary",
+    explain:
+      "Binary mode raw data store pannum."
+  },
+
+  {
+    id: 70,
+    title: "Exception Handling",
+    question: "Exceptions handle panna use pannura block edhu?",
+    options: [
+      "if",
+      "try",
+      "switch",
+      "loop"
+    ],
+    answer: "try",
+    explain:
+      "try block risky code contain pannum."
+  },
+
+  {
+    id: 71,
+    title: "Catch Block",
+    question: "Thrown exception-ah handle panna use pannura block edhu?",
+    options: [
+      "throw",
+      "catch",
+      "goto",
+      "while"
+    ],
+    answer: "catch",
+    explain:
+      "catch block exceptions handle pannum."
+  },
+
+  {
+    id: 72,
+    title: "Throw Keyword",
+    question: "Exception generate panna use pannura keyword edhu?",
+    options: [
+      "throw",
+      "catch",
+      "new",
+      "break"
+    ],
+    answer: "throw",
+    explain:
+      "throw keyword exception trigger pannum."
+  },
+
+  {
+    id: 73,
+    title: "Templates",
+    question: "Generic programming-ku use pannura concept edhu?",
+    options: [
+      "Pointer",
+      "Template",
+      "Loop",
+      "Destructor"
+    ],
+    answer: "Template",
+    explain:
+      "Templates multiple datatypes support pannum."
+  },
+
+  {
+    id: 74,
+    title: "STL",
+    question: "STL full form enna?",
+    options: [
+      "Standard Template Library",
+      "System Type Library",
+      "Structured Template Logic",
+      "Standard Type Logic"
+    ],
+    answer: "Standard Template Library",
+    explain:
+      "STL ready-made data structures and algorithms provide pannum."
+  },
+
+  {
+    id: 75,
+    title: "Vector",
+    question: "Dynamic array-ku STL-la use pannura container edhu?",
+    options: [
+      "map",
+      "set",
+      "vector",
+      "queue"
+    ],
+    answer: "vector",
+    explain:
+      "vector dynamic resizing support pannum."
+  },
+  {
+    id: 76,
+    title: "List Container",
+    question: "Frequent insertion and deletion-ku STL-la use pannura container edhu?",
+    options: [
+      "vector",
+      "list",
+      "array",
+      "stack"
+    ],
+    answer: "list",
+    explain:
+      "list doubly linked list structure use pannum."
+  },
+
+  {
+    id: 77,
+    title: "Map Container",
+    question: "Key-value pairs store panna STL-la use pannura container edhu?",
+    options: [
+      "vector",
+      "set",
+      "map",
+      "queue"
+    ],
+    answer: "map",
+    explain:
+      "map key-value data store pannum."
+  },
+
+  {
+    id: 78,
+    title: "Set Container",
+    question: "Duplicate values allow pannaadha STL container edhu?",
+    options: [
+      "vector",
+      "list",
+      "set",
+      "array"
+    ],
+    answer: "set",
+    explain:
+      "set unique values mattum store pannum."
+  },
+
+  {
+    id: 79,
+    title: "Iterator",
+    question: "STL containers traverse panna use pannura concept edhu?",
+    options: [
+      "Pointer",
+      "Iterator",
+      "Loop",
+      "Class"
+    ],
+    answer: "Iterator",
+    explain:
+      "Iterators containers elements access panna use pannuvanga."
+  },
+
+  {
+    id: 80,
+    title: "Algorithm",
+    question: "Sorting-ku STL-la common-ah use pannura function edhu?",
+    options: [
+      "arrange()",
+      "sort()",
+      "order()",
+      "filter()"
+    ],
+    answer: "sort()",
+    explain:
+      "sort() elements ascending order-la arrange pannum."
+  },
+
+  {
+    id: 81,
+    title: "Namespace",
+    question: "Name conflicts avoid panna use pannura concept edhu?",
+    options: [
+      "Template",
+      "Namespace",
+      "Pointer",
+      "Loop"
+    ],
+    answer: "Namespace",
+    explain:
+      "Namespaces identifiers conflicts avoid pannum."
+  },
+
+  {
+    id: 82,
+    title: "std Namespace",
+    question: "cout, cin irukkura default namespace edhu?",
+    options: [
+      "system",
+      "std",
+      "cpp",
+      "main"
+    ],
+    answer: "std",
+    explain:
+      "Standard library objects std namespace-kulla irukkum."
+  },
+
+  {
+    id: 83,
+    title: "Type Casting",
+    question: "One datatype-ah another datatype-ah convert pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Type Casting",
+      "Polymorphism",
+      "Looping"
+    ],
+    answer: "Type Casting",
+    explain:
+      "Type casting datatype conversion-ku use pannuvanga."
+  },
+
+  {
+    id: 84,
+    title: "const Keyword",
+    question: "Value change panna mudiyama variable define panna use pannura keyword edhu?",
+    options: [
+      "final",
+      "constant",
+      "const",
+      "fixed"
+    ],
+    answer: "const",
+    explain:
+      "const variables modify panna mudiyadhu."
+  },
+
+  {
+    id: 85,
+    title: "Lambda Expression",
+    question: "Anonymous function create panna use pannura concept edhu?",
+    options: [
+      "Template",
+      "Lambda Expression",
+      "Namespace",
+      "Array"
+    ],
+    answer: "Lambda Expression",
+    explain:
+      "Lambda expressions quick function creation-ku use pannuvanga."
+  },
+
+  {
+    id: 86,
+    title: "Smart Pointer",
+    question: "Automatic memory management-ku use pannura modern pointer type edhu?",
+    options: [
+      "Normal Pointer",
+      "Smart Pointer",
+      "Void Pointer",
+      "Array Pointer"
+    ],
+    answer: "Smart Pointer",
+    explain:
+      "Smart pointers memory leaks reduce pannum."
+  },
+
+  {
+    id: 87,
+    title: "Friend Function",
+    question: "Private members access panna permission kudukkura function edhu?",
+    options: [
+      "Inline Function",
+      "Friend Function",
+      "Static Function",
+      "Main Function"
+    ],
+    answer: "Friend Function",
+    explain:
+      "Friend functions private members access panna mudiyum."
+  },
+
+  {
+    id: 88,
+    title: "Static Member",
+    question: "All objects-kum common-ah irukkura class member edhu?",
+    options: [
+      "Local Member",
+      "Inline Member",
+      "Static Member",
+      "Friend Member"
+    ],
+    answer: "Static Member",
+    explain:
+      "Static members class-level shared data store pannum."
+  },
+
+  {
+    id: 89,
+    title: "Constructor Type",
+    question: "Arguments illaama irukkura constructor type edhu?",
+    options: [
+      "Parameterized Constructor",
+      "Copy Constructor",
+      "Default Constructor",
+      "Inline Constructor"
+    ],
+    answer: "Default Constructor",
+    explain:
+      "Default constructor parameters illaama work pannum."
+  },
+
+  {
+    id: 90,
+    title: "Copy Constructor",
+    question: "Object copy initialize panna use pannura constructor edhu?",
+    options: [
+      "Parameterized Constructor",
+      "Inline Constructor",
+      "Copy Constructor",
+      "Default Constructor"
+    ],
+    answer: "Copy Constructor",
+    explain:
+      "Copy constructor another object values copy pannum."
+  },
+
+  {
+    id: 91,
+    title: "Virtual Base Class",
+    question: "Diamond problem solve panna use pannura concept edhu?",
+    options: [
+      "Static Class",
+      "Friend Class",
+      "Virtual Base Class",
+      "Abstract Class"
+    ],
+    answer: "Virtual Base Class",
+    explain:
+      "Virtual base classes duplicate inheritance avoid pannum."
+  },
+
+  {
+    id: 92,
+    title: "Text File",
+    question: "Human readable format-la irukkura file type edhu?",
+    options: [
+      "Binary File",
+      "Text File",
+      "Machine File",
+      "Object File"
+    ],
+    answer: "Text File",
+    explain:
+      "Text files readable characters store pannum."
+  },
+
+  {
+    id: 93,
+    title: "Binary File",
+    question: "Fast processing-ku use pannura compact file type edhu?",
+    options: [
+      "Text File",
+      "Binary File",
+      "HTML File",
+      "CSS File"
+    ],
+    answer: "Binary File",
+    explain:
+      "Binary files raw binary format-la data store pannum."
+  },
+
+  {
+    id: 94,
+    title: "User Defined Exception",
+    question: "Programmer create pannura custom exception-ku enna peyar?",
+    options: [
+      "Default Exception",
+      "System Error",
+      "User Defined Exception",
+      "Compile Error"
+    ],
+    answer: "User Defined Exception",
+    explain:
+      "Custom exceptions developers create pannuvanga."
+  },
+
+  {
+    id: 95,
+    title: "Vector Size",
+    question: "Vector elements count edukka use pannura function edhu?",
+    options: [
+      "count()",
+      "size()",
+      "length()",
+      "total()"
+    ],
+    answer: "size()",
+    explain:
+      "size() vector total elements return pannum."
+  },
+
+  {
+    id: 96,
+    title: "Map Access",
+    question: "map container-la values access panna use pannura operator edhu?",
+    options: [
+      "()",
+      "[]",
+      "{}",
+      "<>"
+    ],
+    answer: "[]",
+    explain:
+      "Square brackets use pannitu map values access pannalaam."
+  },
+
+  {
+    id: 97,
+    title: "STL Header",
+    question: "vector use panna include panna vendiya header file edhu?",
+    options: [
+      "<map>",
+      "<list>",
+      "<vector>",
+      "<array>"
+    ],
+    answer: "<vector>",
+    explain:
+      "<vector> header vector container definitions provide pannum."
+  },
+
+  {
+    id: 98,
+    title: "Loop Control",
+    question: "goto statement enna pannum?",
+    options: [
+      "Loop stop pannum",
+      "Specific label-ku jump pannum",
+      "Function close pannum",
+      "Object create pannum"
+    ],
+    answer: "Specific label-ku jump pannum",
+    explain:
+      "goto statement program control-ah specific label-ku move pannum."
+  },
+
+  {
+    id: 99,
+    title: "Bank Application",
+    question: "Bank management systems develop panna commonly use aagura language edhu?",
+    options: [
+      "HTML",
+      "CSS",
+      "C++",
+      "Photoshop"
+    ],
+    answer: "C++",
+    explain:
+      "Banking applications performance and security-kaga C++ use pannuvanga."
+  },
+
+  {
+    id: 100,
+    title: "Student Management System",
+    question: "Student records maintain panna use pannura mini project type edhu?",
+    options: [
+      "Game Engine",
+      "Student Management System",
+      "Video Editor",
+      "Operating System"
+    ],
+    answer: "Student Management System",
+    explain:
+      "Student management system records manage panna use pannuvanga."
+  },
+  {
+    id: 101,
+    title: "C vs C++",
+    question: "C++ language edhai base pannitu develop pannanga?",
+    options: [
+      "Java",
+      "Python",
+      "C",
+      "HTML"
+    ],
+    answer: "C",
+    explain:
+      "C++ language C language extension-ah develop pannanga."
+  },
+
+  {
+    id: 102,
+    title: "Difference Between C and C++",
+    question: "Object Oriented Programming support pannura language edhu?",
+    options: [
+      "C only",
+      "C++",
+      "Assembly",
+      "HTML"
+    ],
+    answer: "C++",
+    explain:
+      "C++ object oriented concepts support pannum."
+  },
+
+  {
+    id: 103,
+    title: "Tokens",
+    question: "C++ program smallest individual unit-ku enna peyar?",
+    options: [
+      "Statement",
+      "Token",
+      "Loop",
+      "Object"
+    ],
+    answer: "Token",
+    explain:
+      "Tokens program basic building blocks."
+  },
+
+  {
+    id: 104,
+    title: "Assignment Operator",
+    question: "Value assign panna use pannura operator edhu?",
+    options: [
+      "=",
+      "==",
+      "!=",
+      "&&"
+    ],
+    answer: "=",
+    explain:
+      "= operator variable-ku value assign pannum."
+  },
+
+  {
+    id: 105,
+    title: "Compound Assignment",
+    question: "x += 5 expression enna pannum?",
+    options: [
+      "x = x + 5",
+      "x = 5",
+      "x = x - 5",
+      "x = 0"
+    ],
+    answer: "x = x + 5",
+    explain:
+      "+= current value-kooda addition pannum."
+  },
+
+  {
+    id: 106,
+    title: "Logical OR",
+    question: "Logical OR operator edhu?",
+    options: [
+      "&&",
+      "||",
+      "!",
+      "&"
+    ],
+    answer: "||",
+    explain:
+      "|| operator-la oru condition true irundhaalum true return aagum."
+  },
+
+  {
+    id: 107,
+    title: "Nested if",
+    question: "if statement-kulla innoru if statement use pannradhu enna?",
+    options: [
+      "Loop if",
+      "Nested if",
+      "Switch if",
+      "Inline if"
+    ],
+    answer: "Nested if",
+    explain:
+      "Nested if multiple conditions deeply check panna use pannuvanga."
+  },
+
+  {
+    id: 108,
+    title: "Ladder if",
+    question: "Multiple conditions sequential-ah check panna use pannura structure edhu?",
+    options: [
+      "if ladder",
+      "goto",
+      "for",
+      "while"
+    ],
+    answer: "if ladder",
+    explain:
+      "if-else-if ladder multiple conditions handle pannum."
+  },
+
+  {
+    id: 109,
+    title: "Multidimensional Array",
+    question: "More than two dimensions irukkura arrays-ku enna peyar?",
+    options: [
+      "Single Array",
+      "Pointer Array",
+      "Multidimensional Array",
+      "Inline Array"
+    ],
+    answer: "Multidimensional Array",
+    explain:
+      "Multidimensional arrays multiple dimensions data store pannum."
+  },
+
+  {
+    id: 110,
+    title: "Pointers to Functions",
+    question: "Function address store panna use pannura concept edhu?",
+    options: [
+      "Function Pointer",
+      "Class Pointer",
+      "Loop Pointer",
+      "Variable Pointer"
+    ],
+    answer: "Function Pointer",
+    explain:
+      "Function pointers functions reference panna use pannuvanga."
+  },
+
+  {
+    id: 111,
+    title: "Interfaces",
+    question: "Pure virtual functions use pannitu interface concept implement pannuvanga. True or False?",
+    options: [
+      "True",
+      "False",
+      "Only Java",
+      "Only C"
+    ],
+    answer: "True",
+    explain:
+      "C++-la abstract classes interface madhiri use pannalaam."
+  },
+
+  {
+    id: 112,
+    title: "Multiple Catch",
+    question: "Different exceptions handle panna multiple catch blocks use panna mudiyuma?",
+    options: [
+      "Yes",
+      "No",
+      "Only once",
+      "Only runtime"
+    ],
+    answer: "Yes",
+    explain:
+      "Multiple catch blocks different exception types handle pannum."
+  },
+
+  {
+    id: 113,
+    title: "Class Template",
+    question: "Generic classes create panna use pannura concept edhu?",
+    options: [
+      "Function Template",
+      "Class Template",
+      "Inheritance",
+      "Pointer"
+    ],
+    answer: "Class Template",
+    explain:
+      "Class templates multiple datatypes support pannum."
+  },
+
+  {
+    id: 114,
+    title: "STL Algorithm",
+    question: "Container-la specific value search panna use pannura STL algorithm edhu?",
+    options: [
+      "sort()",
+      "find()",
+      "erase()",
+      "push()"
+    ],
+    answer: "find()",
+    explain:
+      "find() specific element search panna use pannuvanga."
+  },
+
+  {
+    id: 115,
+    title: "Count Algorithm",
+    question: "Occurrences count panna STL-la use pannura function edhu?",
+    options: [
+      "search()",
+      "count()",
+      "total()",
+      "number()"
+    ],
+    answer: "count()",
+    explain:
+      "count() occurrences calculate pannum."
+  },
+
+  {
+    id: 116,
+    title: "Type Casting",
+    question: "Compile time type conversion-ku use pannura casting edhu?",
+    options: [
+      "dynamic_cast",
+      "static_cast",
+      "virtual_cast",
+      "runtime_cast"
+    ],
+    answer: "static_cast",
+    explain:
+      "static_cast compile-time conversions perform pannum."
+  },
+
+  {
+    id: 117,
+    title: "Dynamic Cast",
+    question: "Runtime type checking-ku use pannura cast edhu?",
+    options: [
+      "static_cast",
+      "dynamic_cast",
+      "float_cast",
+      "normal_cast"
+    ],
+    answer: "dynamic_cast",
+    explain:
+      "dynamic_cast runtime type safety provide pannum."
+  },
+
+  {
+    id: 118,
+    title: "Const Function",
+    question: "Object data modify pannaadha member function-ku enna peyar?",
+    options: [
+      "Static Function",
+      "Const Function",
+      "Inline Function",
+      "Friend Function"
+    ],
+    answer: "Const Function",
+    explain:
+      "Const member functions object state modify pannaadhu."
+  },
+
+  {
+    id: 119,
+    title: "Pure Virtual Syntax",
+    question: "Pure virtual function syntax-la use pannura symbol edhu?",
+    options: [
+      "= 1",
+      "= 0",
+      "=>",
+      "::"
+    ],
+    answer: "= 0",
+    explain:
+      "Pure virtual functions '= 0' syntax use pannum."
+  },
+
+  {
+    id: 120,
+    title: "Final Coverage",
+    question: "C++-la OOP concepts include pannuvanga. True or False?",
+    options: [
+      "True",
+      "False",
+      "Only C",
+      "Only Java"
+    ],
+    answer: "True",
+    explain:
+      "C++ complete object oriented concepts support pannum."
+  },
+  {
+    id: 121,
+    title: "Reference Variable",
+    question: "Another variable-ku alias create panna use pannura concept edhu?",
+    options: [
+      "Pointer",
+      "Reference Variable",
+      "Loop",
+      "Array"
+    ],
+    answer: "Reference Variable",
+    explain:
+      "Reference variable existing variable-ku another name create pannum."
+  },
+
+  {
+    id: 122,
+    title: "Scope Resolution",
+    question: "Global variable access panna use pannura operator edhu?",
+    options: [
+      "::",
+      "->",
+      ".",
+      "=="
+    ],
+    answer: "::",
+    explain:
+      ":: operator global scope access panna use pannuvanga."
+  },
+
+  {
+    id: 123,
+    title: "Member Access",
+    question: "Object members access panna use pannura operator edhu?",
+    options: [
+      "->",
+      ".",
+      "::",
+      "*"
+    ],
+    answer: ".",
+    explain:
+      ". operator object members access pannum."
+  },
+
+  {
+    id: 124,
+    title: "Arrow Operator",
+    question: "Pointer object members access panna use pannura operator edhu?",
+    options: [
+      ".",
+      "::",
+      "->",
+      "&"
+    ],
+    answer: "->",
+    explain:
+      "-> operator pointer objects members access pannum."
+  },
+
+  {
+    id: 125,
+    title: "sizeof Operator",
+    question: "Datatype memory size find panna use pannura operator edhu?",
+    options: [
+      "length",
+      "count",
+      "sizeof",
+      "memory"
+    ],
+    answer: "sizeof",
+    explain:
+      "sizeof datatype or variable memory size return pannum."
+  },
+
+  {
+    id: 126,
+    title: "Boolean Data Type",
+    question: "True or False values store panna use pannura datatype edhu?",
+    options: [
+      "int",
+      "bool",
+      "float",
+      "char"
+    ],
+    answer: "bool",
+    explain:
+      "bool datatype true/false values store pannum."
+  },
+
+  {
+    id: 127,
+    title: "Character Data Type",
+    question: "Single character store panna use pannura datatype edhu?",
+    options: [
+      "char",
+      "string",
+      "bool",
+      "double"
+    ],
+    answer: "char",
+    explain:
+      "char datatype single character store pannum."
+  },
+
+  {
+    id: 128,
+    title: "Double Data Type",
+    question: "High precision decimal values-ku use pannura datatype edhu?",
+    options: [
+      "float",
+      "double",
+      "int",
+      "char"
+    ],
+    answer: "double",
+    explain:
+      "double datatype higher precision decimal values store pannum."
+  },
+
+  {
+    id: 129,
+    title: "Unary Operator",
+    question: "Single operand mela work pannura operator type edhu?",
+    options: [
+      "Binary Operator",
+      "Unary Operator",
+      "Logical Operator",
+      "Assignment Operator"
+    ],
+    answer: "Unary Operator",
+    explain:
+      "Unary operators single operand use pannum."
+  },
+
+  {
+    id: 130,
+    title: "Modulo Operator",
+    question: "Remainder calculate panna use pannura operator edhu?",
+    options: [
+      "/",
+      "%",
+      "*",
+      "+"
+    ],
+    answer: "%",
+    explain:
+      "% operator remainder return pannum."
+  },
+
+  {
+    id: 131,
+    title: "Nested Loop",
+    question: "Loop-kulla another loop use pannradhu enna?",
+    options: [
+      "Infinite Loop",
+      "Nested Loop",
+      "Conditional Loop",
+      "Recursive Loop"
+    ],
+    answer: "Nested Loop",
+    explain:
+      "Nested loops multiple level iterations perform pannum."
+  },
+
+  {
+    id: 132,
+    title: "Infinite Loop",
+    question: "Stop condition illaama continuous-ah run aagura loop edhu?",
+    options: [
+      "Finite Loop",
+      "Infinite Loop",
+      "Nested Loop",
+      "Conditional Loop"
+    ],
+    answer: "Infinite Loop",
+    explain:
+      "Infinite loops stop condition illaama run aagum."
+  },
+
+  {
+    id: 133,
+    title: "Recursion",
+    question: "Function thane thaniya call pannradhu enna concept?",
+    options: [
+      "Looping",
+      "Inheritance",
+      "Recursion",
+      "Polymorphism"
+    ],
+    answer: "Recursion",
+    explain:
+      "Recursion-la function self-call pannum."
+  },
+
+  {
+    id: 134,
+    title: "Function Prototype",
+    question: "Function definition-ku munadi declaration kudukkardhu enna?",
+    options: [
+      "Function Call",
+      "Function Prototype",
+      "Inline Function",
+      "Class Template"
+    ],
+    answer: "Function Prototype",
+    explain:
+      "Function prototype compiler-ku function info provide pannum."
+  },
+
+  {
+    id: 135,
+    title: "Return Statement",
+    question: "Function-lendhu value anuppa use pannura keyword edhu?",
+    options: [
+      "send",
+      "exit",
+      "return",
+      "break"
+    ],
+    answer: "return",
+    explain:
+      "return function output value provide pannum."
+  },
+
+  {
+    id: 136,
+    title: "Array Index",
+    question: "C++ arrays indexing start aagura value edhu?",
+    options: [
+      "1",
+      "0",
+      "-1",
+      "10"
+    ],
+    answer: "0",
+    explain:
+      "C++ arrays zero indexing use pannum."
+  },
+
+  {
+    id: 137,
+    title: "String Class",
+    question: "Modern C++-la strings handle panna commonly use pannura class edhu?",
+    options: [
+      "char",
+      "string",
+      "text",
+      "word"
+    ],
+    answer: "string",
+    explain:
+      "string class flexible string operations support pannum."
+  },
+
+  {
+    id: 138,
+    title: "Pointer Arithmetic",
+    question: "Pointer value increase pannumbodhu enna nadakkum?",
+    options: [
+      "Next memory location-ku move aagum",
+      "Program stop aagum",
+      "Pointer delete aagum",
+      "Datatype change aagum"
+    ],
+    answer: "Next memory location-ku move aagum",
+    explain:
+      "Pointer arithmetic next memory address access pannum."
+  },
+
+  {
+    id: 139,
+    title: "Null Pointer",
+    question: "Valid address point pannaadha pointer-ku enna peyar?",
+    options: [
+      "Void Pointer",
+      "Dangling Pointer",
+      "Null Pointer",
+      "Smart Pointer"
+    ],
+    answer: "Null Pointer",
+    explain:
+      "Null pointers valid memory reference pannaadhu."
+  },
+
+  {
+    id: 140,
+    title: "Dangling Pointer",
+    question: "Freed memory-ah point pannura pointer-ku enna peyar?",
+    options: [
+      "Null Pointer",
+      "Smart Pointer",
+      "Dangling Pointer",
+      "Static Pointer"
+    ],
+    answer: "Dangling Pointer",
+    explain:
+      "Dangling pointers invalid memory reference pannum."
+  },
+  {
+    id: 141,
+    title: "Void Pointer",
+    question: "Any datatype address-ah hold panna use pannura pointer type edhu?",
+    options: [
+      "Null Pointer",
+      "Void Pointer",
+      "Dangling Pointer",
+      "Smart Pointer"
+    ],
+    answer: "Void Pointer",
+    explain:
+      "Void pointer generic memory address store panna use pannuvanga."
+  },
+
+  {
+    id: 142,
+    title: "Memory Leak",
+    question: "Allocated memory release pannaama விட்டா enna problem varum?",
+    options: [
+      "Syntax Error",
+      "Memory Leak",
+      "Infinite Loop",
+      "Compilation Error"
+    ],
+    answer: "Memory Leak",
+    explain:
+      "Unused allocated memory release pannaama irundha memory leak nadakkum."
+  },
+
+  {
+    id: 143,
+    title: "Constructor Overloading",
+    question: "Multiple constructors same class-la use pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Constructor Overloading",
+      "Function Overriding",
+      "Abstraction"
+    ],
+    answer: "Constructor Overloading",
+    explain:
+      "Different parameters use pannitu constructors create pannalaam."
+  },
+
+  {
+    id: 144,
+    title: "Parameterized Constructor",
+    question: "Arguments receive pannura constructor type edhu?",
+    options: [
+      "Default Constructor",
+      "Parameterized Constructor",
+      "Copy Constructor",
+      "Inline Constructor"
+    ],
+    answer: "Parameterized Constructor",
+    explain:
+      "Parameterized constructors values initialize panna use pannuvanga."
+  },
+
+  {
+    id: 145,
+    title: "Destructor Symbol",
+    question: "Destructor define panna entha symbol use pannuvanga?",
+    options: [
+      "#",
+      "~",
+      "@",
+      "$"
+    ],
+    answer: "~",
+    explain:
+      "~ symbol destructor declaration-ku use pannuvanga."
+  },
+
+  {
+    id: 146,
+    title: "Protected Access",
+    question: "Derived classes access panna mudiyura access specifier edhu?",
+    options: [
+      "private",
+      "public",
+      "protected",
+      "hidden"
+    ],
+    answer: "protected",
+    explain:
+      "protected members derived classes-lendhu access panna mudiyum."
+  },
+
+  {
+    id: 147,
+    title: "Friend Class",
+    question: "Another class private members access panna permission kudukkura concept edhu?",
+    options: [
+      "Virtual Class",
+      "Friend Class",
+      "Abstract Class",
+      "Static Class"
+    ],
+    answer: "Friend Class",
+    explain:
+      "Friend classes private/protected members access panna mudiyum."
+  },
+
+  {
+    id: 148,
+    title: "Base Class",
+    question: "Inheritance-la parent class-ku enna peyar?",
+    options: [
+      "Derived Class",
+      "Base Class",
+      "Child Object",
+      "Static Class"
+    ],
+    answer: "Base Class",
+    explain:
+      "Base class inheritance parent class-ah irukkum."
+  },
+
+  {
+    id: 149,
+    title: "Derived Class",
+    question: "Inheritance-la child class-ku enna peyar?",
+    options: [
+      "Friend Class",
+      "Derived Class",
+      "Inline Class",
+      "Pointer Class"
+    ],
+    answer: "Derived Class",
+    explain:
+      "Derived class base class properties inherit pannum."
+  },
+
+  {
+    id: 150,
+    title: "Dynamic Binding",
+    question: "Runtime-la function call decide pannradhu enna concept?",
+    options: [
+      "Static Binding",
+      "Dynamic Binding",
+      "Function Prototype",
+      "Inline Binding"
+    ],
+    answer: "Dynamic Binding",
+    explain:
+      "Dynamic binding runtime polymorphism support pannum."
+  },
+
+  {
+    id: 151,
+    title: "Static Binding",
+    question: "Compile time-la function call decide pannradhu enna?",
+    options: [
+      "Dynamic Binding",
+      "Static Binding",
+      "Runtime Binding",
+      "Virtual Binding"
+    ],
+    answer: "Static Binding",
+    explain:
+      "Static binding compile time-la decide aagum."
+  },
+
+  {
+    id: 152,
+    title: "Virtual Destructor",
+    question: "Polymorphic classes-la proper cleanup-ku use pannura destructor type edhu?",
+    options: [
+      "Inline Destructor",
+      "Virtual Destructor",
+      "Static Destructor",
+      "Friend Destructor"
+    ],
+    answer: "Virtual Destructor",
+    explain:
+      "Virtual destructors derived objects proper-ah destroy pannum."
+  },
+
+  {
+    id: 153,
+    title: "Exception Type",
+    question: "Program execution time-la nadakkura errors-ku enna peyar?",
+    options: [
+      "Compile Error",
+      "Runtime Error",
+      "Syntax Error",
+      "Logical Token"
+    ],
+    answer: "Runtime Error",
+    explain:
+      "Runtime errors execution time-la occur aagum."
+  },
+
+  {
+    id: 154,
+    title: "Syntax Error",
+    question: "Programming rules violate pannumbodhu varura error edhu?",
+    options: [
+      "Runtime Error",
+      "Syntax Error",
+      "Logical Error",
+      "Memory Error"
+    ],
+    answer: "Syntax Error",
+    explain:
+      "Syntax errors compiler detect pannum."
+  },
+
+  {
+    id: 155,
+    title: "Logical Error",
+    question: "Program run aanaalum wrong output kudukkura error edhu?",
+    options: [
+      "Compile Error",
+      "Syntax Error",
+      "Logical Error",
+      "Header Error"
+    ],
+    answer: "Logical Error",
+    explain:
+      "Logical errors incorrect program logic nala varum."
+  },
+
+  {
+    id: 156,
+    title: "Template Syntax",
+    question: "Templates define panna use pannura keyword edhu?",
+    options: [
+      "generic",
+      "template",
+      "typename",
+      "class"
+    ],
+    answer: "template",
+    explain:
+      "template keyword generic programming-ku use pannuvanga."
+  },
+
+  {
+    id: 157,
+    title: "Queue Container",
+    question: "FIFO principle follow pannura STL container edhu?",
+    options: [
+      "stack",
+      "queue",
+      "vector",
+      "set"
+    ],
+    answer: "queue",
+    explain:
+      "Queue First In First Out principle follow pannum."
+  },
+
+  {
+    id: 158,
+    title: "Stack Container",
+    question: "LIFO principle follow pannura STL container edhu?",
+    options: [
+      "queue",
+      "stack",
+      "map",
+      "list"
+    ],
+    answer: "stack",
+    explain:
+      "Stack Last In First Out principle follow pannum."
+  },
+
+  {
+    id: 159,
+    title: "Pair",
+    question: "Two values together store panna STL utility edhu?",
+    options: [
+      "pair",
+      "vector",
+      "set",
+      "queue"
+    ],
+    answer: "pair",
+    explain:
+      "pair rendu related values store pannum."
+  },
+
+  {
+    id: 160,
+    title: "Auto Keyword",
+    question: "Compiler automatic datatype detect panna use pannura keyword edhu?",
+    options: [
+      "var",
+      "dynamic",
+      "auto",
+      "detect"
+    ],
+    answer: "auto",
+    explain:
+      "auto keyword datatype automatic-ah infer pannum."
+  }
+
+];
+
+export const javaTasks = [
+
+  {
+    id: 1,
+    title: "Introduction to Java",
+    question: "Java language-ai uruvakkina person yaaru?",
+    options: [
+      "Dennis Ritchie",
+      "James Gosling",
+      "Guido van Rossum",
+      "Bjarne Stroustrup"
+    ],
+    answer: "James Gosling",
+    explain:
+      "James Gosling Sun Microsystems-la Java language develop panninar."
+  },
+
+  {
+    id: 2,
+    title: "Java Features",
+    question: "Java-oda mukkiya feature edhu?",
+    options: [
+      "Platform Independent",
+      "Machine Dependent",
+      "No OOP",
+      "No Security"
+    ],
+    answer: "Platform Independent",
+    explain:
+      "Java bytecode JVM moolama any platform-la run aagum."
+  },
+
+  {
+    id: 3,
+    title: "JVM",
+    question: "Java bytecode execute panna use pannura component edhu?",
+    options: [
+      "JDK",
+      "JRE",
+      "JVM",
+      "JDBC"
+    ],
+    answer: "JVM",
+    explain:
+      "JVM Java bytecode execute pannum."
+  },
+
+  {
+    id: 4,
+    title: "JDK",
+    question: "Java development-ku required toolkit edhu?",
+    options: [
+      "JVM",
+      "JRE",
+      "JDK",
+      "IDE"
+    ],
+    answer: "JDK",
+    explain:
+      "JDK compiler and development tools contain pannum."
+  },
+
+  {
+    id: 5,
+    title: "JRE",
+    question: "Java applications run panna required environment edhu?",
+    options: [
+      "JDK",
+      "JRE",
+      "IDE",
+      "Compiler"
+    ],
+    answer: "JRE",
+    explain:
+      "JRE Java runtime environment provide pannum."
+  },
+
+  {
+    id: 6,
+    title: "Java File Extension",
+    question: "Java source file extension edhu?",
+    options: [
+      ".cpp",
+      ".java",
+      ".js",
+      ".py"
+    ],
+    answer: ".java",
+    explain:
+      ".java extension Java source files-ku use pannuvanga."
+  },
+
+  {
+    id: 7,
+    title: "Compilation",
+    question: "Java source code compile panna use pannura command edhu?",
+    options: [
+      "java",
+      "javac",
+      "compile",
+      "run"
+    ],
+    answer: "javac",
+    explain:
+      "javac source code-ah bytecode-ah convert pannum."
+  },
+
+  {
+    id: 8,
+    title: "Execution",
+    question: "Compiled Java program run panna use pannura command edhu?",
+    options: [
+      "javac",
+      "java",
+      "execute",
+      "jdk"
+    ],
+    answer: "java",
+    explain:
+      "java command JVM-la program execute pannum."
+  },
+
+  {
+    id: 9,
+    title: "Main Method",
+    question: "Java execution start aagura method edhu?",
+    options: [
+      "run()",
+      "main()",
+      "start()",
+      "execute()"
+    ],
+    answer: "main()",
+    explain:
+      "main() method-lendhu Java execution start aagum."
+  },
+
+  {
+    id: 10,
+    title: "Keywords",
+    question: "Reserved words-ku Java-la enna peyar?",
+    options: [
+      "Functions",
+      "Variables",
+      "Keywords",
+      "Objects"
+    ],
+    answer: "Keywords",
+    explain:
+      "Keywords predefined meaning irukkura special words."
+  },
+
+  {
+    id: 11,
+    title: "Variables",
+    question: "Data store panna Java-la enna use pannuvanga?",
+    options: [
+      "Loop",
+      "Variable",
+      "Class",
+      "Package"
+    ],
+    answer: "Variable",
+    explain:
+      "Variables data values store panna use pannuvanga."
+  },
+
+  {
+    id: 12,
+    title: "Datatypes",
+    question: "Integer values store panna use pannura datatype edhu?",
+    options: [
+      "float",
+      "double",
+      "int",
+      "char"
+    ],
+    answer: "int",
+    explain:
+      "int datatype integer numbers store pannum."
+  },
+
+  {
+    id: 13,
+    title: "Boolean Datatype",
+    question: "True/False values store panna use pannura datatype edhu?",
+    options: [
+      "char",
+      "bool",
+      "boolean",
+      "double"
+    ],
+    answer: "boolean",
+    explain:
+      "boolean datatype true or false values store pannum."
+  },
+
+  {
+    id: 14,
+    title: "Scanner Class",
+    question: "Keyboard input edukka commonly use pannura class edhu?",
+    options: [
+      "System",
+      "Scanner",
+      "Input",
+      "Reader"
+    ],
+    answer: "Scanner",
+    explain:
+      "Scanner class user input read panna use pannuvanga."
+  },
+
+  {
+    id: 15,
+    title: "Output",
+    question: "Output display panna use pannura statement edhu?",
+    options: [
+      "System.in.println()",
+      "System.out.println()",
+      "print()",
+      "echo()"
+    ],
+    answer: "System.out.println()",
+    explain:
+      "System.out.println() output console-la print pannum."
+  },
+
+  {
+    id: 16,
+    title: "Arithmetic Operator",
+    question: "Addition operation-ku use pannura operator edhu?",
+    options: [
+      "+",
+      "-",
+      "*",
+      "/"
+    ],
+    answer: "+",
+    explain:
+      "+ operator addition perform pannum."
+  },
+
+  {
+    id: 17,
+    title: "Relational Operator",
+    question: "Equality compare panna use pannura operator edhu?",
+    options: [
+      "=",
+      "==",
+      "!=",
+      ">"
+    ],
+    answer: "==",
+    explain:
+      "== operator equality check pannum."
+  },
+
+  {
+    id: 18,
+    title: "Logical Operator",
+    question: "Logical AND operator edhu?",
+    options: [
+      "&&",
+      "||",
+      "!",
+      "&"
+    ],
+    answer: "&&",
+    explain:
+      "&& rendu conditions true-ah irukkanum."
+  },
+
+  {
+    id: 19,
+    title: "Ternary Operator",
+    question: "Conditional operator-ku Java-la enna symbol use pannuvanga?",
+    options: [
+      "??",
+      "?:",
+      "::",
+      "&&"
+    ],
+    answer: "?:",
+    explain:
+      "Ternary operator condition-based value return pannum."
+  },
+
+  {
+    id: 20,
+    title: "Type Casting",
+    question: "One datatype-ah another datatype-ah convert pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Type Casting",
+      "Encapsulation",
+      "Polymorphism"
+    ],
+    answer: "Type Casting",
+    explain:
+      "Type casting datatype conversion-ku use pannuvanga."
+  },
+  {
+    id: 21,
+    title: "Command Line Arguments",
+    question: "main() method-la command line arguments receive panna use pannura parameter edhu?",
+    options: [
+      "int args",
+      "String args[]",
+      "char args",
+      "float args"
+    ],
+    answer: "String args[]",
+    explain:
+      "String args[] command line arguments store pannum."
+  },
+
+  {
+    id: 22,
+    title: "if Statement",
+    question: "Condition check panna use pannura statement edhu?",
+    options: [
+      "switch",
+      "if",
+      "for",
+      "break"
+    ],
+    answer: "if",
+    explain:
+      "if statement condition true/false evaluate pannum."
+  },
+
+  {
+    id: 23,
+    title: "if else",
+    question: "Alternative execution-ku use pannura statement edhu?",
+    options: [
+      "if else",
+      "while",
+      "loop",
+      "continue"
+    ],
+    answer: "if else",
+    explain:
+      "if else true/false conditions handle pannum."
+  },
+
+  {
+    id: 24,
+    title: "Nested if",
+    question: "if statement-kulla another if use pannradhu enna?",
+    options: [
+      "Nested if",
+      "Loop if",
+      "Switch if",
+      "Inline if"
+    ],
+    answer: "Nested if",
+    explain:
+      "Nested if multiple conditions check panna use pannuvanga."
+  },
+
+  {
+    id: 25,
+    title: "Switch",
+    question: "Multiple choices handle panna use pannura statement edhu?",
+    options: [
+      "if",
+      "switch",
+      "loop",
+      "goto"
+    ],
+    answer: "switch",
+    explain:
+      "switch statement multiple cases handle pannum."
+  },
+
+  {
+    id: 26,
+    title: "for Loop",
+    question: "Known iterations-ku use panna best loop edhu?",
+    options: [
+      "while",
+      "do while",
+      "for",
+      "switch"
+    ],
+    answer: "for",
+    explain:
+      "for loop fixed iterations-ku use pannuvanga."
+  },
+
+  {
+    id: 27,
+    title: "while Loop",
+    question: "Condition true varaikkum execute aagura loop edhu?",
+    options: [
+      "if",
+      "while",
+      "switch",
+      "break"
+    ],
+    answer: "while",
+    explain:
+      "while loop condition true varaikkum run aagum."
+  },
+
+  {
+    id: 28,
+    title: "do while",
+    question: "Minimum oru thadava execute aagura loop edhu?",
+    options: [
+      "for",
+      "while",
+      "do while",
+      "if"
+    ],
+    answer: "do while",
+    explain:
+      "do while atleast once execute aagum."
+  },
+
+  {
+    id: 29,
+    title: "break Statement",
+    question: "Loop-ah immediate stop panna use pannura keyword edhu?",
+    options: [
+      "continue",
+      "break",
+      "exit",
+      "stop"
+    ],
+    answer: "break",
+    explain:
+      "break current loop execution stop pannum."
+  },
+
+  {
+    id: 30,
+    title: "continue Statement",
+    question: "Current iteration skip panna use pannura keyword edhu?",
+    options: [
+      "break",
+      "continue",
+      "stop",
+      "goto"
+    ],
+    answer: "continue",
+    explain:
+      "continue current iteration skip pannum."
+  },
+
+  {
+    id: 31,
+    title: "Functions",
+    question: "Reusable code block-ku enna peyar?",
+    options: [
+      "Loop",
+      "Variable",
+      "Function",
+      "Package"
+    ],
+    answer: "Function",
+    explain:
+      "Functions reusable logic create panna use pannuvanga."
+  },
+
+  {
+    id: 32,
+    title: "Function Return Type",
+    question: "Value return pannaadha function-ku use pannura keyword edhu?",
+    options: [
+      "null",
+      "void",
+      "empty",
+      "return"
+    ],
+    answer: "void",
+    explain:
+      "void return type no value return pannadhu."
+  },
+
+  {
+    id: 33,
+    title: "Method Overloading",
+    question: "Same method name multiple forms-la use pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Overloading",
+      "Overriding",
+      "Abstraction"
+    ],
+    answer: "Overloading",
+    explain:
+      "Method overloading different parameters use pannum."
+  },
+
+  {
+    id: 34,
+    title: "1D Array",
+    question: "Single dimension values store panna use pannura array type edhu?",
+    options: [
+      "1D Array",
+      "2D Array",
+      "3D Array",
+      "String"
+    ],
+    answer: "1D Array",
+    explain:
+      "1D arrays linear values store pannum."
+  },
+
+  {
+    id: 35,
+    title: "2D Array",
+    question: "Rows and columns format-la data store panna use pannura array edhu?",
+    options: [
+      "1D Array",
+      "2D Array",
+      "Pointer",
+      "String"
+    ],
+    answer: "2D Array",
+    explain:
+      "2D arrays matrix structure use pannum."
+  },
+
+  {
+    id: 36,
+    title: "Array Sorting",
+    question: "Arrays sort panna Java-la commonly use pannura method edhu?",
+    options: [
+      "Arrays.sort()",
+      "sortArray()",
+      "arraySort()",
+      "Collections.sort()"
+    ],
+    answer: "Arrays.sort()",
+    explain:
+      "Arrays.sort() arrays ascending order-la arrange pannum."
+  },
+
+  {
+    id: 37,
+    title: "Array Copy",
+    question: "Array copy panna commonly use pannura method edhu?",
+    options: [
+      "Arrays.copyOf()",
+      "copyArray()",
+      "cloneArray()",
+      "duplicate()"
+    ],
+    answer: "Arrays.copyOf()",
+    explain:
+      "Arrays.copyOf() new copied array create pannum."
+  },
+
+  {
+    id: 38,
+    title: "Array Fill",
+    question: "Array values same value-ah fill panna use pannura method edhu?",
+    options: [
+      "Arrays.fill()",
+      "fillArray()",
+      "arrayFill()",
+      "Arrays.copy()"
+    ],
+    answer: "Arrays.fill()",
+    explain:
+      "Arrays.fill() all elements same value set pannum."
+  },
+
+  {
+    id: 39,
+    title: "String Class",
+    question: "Text handle panna Java-la use pannura class edhu?",
+    options: [
+      "Text",
+      "String",
+      "Character",
+      "Word"
+    ],
+    answer: "String",
+    explain:
+      "String class text values handle panna use pannuvanga."
+  },
+
+  {
+    id: 40,
+    title: "String Length",
+    question: "String length find panna use pannura method edhu?",
+    options: [
+      "size()",
+      "count()",
+      "length()",
+      "strlen()"
+    ],
+    answer: "length()",
+    explain:
+      "length() string total characters return pannum."
+  },
+  {
+    id: 41,
+    title: "String Methods",
+    question: "Two strings compare panna use pannura method edhu?",
+    options: [
+      "compare()",
+      "equals()",
+      "match()",
+      "check()"
+    ],
+    answer: "equals()",
+    explain:
+      "equals() method rendu strings same-ah irukka check pannum."
+  },
+
+  {
+    id: 42,
+    title: "String Concatenation",
+    question: "Strings join panna use pannura operator edhu?",
+    options: [
+      "-",
+      "+",
+      "*",
+      "%"
+    ],
+    answer: "+",
+    explain:
+      "+ operator strings concatenate pannum."
+  },
+
+  {
+    id: 43,
+    title: "toUpperCase",
+    question: "String uppercase convert panna use pannura method edhu?",
+    options: [
+      "upper()",
+      "toUpperCase()",
+      "capitalize()",
+      "bigCase()"
+    ],
+    answer: "toUpperCase()",
+    explain:
+      "toUpperCase() lowercase-ah uppercase-ah convert pannum."
+  },
+
+  {
+    id: 44,
+    title: "StringBuffer",
+    question: "Mutable strings create panna use pannura class edhu?",
+    options: [
+      "String",
+      "StringBuffer",
+      "Character",
+      "Text"
+    ],
+    answer: "StringBuffer",
+    explain:
+      "StringBuffer mutable string operations support pannum."
+  },
+
+  {
+    id: 45,
+    title: "StringBuilder",
+    question: "Fast mutable string operations-ku use pannura class edhu?",
+    options: [
+      "String",
+      "StringBuffer",
+      "StringBuilder",
+      "Scanner"
+    ],
+    answer: "StringBuilder",
+    explain:
+      "StringBuilder faster mutable string operations support pannum."
+  },
+
+  {
+    id: 46,
+    title: "try Block",
+    question: "Risky code handle panna use pannura block edhu?",
+    options: [
+      "catch",
+      "finally",
+      "try",
+      "throw"
+    ],
+    answer: "try",
+    explain:
+      "try block exception occur aagura code contain pannum."
+  },
+
+  {
+    id: 47,
+    title: "catch Block",
+    question: "Exception handle panna use pannura block edhu?",
+    options: [
+      "try",
+      "catch",
+      "throw",
+      "throws"
+    ],
+    answer: "catch",
+    explain:
+      "catch block exceptions handle pannum."
+  },
+
+  {
+    id: 48,
+    title: "finally Block",
+    question: "Exception irundhaalum execute aagura block edhu?",
+    options: [
+      "catch",
+      "throw",
+      "finally",
+      "try"
+    ],
+    answer: "finally",
+    explain:
+      "finally block always execute aagum."
+  },
+
+  {
+    id: 49,
+    title: "throw Keyword",
+    question: "Custom exception generate panna use pannura keyword edhu?",
+    options: [
+      "throws",
+      "throw",
+      "try",
+      "catch"
+    ],
+    answer: "throw",
+    explain:
+      "throw keyword exception manually create pannum."
+  },
+
+  {
+    id: 50,
+    title: "throws Keyword",
+    question: "Method exception declare panna use pannura keyword edhu?",
+    options: [
+      "throw",
+      "throws",
+      "finally",
+      "catch"
+    ],
+    answer: "throws",
+    explain:
+      "throws method possible exceptions declare pannum."
+  },
+
+  {
+    id: 51,
+    title: "Custom Exception",
+    question: "Programmer create pannura own exception-ku enna peyar?",
+    options: [
+      "Default Exception",
+      "Runtime Exception",
+      "Custom Exception",
+      "Compile Exception"
+    ],
+    answer: "Custom Exception",
+    explain:
+      "Custom exceptions developers create pannuvanga."
+  },
+
+  {
+    id: 52,
+    title: "Exception Hierarchy",
+    question: "Java-la ella exceptions-ukum parent class edhu?",
+    options: [
+      "Error",
+      "Object",
+      "Throwable",
+      "Exception"
+    ],
+    answer: "Throwable",
+    explain:
+      "Throwable class exception hierarchy top-level class."
+  },
+
+  {
+    id: 53,
+    title: "Collections Framework",
+    question: "Data groups manage panna Java-la use pannura framework edhu?",
+    options: [
+      "JDBC",
+      "Collections Framework",
+      "Threading",
+      "AWT"
+    ],
+    answer: "Collections Framework",
+    explain:
+      "Collections Framework data structures provide pannum."
+  },
+
+  {
+    id: 54,
+    title: "List Interface",
+    question: "Ordered collection store panna use pannura interface edhu?",
+    options: [
+      "Set",
+      "Map",
+      "List",
+      "Queue"
+    ],
+    answer: "List",
+    explain:
+      "List ordered elements maintain pannum."
+  },
+
+  {
+    id: 55,
+    title: "Set Interface",
+    question: "Duplicate values allow pannaadha interface edhu?",
+    options: [
+      "List",
+      "Map",
+      "Set",
+      "Array"
+    ],
+    answer: "Set",
+    explain:
+      "Set unique elements mattum allow pannum."
+  },
+
+  {
+    id: 56,
+    title: "Map Interface",
+    question: "Key-value pairs store panna use pannura interface edhu?",
+    options: [
+      "List",
+      "Set",
+      "Map",
+      "Queue"
+    ],
+    answer: "Map",
+    explain:
+      "Map key-value data structure provide pannum."
+  },
+
+  {
+    id: 57,
+    title: "ArrayList",
+    question: "Dynamic array implementation-ku use pannura class edhu?",
+    options: [
+      "LinkedList",
+      "ArrayList",
+      "HashSet",
+      "TreeMap"
+    ],
+    answer: "ArrayList",
+    explain:
+      "ArrayList resizable dynamic array provide pannum."
+  },
+
+  {
+    id: 58,
+    title: "LinkedList",
+    question: "Linked structure use pannura List implementation edhu?",
+    options: [
+      "ArrayList",
+      "LinkedList",
+      "HashMap",
+      "TreeSet"
+    ],
+    answer: "LinkedList",
+    explain:
+      "LinkedList nodes use pannitu data store pannum."
+  },
+
+  {
+    id: 59,
+    title: "HashSet",
+    question: "Unique unordered values store panna use pannura class edhu?",
+    options: [
+      "HashSet",
+      "ArrayList",
+      "Map",
+      "Vector"
+    ],
+    answer: "HashSet",
+    explain:
+      "HashSet duplicate values allow pannaadhu."
+  },
+
+  {
+    id: 60,
+    title: "TreeSet",
+    question: "Sorted unique elements maintain panna use pannura class edhu?",
+    options: [
+      "HashSet",
+      "TreeSet",
+      "ArrayList",
+      "LinkedList"
+    ],
+    answer: "TreeSet",
+    explain:
+      "TreeSet sorted order maintain pannum."
+  },
+  {
+    id: 61,
+    title: "HashMap",
+    question: "Key-value pairs unordered-ah store panna use pannura class edhu?",
+    options: [
+      "TreeMap",
+      "HashMap",
+      "LinkedHashMap",
+      "ArrayList"
+    ],
+    answer: "HashMap",
+    explain:
+      "HashMap unordered key-value pairs store pannum."
+  },
+
+  {
+    id: 62,
+    title: "LinkedHashMap",
+    question: "Insertion order maintain panna use pannura Map implementation edhu?",
+    options: [
+      "HashMap",
+      "TreeMap",
+      "LinkedHashMap",
+      "HashSet"
+    ],
+    answer: "LinkedHashMap",
+    explain:
+      "LinkedHashMap insertion order maintain pannum."
+  },
+
+  {
+    id: 63,
+    title: "TreeMap",
+    question: "Sorted keys maintain panna use pannura Map implementation edhu?",
+    options: [
+      "HashMap",
+      "LinkedHashMap",
+      "TreeMap",
+      "ArrayList"
+    ],
+    answer: "TreeMap",
+    explain:
+      "TreeMap keys sorted order-la maintain pannum."
+  },
+
+  {
+    id: 64,
+    title: "Iterator",
+    question: "Collection elements traverse panna use pannura interface edhu?",
+    options: [
+      "Comparator",
+      "Iterator",
+      "Runnable",
+      "Cloneable"
+    ],
+    answer: "Iterator",
+    explain:
+      "Iterator collections iterate panna use pannuvanga."
+  },
+
+  {
+    id: 65,
+    title: "ListIterator",
+    question: "Forward and backward traversal support pannura iterator edhu?",
+    options: [
+      "Iterator",
+      "ListIterator",
+      "MapIterator",
+      "TreeIterator"
+    ],
+    answer: "ListIterator",
+    explain:
+      "ListIterator both directions traverse panna support pannum."
+  },
+
+  {
+    id: 66,
+    title: "Generics",
+    question: "Compile-time type safety provide panna use pannura concept edhu?",
+    options: [
+      "Inheritance",
+      "Generics",
+      "Exception",
+      "Casting"
+    ],
+    answer: "Generics",
+    explain:
+      "Generics datatype safety improve pannum."
+  },
+
+  {
+    id: 67,
+    title: "JDBC",
+    question: "Java database connectivity-ku use pannura API edhu?",
+    options: [
+      "JDBC",
+      "JVM",
+      "JRE",
+      "AWT"
+    ],
+    answer: "JDBC",
+    explain:
+      "JDBC databases connect panna use pannuvanga."
+  },
+
+  {
+    id: 68,
+    title: "JDBC Driver",
+    question: "Java database communicate panna use pannura component edhu?",
+    options: [
+      "Compiler",
+      "JDBC Driver",
+      "Scanner",
+      "Servlet"
+    ],
+    answer: "JDBC Driver",
+    explain:
+      "JDBC driver database connection establish pannum."
+  },
+
+  {
+    id: 69,
+    title: "MySQL Connection",
+    question: "Database connection establish panna use pannura method edhu?",
+    options: [
+      "DriverManager.getConnection()",
+      "connectDB()",
+      "openConnection()",
+      "createDB()"
+    ],
+    answer: "DriverManager.getConnection()",
+    explain:
+      "DriverManager.getConnection() database connect pannum."
+  },
+
+  {
+    id: 70,
+    title: "CRUD",
+    question: "Database-la Create, Read, Update, Delete operations-ku enna short form?",
+    options: [
+      "CODE",
+      "CRUD",
+      "JAVA",
+      "DATA"
+    ],
+    answer: "CRUD",
+    explain:
+      "CRUD database basic operations represent pannum."
+  },
+
+  {
+    id: 71,
+    title: "Class",
+    question: "Objects create panna blueprint-ah use pannradhu edhu?",
+    options: [
+      "Method",
+      "Class",
+      "Loop",
+      "Package"
+    ],
+    answer: "Class",
+    explain:
+      "Class objects-ku blueprint madhiri work pannum."
+  },
+
+  {
+    id: 72,
+    title: "Object",
+    question: "Class instance-ku enna peyar?",
+    options: [
+      "Variable",
+      "Object",
+      "Method",
+      "Array"
+    ],
+    answer: "Object",
+    explain:
+      "Class-lendhu create pannradhu object."
+  },
+
+  {
+    id: 73,
+    title: "Constructor",
+    question: "Object create aagumbodhu automatic-ah call aagura method edhu?",
+    options: [
+      "Destructor",
+      "Constructor",
+      "main()",
+      "start()"
+    ],
+    answer: "Constructor",
+    explain:
+      "Constructors object initialize panna use pannuvanga."
+  },
+
+  {
+    id: 74,
+    title: "Default Constructor",
+    question: "Arguments illaama irukkura constructor type edhu?",
+    options: [
+      "Parameterized Constructor",
+      "Copy Constructor",
+      "Default Constructor",
+      "Static Constructor"
+    ],
+    answer: "Default Constructor",
+    explain:
+      "Default constructor parameters illaama work pannum."
+  },
+
+  {
+    id: 75,
+    title: "Parameterized Constructor",
+    question: "Arguments receive pannura constructor type edhu?",
+    options: [
+      "Default Constructor",
+      "Parameterized Constructor",
+      "Copy Constructor",
+      "Empty Constructor"
+    ],
+    answer: "Parameterized Constructor",
+    explain:
+      "Parameterized constructors values initialize panna use pannuvanga."
+  },
+
+  {
+    id: 76,
+    title: "this Keyword",
+    question: "Current object reference panna use pannura keyword edhu?",
+    options: [
+      "super",
+      "this",
+      "self",
+      "current"
+    ],
+    answer: "this",
+    explain:
+      "this current object-ah indicate pannum."
+  },
+
+  {
+    id: 77,
+    title: "super Keyword",
+    question: "Parent class members access panna use pannura keyword edhu?",
+    options: [
+      "this",
+      "parent",
+      "super",
+      "base"
+    ],
+    answer: "super",
+    explain:
+      "super parent class members access panna use pannuvanga."
+  },
+
+  {
+    id: 78,
+    title: "Method Overriding",
+    question: "Parent method-ah child class-la redefine pannradhu enna?",
+    options: [
+      "Overloading",
+      "Overriding",
+      "Inheritance",
+      "Casting"
+    ],
+    answer: "Overriding",
+    explain:
+      "Method overriding runtime polymorphism support pannum."
+  },
+
+  {
+    id: 79,
+    title: "Static Members",
+    question: "All objects-kum common-ah share aagura members-ku enna peyar?",
+    options: [
+      "Local Members",
+      "Instance Members",
+      "Static Members",
+      "Private Members"
+    ],
+    answer: "Static Members",
+    explain:
+      "Static members class-level shared data store pannum."
+  },
+
+  {
+    id: 80,
+    title: "Instance Members",
+    question: "Every object-kum separate-ah create aagura members edhu?",
+    options: [
+      "Static Members",
+      "Global Members",
+      "Instance Members",
+      "Final Members"
+    ],
+    answer: "Instance Members",
+    explain:
+      "Instance members object-specific values maintain pannum."
+  },
+  {
+    id: 81,
+    title: "Inheritance",
+    question: "Existing class properties inherit panna use pannura concept edhu?",
+    options: [
+      "Polymorphism",
+      "Inheritance",
+      "Encapsulation",
+      "Abstraction"
+    ],
+    answer: "Inheritance",
+    explain:
+      "Inheritance existing class features reuse panna help pannum."
+  },
+
+  {
+    id: 82,
+    title: "Single Inheritance",
+    question: "One parent class lendhu one child class inherit pannradhu enna type?",
+    options: [
+      "Multiple",
+      "Hierarchical",
+      "Single",
+      "Hybrid"
+    ],
+    answer: "Single",
+    explain:
+      "Single inheritance-la one parent and one child class irukkum."
+  },
+
+  {
+    id: 83,
+    title: "Multilevel Inheritance",
+    question: "Class chain structure-la inheritance nadakkaradhu enna type?",
+    options: [
+      "Single",
+      "Multiple",
+      "Multilevel",
+      "Hybrid"
+    ],
+    answer: "Multilevel",
+    explain:
+      "Multilevel inheritance parent-child-grandchild structure use pannum."
+  },
+
+  {
+    id: 84,
+    title: "Hierarchical Inheritance",
+    question: "One parent class-ah multiple child classes inherit pannradhu enna type?",
+    options: [
+      "Hybrid",
+      "Hierarchical",
+      "Single",
+      "Multiple"
+    ],
+    answer: "Hierarchical",
+    explain:
+      "Hierarchical inheritance-la one base class multiple derived classes-ku base aagum."
+  },
+
+  {
+    id: 85,
+    title: "Polymorphism",
+    question: "One method many forms-la behave pannradhu enna concept?",
+    options: [
+      "Inheritance",
+      "Encapsulation",
+      "Polymorphism",
+      "Abstraction"
+    ],
+    answer: "Polymorphism",
+    explain:
+      "Polymorphism same interface-ku different behavior kudukkum."
+  },
+
+  {
+    id: 86,
+    title: "Compile Time Polymorphism",
+    question: "Method overloading entha type polymorphism?",
+    options: [
+      "Runtime",
+      "Compile Time",
+      "Dynamic",
+      "Static"
+    ],
+    answer: "Compile Time",
+    explain:
+      "Method overloading compile-time polymorphism example."
+  },
+
+  {
+    id: 87,
+    title: "Runtime Polymorphism",
+    question: "Method overriding entha type polymorphism?",
+    options: [
+      "Compile Time",
+      "Runtime",
+      "Static",
+      "Local"
+    ],
+    answer: "Runtime",
+    explain:
+      "Method overriding runtime polymorphism support pannum."
+  },
+
+  {
+    id: 88,
+    title: "Encapsulation",
+    question: "Data and methods-ah single unit-la wrap pannradhu enna?",
+    options: [
+      "Inheritance",
+      "Encapsulation",
+      "Polymorphism",
+      "Casting"
+    ],
+    answer: "Encapsulation",
+    explain:
+      "Encapsulation data security improve pannum."
+  },
+
+  {
+    id: 89,
+    title: "Getter Method",
+    question: "Private variable value read panna use pannura method edhu?",
+    options: [
+      "Setter",
+      "Getter",
+      "Constructor",
+      "Main"
+    ],
+    answer: "Getter",
+    explain:
+      "Getter methods private variables access panna use pannuvanga."
+  },
+
+  {
+    id: 90,
+    title: "Setter Method",
+    question: "Private variable value set panna use pannura method edhu?",
+    options: [
+      "Getter",
+      "Setter",
+      "Static",
+      "Final"
+    ],
+    answer: "Setter",
+    explain:
+      "Setter methods private variables modify panna use pannuvanga."
+  },
+
+  {
+    id: 91,
+    title: "Abstraction",
+    question: "Implementation details hide pannradhu enna concept?",
+    options: [
+      "Polymorphism",
+      "Abstraction",
+      "Inheritance",
+      "Looping"
+    ],
+    answer: "Abstraction",
+    explain:
+      "Abstraction important details mattum expose pannum."
+  },
+
+  {
+    id: 92,
+    title: "Abstract Class",
+    question: "Object create panna mudiyatha class type edhu?",
+    options: [
+      "Normal Class",
+      "Abstract Class",
+      "Static Class",
+      "Final Class"
+    ],
+    answer: "Abstract Class",
+    explain:
+      "Abstract classes incomplete implementation contain pannum."
+  },
+
+  {
+    id: 93,
+    title: "Interface",
+    question: "100% abstraction provide panna Java-la use pannura concept edhu?",
+    options: [
+      "Class",
+      "Interface",
+      "Package",
+      "Method"
+    ],
+    answer: "Interface",
+    explain:
+      "Interfaces full abstraction provide pannum."
+  },
+
+  {
+    id: 94,
+    title: "final Keyword",
+    question: "Inheritance prevent panna use pannura keyword edhu?",
+    options: [
+      "static",
+      "const",
+      "final",
+      "private"
+    ],
+    answer: "final",
+    explain:
+      "final class inherit panna mudiyadhu."
+  },
+
+  {
+    id: 95,
+    title: "final Variable",
+    question: "Value change panna mudiyatha variable-ku use pannura keyword edhu?",
+    options: [
+      "fixed",
+      "final",
+      "const",
+      "static"
+    ],
+    answer: "final",
+    explain:
+      "final variables once assign panna apram modify panna mudiyadhu."
+  },
+
+  {
+    id: 96,
+    title: "Packages",
+    question: "Related classes group panna use pannura concept edhu?",
+    options: [
+      "Functions",
+      "Packages",
+      "Loops",
+      "Arrays"
+    ],
+    answer: "Packages",
+    explain:
+      "Packages classes organize panna use pannuvanga."
+  },
+
+  {
+    id: 97,
+    title: "Access Modifier",
+    question: "Anywhere-lendhum access panna mudiyura access modifier edhu?",
+    options: [
+      "private",
+      "protected",
+      "public",
+      "default"
+    ],
+    answer: "public",
+    explain:
+      "public members everywhere access panna mudiyum."
+  },
+
+  {
+    id: 98,
+    title: "private Modifier",
+    question: "Class-kulla mattum access panna mudiyura modifier edhu?",
+    options: [
+      "public",
+      "private",
+      "protected",
+      "static"
+    ],
+    answer: "private",
+    explain:
+      "private members class-kulla mattum access panna mudiyum."
+  },
+
+  {
+    id: 99,
+    title: "protected Modifier",
+    question: "Child classes access panna mudiyura modifier edhu?",
+    options: [
+      "private",
+      "protected",
+      "default",
+      "static"
+    ],
+    answer: "protected",
+    explain:
+      "protected members subclasses-lendhu access panna mudiyum."
+  },
+
+  {
+    id: 100,
+    title: "Java Complete",
+    question: "Java language object oriented programming support pannuma?",
+    options: [
+      "Yes",
+      "No",
+      "Only Partially",
+      "Only Interfaces"
+    ],
+    answer: "Yes",
+    explain:
+      "Java complete object oriented programming concepts support pannum."
+  }
+]

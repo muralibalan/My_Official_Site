@@ -57,6 +57,11 @@ function UniversalQuizGame() {
       color: '#00599c',
       dataArray: allData.cppTasks,
     },
+    java: {
+      name: 'java',
+      color: '#009c2a',
+      dataArray: allData.javaTasks,
+    },
   };
 
   const currentConfig = subjectRegistry[selectedSubject];
