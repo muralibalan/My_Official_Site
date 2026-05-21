@@ -182,6 +182,14 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
+  {
+    id: 22,
+    title: "+1 Mega Quiz",
+    image: "/projects_Ui/still11th.png",
+    link: "/stateboard", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
   
  
 ];

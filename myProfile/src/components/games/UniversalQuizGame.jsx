@@ -58,9 +58,14 @@ function UniversalQuizGame() {
       dataArray: allData.cppTasks,
     },
     java: {
-      name: 'java',
+      name: 'Java',
       color: '#009c2a',
       dataArray: allData.javaTasks,
+    },
+    dca: {
+      name: 'DCA',
+      color: '#dab11e',
+      dataArray: allData.dcaTasks,
     },
   };
 
@@ -190,7 +195,7 @@ function UniversalQuizGame() {
                 mb: 4,
               }}
             >
-              Choose Your Favourite Subject 🚀
+              Choose Your Favourite Subject 
             </Typography>
 
             <Stack spacing={2}>

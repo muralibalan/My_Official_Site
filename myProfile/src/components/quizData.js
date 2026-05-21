@@ -9795,4 +9795,1503 @@ export const javaTasks = [
     explain:
       "Java complete object oriented programming concepts support pannum."
   }
+];
+
+export const dcaTasks = [
+
+  {
+    id: 1,
+    title: "MS Word Introduction",
+    question: "MS Word enna type software?",
+    options: [
+      "Spreadsheet Software",
+      "Presentation Software",
+      "Word Processing Software",
+      "Database Software"
+    ],
+    answer: "Word Processing Software",
+    explain:
+      "MS Word documents create and edit panna use pannura word processing software."
+  },
+
+  {
+    id: 2,
+    title: "MS Office",
+    question: "MS Word entha package-oda part?",
+    options: [
+      "Adobe",
+      "MS Office",
+      "Google Docs",
+      "Linux"
+    ],
+    answer: "MS Office",
+    explain:
+      "MS Word Microsoft Office package-oda part."
+  },
+
+  {
+    id: 3,
+    title: "Start MS Word",
+    question: "MS Word open panna commonly enna use pannuvanga?",
+    options: [
+      "Browser",
+      "Start Menu",
+      "Calculator",
+      "Paint"
+    ],
+    answer: "Start Menu",
+    explain:
+      "Start Menu-lendhu MS Word open pannalaam."
+  },
+
+  {
+    id: 4,
+    title: "Create Document",
+    question: "New document create panna use pannura option edhu?",
+    options: [
+      "Open",
+      "Save",
+      "New",
+      "Print"
+    ],
+    answer: "New",
+    explain:
+      "New option use pannitu pudhu document create pannuvanga."
+  },
+
+  {
+    id: 5,
+    title: "Font Size",
+    question: "Text size change panna use pannura option edhu?",
+    options: [
+      "Paragraph",
+      "Font Size",
+      "Layout",
+      "Insert"
+    ],
+    answer: "Font Size",
+    explain:
+      "Font Size option text size increase/decrease pannum."
+  },
+
+  {
+    id: 6,
+    title: "Paragraph Alignment",
+    question: "Text center-ku align panna use pannura alignment edhu?",
+    options: [
+      "Left",
+      "Right",
+      "Center",
+      "Justify"
+    ],
+    answer: "Center",
+    explain:
+      "Center alignment text middle-la place pannum."
+  },
+
+  {
+    id: 7,
+    title: "Font Style",
+    question: "Bold text create panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + U",
+      "Ctrl + B",
+      "Ctrl + I",
+      "Ctrl + P"
+    ],
+    answer: "Ctrl + B",
+    explain:
+      "Ctrl + B text bold style apply pannum."
+  },
+
+  {
+    id: 8,
+    title: "Editing Document",
+    question: "Mistake text remove panna use pannura key edhu?",
+    options: [
+      "Shift",
+      "Delete",
+      "Alt",
+      "Tab"
+    ],
+    answer: "Delete",
+    explain:
+      "Delete key unwanted text remove pannum."
+  },
+
+  {
+    id: 9,
+    title: "Bullets",
+    question: "List items stylish-ah display panna use pannura feature edhu?",
+    options: [
+      "Bullets",
+      "Charts",
+      "Shapes",
+      "Margins"
+    ],
+    answer: "Bullets",
+    explain:
+      "Bullets list items attractive-ah display pannum."
+  },
+
+  {
+    id: 10,
+    title: "Numbering",
+    question: "Sequential list create panna use pannura feature edhu?",
+    options: [
+      "Shapes",
+      "Numbering",
+      "Tables",
+      "Footer"
+    ],
+    answer: "Numbering",
+    explain:
+      "Numbering ordered list create pannum."
+  },
+
+  {
+    id: 11,
+    title: "Find and Replace",
+    question: "Specific word search panna use pannura feature edhu?",
+    options: [
+      "Replace",
+      "Find",
+      "Insert",
+      "Layout"
+    ],
+    answer: "Find",
+    explain:
+      "Find feature document-la words search pannum."
+  },
+
+  {
+    id: 12,
+    title: "Replace Feature",
+    question: "Existing word-ah new word-ah maatha use pannura feature edhu?",
+    options: [
+      "Find",
+      "Replace",
+      "Delete",
+      "Cut"
+    ],
+    answer: "Replace",
+    explain:
+      "Replace feature old text-ah new text-ah change pannum."
+  },
+
+  {
+    id: 13,
+    title: "Insert Tab",
+    question: "Tables insert panna use pannura tab edhu?",
+    options: [
+      "Home",
+      "Insert",
+      "Review",
+      "View"
+    ],
+    answer: "Insert",
+    explain:
+      "Insert tab tables, images add panna use pannuvanga."
+  },
+
+  {
+    id: 14,
+    title: "Illustrations",
+    question: "Pictures and charts add panna use pannura section edhu?",
+    options: [
+      "Paragraph",
+      "Illustrations",
+      "Clipboard",
+      "References"
+    ],
+    answer: "Illustrations",
+    explain:
+      "Illustrations section images and charts insert panna help pannum."
+  },
+
+  {
+    id: 15,
+    title: "Shapes",
+    question: "Rectangle, circle draw panna use pannura option edhu?",
+    options: [
+      "Tables",
+      "Shapes",
+      "Margins",
+      "Comments"
+    ],
+    answer: "Shapes",
+    explain:
+      "Shapes option different diagrams draw panna use pannuvanga."
+  },
+
+  {
+    id: 16,
+    title: "Hyperlink",
+    question: "Web page connect panna use pannura feature edhu?",
+    options: [
+      "Header",
+      "Footer",
+      "Hyperlink",
+      "Citation"
+    ],
+    answer: "Hyperlink",
+    explain:
+      "Hyperlink webpages or files connect panna use pannuvanga."
+  },
+
+  {
+    id: 17,
+    title: "Header",
+    question: "Page top-la repeated content add panna use pannura feature edhu?",
+    options: [
+      "Footer",
+      "Header",
+      "Comment",
+      "Table"
+    ],
+    answer: "Header",
+    explain:
+      "Header page top-la common information display pannum."
+  },
+
+  {
+    id: 18,
+    title: "Footer",
+    question: "Page bottom-la repeated content add panna use pannura feature edhu?",
+    options: [
+      "Header",
+      "Footer",
+      "Shapes",
+      "Bullets"
+    ],
+    answer: "Footer",
+    explain:
+      "Footer page bottom-la repeated information show pannum."
+  },
+
+  {
+    id: 19,
+    title: "Symbols",
+    question: "Special characters insert panna use pannura option edhu?",
+    options: [
+      "Symbols",
+      "Tables",
+      "Charts",
+      "Paragraph"
+    ],
+    answer: "Symbols",
+    explain:
+      "Symbols special characters insert panna help pannum."
+  },
+
+  {
+    id: 20,
+    title: "Page Layout",
+    question: "Paper size set panna use pannura option edhu?",
+    options: [
+      "Page Size",
+      "Paragraph",
+      "Insert",
+      "Mailing"
+    ],
+    answer: "Page Size",
+    explain:
+      "Page Size option document paper dimensions set pannum."
+  },
+  {
+    id: 21,
+    title: "Page Orientation",
+    question: "Portrait and Landscape setup panna use pannura option edhu?",
+    options: [
+      "Orientation",
+      "Margin",
+      "Insert",
+      "References"
+    ],
+    answer: "Orientation",
+    explain:
+      "Orientation page direction set panna use pannuvanga."
+  },
+
+  {
+    id: 22,
+    title: "Page Background",
+    question: "Page-ku background color add panna use pannura feature edhu?",
+    options: [
+      "Watermark",
+      "Page Background",
+      "Footer",
+      "Clipboard"
+    ],
+    answer: "Page Background",
+    explain:
+      "Page Background document appearance improve pannum."
+  },
+
+  {
+    id: 23,
+    title: "Borders and Shading",
+    question: "Paragraph-ku border apply panna use pannura feature edhu?",
+    options: [
+      "Styles",
+      "Borders and Shading",
+      "Mail Merge",
+      "Header"
+    ],
+    answer: "Borders and Shading",
+    explain:
+      "Borders and Shading paragraphs highlight panna help pannum."
+  },
+
+  {
+    id: 24,
+    title: "Citation",
+    question: "Reference source add panna use pannura feature edhu?",
+    options: [
+      "Citation",
+      "Comment",
+      "Shapes",
+      "Footer"
+    ],
+    answer: "Citation",
+    explain:
+      "Citation sources mention panna use pannuvanga."
+  },
+
+  {
+    id: 25,
+    title: "Bibliography",
+    question: "Used references list create panna use pannura feature edhu?",
+    options: [
+      "Footer",
+      "Bibliography",
+      "Header",
+      "Bullets"
+    ],
+    answer: "Bibliography",
+    explain:
+      "Bibliography reference sources list create pannum."
+  },
+
+  {
+    id: 26,
+    title: "Footnote",
+    question: "Page bottom-la notes add panna use pannura feature edhu?",
+    options: [
+      "Header",
+      "Footnote",
+      "Citation",
+      "Table"
+    ],
+    answer: "Footnote",
+    explain:
+      "Footnotes additional explanations provide pannum."
+  },
+
+  {
+    id: 27,
+    title: "Endnote",
+    question: "Document end-la notes add panna use pannura feature edhu?",
+    options: [
+      "Footer",
+      "Endnote",
+      "Insert",
+      "Shapes"
+    ],
+    answer: "Endnote",
+    explain:
+      "Endnotes document end-la references add pannum."
+  },
+
+  {
+    id: 28,
+    title: "Comments",
+    question: "Document-la feedback add panna use pannura feature edhu?",
+    options: [
+      "Comment",
+      "Citation",
+      "Mail Merge",
+      "Chart"
+    ],
+    answer: "Comment",
+    explain:
+      "Comments suggestions and notes add panna use pannuvanga."
+  },
+
+  {
+    id: 29,
+    title: "Mail Merge",
+    question: "Multiple personalized letters create panna use pannura feature edhu?",
+    options: [
+      "Shapes",
+      "Mail Merge",
+      "Pivot Table",
+      "Animation"
+    ],
+    answer: "Mail Merge",
+    explain:
+      "Mail Merge multiple recipients-ku personalized letters create pannum."
+  },
+
+  {
+    id: 30,
+    title: "Envelopes",
+    question: "Address print panna use pannura feature edhu?",
+    options: [
+      "Labels",
+      "Envelopes",
+      "Header",
+      "Charts"
+    ],
+    answer: "Envelopes",
+    explain:
+      "Envelopes mailing addresses print panna use pannuvanga."
+  },
+
+  {
+    id: 31,
+    title: "Labels",
+    question: "Sticker-style address print panna use pannura feature edhu?",
+    options: [
+      "Labels",
+      "Footer",
+      "Borders",
+      "Paragraph"
+    ],
+    answer: "Labels",
+    explain:
+      "Labels addresses and tags print panna use pannuvanga."
+  },
+
+  {
+    id: 32,
+    title: "Preview Results",
+    question: "Mail Merge output check panna use pannura option edhu?",
+    options: [
+      "Preview Results",
+      "Insert",
+      "Comments",
+      "Print Layout"
+    ],
+    answer: "Preview Results",
+    explain:
+      "Preview Results final merged document preview kaamikum."
+  },
+
+  {
+    id: 33,
+    title: "Spell Check",
+    question: "Spelling mistakes identify panna use pannura tool edhu?",
+    options: [
+      "Review",
+      "Spell Check",
+      "Mail Merge",
+      "Find"
+    ],
+    answer: "Spell Check",
+    explain:
+      "Spell Check spelling errors detect pannum."
+  },
+
+  {
+    id: 34,
+    title: "Word Count",
+    question: "Document-la words count panna use pannura feature edhu?",
+    options: [
+      "Statistics",
+      "Word Count",
+      "Footer",
+      "Insert"
+    ],
+    answer: "Word Count",
+    explain:
+      "Word Count document total words calculate pannum."
+  },
+
+  {
+    id: 35,
+    title: "Compare Documents",
+    question: "Two documents differences compare panna use pannura feature edhu?",
+    options: [
+      "Track Changes",
+      "Compare Documents",
+      "Mail Merge",
+      "Shapes"
+    ],
+    answer: "Compare Documents",
+    explain:
+      "Compare feature documents differences identify pannum."
+  },
+
+  {
+    id: 36,
+    title: "File Protection",
+    question: "Document unauthorized editing prevent panna use pannura feature edhu?",
+    options: [
+      "Encryption",
+      "File Protection",
+      "Footer",
+      "Table"
+    ],
+    answer: "File Protection",
+    explain:
+      "File Protection document secure panna help pannum."
+  },
+
+  {
+    id: 37,
+    title: "Multiple Page View",
+    question: "Many pages same time-la view panna use pannura option edhu?",
+    options: [
+      "Single View",
+      "Multiple Page View",
+      "Read Mode",
+      "Zoom"
+    ],
+    answer: "Multiple Page View",
+    explain:
+      "Multiple Page View many pages simultaneously display pannum."
+  },
+
+  {
+    id: 38,
+    title: "Resume Creation",
+    question: "Job application-ku professional profile create panna use pannura document edhu?",
+    options: [
+      "Memo",
+      "Resume",
+      "Invoice",
+      "Poster"
+    ],
+    answer: "Resume",
+    explain:
+      "Resume educational and professional details contain pannum."
+  },
+
+  {
+    id: 39,
+    title: "MS Excel",
+    question: "MS Excel enna type software?",
+    options: [
+      "Presentation Software",
+      "Spreadsheet Software",
+      "Word Processor",
+      "Database"
+    ],
+    answer: "Spreadsheet Software",
+    explain:
+      "MS Excel spreadsheet calculations and data management-ku use pannuvanga."
+  },
+
+  {
+    id: 40,
+    title: "Workbook",
+    question: "Excel-la multiple worksheets contain pannura file-ku enna peyar?",
+    options: [
+      "Sheet",
+      "Workbook",
+      "Cell",
+      "Range"
+    ],
+    answer: "Workbook",
+    explain:
+      "Workbook multiple worksheets contain pannum."
+  },
+  {
+    id: 41,
+    title: "Excel Cell",
+    question: "Excel-la row and column intersection-ku enna peyar?",
+    options: [
+      "Sheet",
+      "Workbook",
+      "Cell",
+      "Range"
+    ],
+    answer: "Cell",
+    explain:
+      "Row and column intersect aagura place cell-nu solvaanga."
+  },
+
+  {
+    id: 42,
+    title: "SUM Formula",
+    question: "Numbers add panna Excel-la use pannura formula edhu?",
+    options: [
+      "=AVG()",
+      "=SUM()",
+      "=MAX()",
+      "=COUNT()"
+    ],
+    answer: "=SUM()",
+    explain:
+      "SUM formula values total calculate pannum."
+  },
+
+  {
+    id: 43,
+    title: "AVERAGE Formula",
+    question: "Average calculate panna use pannura formula edhu?",
+    options: [
+      "=AVG()",
+      "=AVERAGE()",
+      "=MEAN()",
+      "=TOTAL()"
+    ],
+    answer: "=AVERAGE()",
+    explain:
+      "AVERAGE formula values average calculate pannum."
+  },
+
+  {
+    id: 44,
+    title: "MAX Formula",
+    question: "Highest value find panna use pannura formula edhu?",
+    options: [
+      "=HIGH()",
+      "=MAX()",
+      "=TOP()",
+      "=UP()"
+    ],
+    answer: "=MAX()",
+    explain:
+      "MAX formula largest value return pannum."
+  },
+
+  {
+    id: 45,
+    title: "MIN Formula",
+    question: "Lowest value find panna use pannura formula edhu?",
+    options: [
+      "=LOW()",
+      "=MIN()",
+      "=DOWN()",
+      "=LESS()"
+    ],
+    answer: "=MIN()",
+    explain:
+      "MIN formula smallest value return pannum."
+  },
+
+  {
+    id: 46,
+    title: "IF Function",
+    question: "Condition check panna use pannura Excel function edhu?",
+    options: [
+      "=IF()",
+      "=SUM()",
+      "=MAX()",
+      "=AVG()"
+    ],
+    answer: "=IF()",
+    explain:
+      "IF function conditions evaluate pannum."
+  },
+
+  {
+    id: 47,
+    title: "VLOOKUP",
+    question: "Vertical lookup panna use pannura function edhu?",
+    options: [
+      "=HLOOKUP()",
+      "=LOOKUP()",
+      "=VLOOKUP()",
+      "=SEARCH()"
+    ],
+    answer: "=VLOOKUP()",
+    explain:
+      "VLOOKUP vertically data search panna use pannuvanga."
+  },
+
+  {
+    id: 48,
+    title: "HLOOKUP",
+    question: "Horizontal lookup panna use pannura function edhu?",
+    options: [
+      "=VLOOKUP()",
+      "=HLOOKUP()",
+      "=MATCH()",
+      "=COUNT()"
+    ],
+    answer: "=HLOOKUP()",
+    explain:
+      "HLOOKUP horizontally data search pannum."
+  },
+
+  {
+    id: 49,
+    title: "COUNT Function",
+    question: "Numbers count panna use pannura function edhu?",
+    options: [
+      "=COUNTA()",
+      "=COUNT()",
+      "=SUM()",
+      "=AVG()"
+    ],
+    answer: "=COUNT()",
+    explain:
+      "COUNT numeric cells count pannum."
+  },
+
+  {
+    id: 50,
+    title: "COUNTA Function",
+    question: "Non-empty cells count panna use pannura function edhu?",
+    options: [
+      "=COUNT()",
+      "=COUNTA()",
+      "=SUMIF()",
+      "=MAX()"
+    ],
+    answer: "=COUNTA()",
+    explain:
+      "COUNTA empty illaadha cells count pannum."
+  },
+
+  {
+    id: 51,
+    title: "SUMIF Function",
+    question: "Condition-based addition panna use pannura function edhu?",
+    options: [
+      "=SUMIF()",
+      "=SUM()",
+      "=IF()",
+      "=COUNTIF()"
+    ],
+    answer: "=SUMIF()",
+    explain:
+      "SUMIF condition satisfy aagura values add pannum."
+  },
+
+  {
+    id: 52,
+    title: "AVERAGEIF Function",
+    question: "Condition-based average calculate panna use pannura function edhu?",
+    options: [
+      "=AVERAGEIF()",
+      "=AVERAGE()",
+      "=IF()",
+      "=COUNTIF()"
+    ],
+    answer: "=AVERAGEIF()",
+    explain:
+      "AVERAGEIF condition match aagura values average calculate pannum."
+  },
+
+  {
+    id: 53,
+    title: "TODAY Function",
+    question: "Current date display panna use pannura function edhu?",
+    options: [
+      "=DATE()",
+      "=TODAY()",
+      "=TIME()",
+      "=NOWTIME()"
+    ],
+    answer: "=TODAY()",
+    explain:
+      "TODAY function current date return pannum."
+  },
+
+  {
+    id: 54,
+    title: "NOW Function",
+    question: "Current date and time display panna use pannura function edhu?",
+    options: [
+      "=TIME()",
+      "=DATE()",
+      "=NOW()",
+      "=TODAY()"
+    ],
+    answer: "=NOW()",
+    explain:
+      "NOW function current date and time return pannum."
+  },
+
+  {
+    id: 55,
+    title: "TIME Function",
+    question: "Time values work panna use pannura function edhu?",
+    options: [
+      "=TIME()",
+      "=NOW()",
+      "=TODAY()",
+      "=DATE()"
+    ],
+    answer: "=TIME()",
+    explain:
+      "TIME function time values create pannum."
+  },
+
+  {
+    id: 56,
+    title: "AND Function",
+    question: "All conditions true-ah irundha true return panna use pannura function edhu?",
+    options: [
+      "=OR()",
+      "=AND()",
+      "=NOT()",
+      "=IF()"
+    ],
+    answer: "=AND()",
+    explain:
+      "AND function ella conditions true-ah irukkanum."
+  },
+
+  {
+    id: 57,
+    title: "OR Function",
+    question: "Oru condition true irundhaalum true return panna use pannura function edhu?",
+    options: [
+      "=AND()",
+      "=OR()",
+      "=NOT()",
+      "=SUM()"
+    ],
+    answer: "=OR()",
+    explain:
+      "OR function atleast one condition true irundhaalum work pannum."
+  },
+
+  {
+    id: 58,
+    title: "NOT Function",
+    question: "Boolean value reverse panna use pannura function edhu?",
+    options: [
+      "=AND()",
+      "=NOT()",
+      "=IF()",
+      "=COUNT()"
+    ],
+    answer: "=NOT()",
+    explain:
+      "NOT function TRUE-ah FALSE-ah maathum."
+  },
+
+  {
+    id: 59,
+    title: "Excel Comments",
+    question: "Cell-ku notes add panna use pannura feature edhu?",
+    options: [
+      "Comment",
+      "Chart",
+      "Table",
+      "Formula"
+    ],
+    answer: "Comment",
+    explain:
+      "Comments additional notes add panna use pannuvanga."
+  },
+
+  {
+    id: 60,
+    title: "Conditional Formatting",
+    question: "Specific conditions-based cell colors apply panna use pannura feature edhu?",
+    options: [
+      "Themes",
+      "Conditional Formatting",
+      "Page Layout",
+      "Merge"
+    ],
+    answer: "Conditional Formatting",
+    explain:
+      "Conditional Formatting conditions base pannitu styles apply pannum."
+  },
+  {
+    id: 61,
+    title: "Pivot Table",
+    question: "Large data summarize panna Excel-la use pannura feature edhu?",
+    options: [
+      "Pivot Table",
+      "Chart",
+      "Formula",
+      "Filter"
+    ],
+    answer: "Pivot Table",
+    explain:
+      "Pivot Table large datasets summarize panna help pannum."
+  },
+
+  {
+    id: 62,
+    title: "Sorting Data",
+    question: "Data ascending or descending order-la arrange panna use pannura feature edhu?",
+    options: [
+      "Filtering",
+      "Sorting",
+      "Grouping",
+      "Validation"
+    ],
+    answer: "Sorting",
+    explain:
+      "Sorting data organized order-la arrange pannum."
+  },
+
+  {
+    id: 63,
+    title: "Filtering Data",
+    question: "Specific records mattum display panna use pannura feature edhu?",
+    options: [
+      "Grouping",
+      "Filtering",
+      "Merge",
+      "Split"
+    ],
+    answer: "Filtering",
+    explain:
+      "Filtering selected data mattum show pannum."
+  },
+
+  {
+    id: 64,
+    title: "Grouping Data",
+    question: "Related rows or columns combine panna use pannura feature edhu?",
+    options: [
+      "Sorting",
+      "Grouping",
+      "Comments",
+      "Formatting"
+    ],
+    answer: "Grouping",
+    explain:
+      "Grouping related data organize panna use pannuvanga."
+  },
+
+  {
+    id: 65,
+    title: "Data Validation",
+    question: "Wrong data entry prevent panna use pannura feature edhu?",
+    options: [
+      "Validation",
+      "Formatting",
+      "Filter",
+      "Merge"
+    ],
+    answer: "Validation",
+    explain:
+      "Data Validation valid entries mattum allow pannum."
+  },
+
+  {
+    id: 66,
+    title: "Input Message",
+    question: "Cell select pannumbodhu instruction show panna use pannura feature edhu?",
+    options: [
+      "Error Alert",
+      "Input Message",
+      "Comment",
+      "Tooltip"
+    ],
+    answer: "Input Message",
+    explain:
+      "Input Message users-ku guidance provide pannum."
+  },
+
+  {
+    id: 67,
+    title: "Error Alert",
+    question: "Invalid data enter pannumbodhu warning kaamikka use pannura feature edhu?",
+    options: [
+      "Filter",
+      "Error Alert",
+      "Grouping",
+      "Comment"
+    ],
+    answer: "Error Alert",
+    explain:
+      "Error Alert invalid input warn pannum."
+  },
+
+  {
+    id: 68,
+    title: "Consolidate",
+    question: "Multiple sheets data combine panna use pannura feature edhu?",
+    options: [
+      "Consolidate",
+      "Split",
+      "Pivot",
+      "Filter"
+    ],
+    answer: "Consolidate",
+    explain:
+      "Consolidate multiple sources data combine pannum."
+  },
+
+  {
+    id: 69,
+    title: "Linking Data",
+    question: "Different worksheets-lendhu data connect panna use pannura feature edhu?",
+    options: [
+      "Hyperlink",
+      "Linking Data",
+      "Grouping",
+      "Sorting"
+    ],
+    answer: "Linking Data",
+    explain:
+      "Linking Data sheets-kulla connection create pannum."
+  },
+
+  {
+    id: 70,
+    title: "Goal Seek",
+    question: "Specific result achieve panna required input find panna use pannura tool edhu?",
+    options: [
+      "Scenario Manager",
+      "Goal Seek",
+      "Pivot Table",
+      "Filter"
+    ],
+    answer: "Goal Seek",
+    explain:
+      "Goal Seek desired result-kaga input values calculate pannum."
+  },
+
+  {
+    id: 71,
+    title: "Scenario Manager",
+    question: "Different input scenarios compare panna use pannura tool edhu?",
+    options: [
+      "Goal Seek",
+      "Scenario Manager",
+      "Validation",
+      "Grouping"
+    ],
+    answer: "Scenario Manager",
+    explain:
+      "Scenario Manager multiple possibilities analyze pannum."
+  },
+
+  {
+    id: 72,
+    title: "PowerPoint",
+    question: "MS PowerPoint enna type software?",
+    options: [
+      "Spreadsheet Software",
+      "Presentation Software",
+      "Database Software",
+      "Word Processor"
+    ],
+    answer: "Presentation Software",
+    explain:
+      "PowerPoint presentations create panna use pannura software."
+  },
+
+  {
+    id: 73,
+    title: "Presentation",
+    question: "Slides collection-ku enna peyar?",
+    options: [
+      "Workbook",
+      "Presentation",
+      "Database",
+      "Document"
+    ],
+    answer: "Presentation",
+    explain:
+      "Slides collection-ah presentation-nu solvaanga."
+  },
+
+  {
+    id: 74,
+    title: "Slides",
+    question: "PowerPoint presentation individual pages-ku enna peyar?",
+    options: [
+      "Worksheets",
+      "Slides",
+      "Cells",
+      "Rows"
+    ],
+    answer: "Slides",
+    explain:
+      "Presentation pages-ah slides-nu koopduvaanga."
+  },
+
+  {
+    id: 75,
+    title: "Design Layout",
+    question: "Slide appearance customize panna use pannura feature edhu?",
+    options: [
+      "Themes",
+      "Layout",
+      "Animation",
+      "Transition"
+    ],
+    answer: "Themes",
+    explain:
+      "Themes presentation professional look kudukkum."
+  },
+
+  {
+    id: 76,
+    title: "Multimedia",
+    question: "Audio and video add panna use pannura concept edhu?",
+    options: [
+      "Formatting",
+      "Multimedia Integration",
+      "Merge",
+      "Grouping"
+    ],
+    answer: "Multimedia Integration",
+    explain:
+      "Multimedia integration presentation attractive pannum."
+  },
+
+  {
+    id: 77,
+    title: "Animations",
+    question: "Objects move effects create panna use pannura feature edhu?",
+    options: [
+      "Transitions",
+      "Animations",
+      "Layouts",
+      "Charts"
+    ],
+    answer: "Animations",
+    explain:
+      "Animations objects-ku motion effects kudukkum."
+  },
+
+  {
+    id: 78,
+    title: "Transitions",
+    question: "One slide-lendhu next slide-ku visual effect create panna use pannura feature edhu?",
+    options: [
+      "Animations",
+      "Transitions",
+      "Themes",
+      "Views"
+    ],
+    answer: "Transitions",
+    explain:
+      "Transitions slide changing effects create pannum."
+  },
+
+  {
+    id: 79,
+    title: "Slide Show",
+    question: "Presentation audience-ku display panna use pannura mode edhu?",
+    options: [
+      "Edit Mode",
+      "Slide Show",
+      "Reading View",
+      "Design View"
+    ],
+    answer: "Slide Show",
+    explain:
+      "Slide Show full presentation display pannum."
+  },
+
+  {
+    id: 80,
+    title: "Final Project",
+    question: "Complete presentation prepare pannradhu enna activity?",
+    options: [
+      "Formatting",
+      "Final View Project",
+      "Mail Merge",
+      "Filtering"
+    ],
+    answer: "Final View Project",
+    explain:
+      "Final project complete practical presentation preparation-ah represent pannum."
+  },
+  {
+    id: 81,
+    title: "MS Word Shortcut",
+    question: "Document save panna use pannura shortcut key edhu?",
+    options: [
+      "Ctrl + C",
+      "Ctrl + S",
+      "Ctrl + V",
+      "Ctrl + P"
+    ],
+    answer: "Ctrl + S",
+    explain:
+      "Ctrl + S current document-ah save pannum."
+  },
+
+  {
+    id: 82,
+    title: "Copy Shortcut",
+    question: "Selected text copy panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + X",
+      "Ctrl + C",
+      "Ctrl + Z",
+      "Ctrl + A"
+    ],
+    answer: "Ctrl + C",
+    explain:
+      "Ctrl + C selected content copy pannum."
+  },
+
+  {
+    id: 83,
+    title: "Paste Shortcut",
+    question: "Copied content paste panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + P",
+      "Ctrl + V",
+      "Ctrl + X",
+      "Ctrl + B"
+    ],
+    answer: "Ctrl + V",
+    explain:
+      "Ctrl + V copied content paste pannum."
+  },
+
+  {
+    id: 84,
+    title: "Cut Shortcut",
+    question: "Selected content move panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + X",
+      "Ctrl + C",
+      "Ctrl + S",
+      "Ctrl + U"
+    ],
+    answer: "Ctrl + X",
+    explain:
+      "Ctrl + X selected content cut pannum."
+  },
+
+  {
+    id: 85,
+    title: "Undo",
+    question: "Previous action reverse panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + Y",
+      "Ctrl + Z",
+      "Ctrl + U",
+      "Ctrl + O"
+    ],
+    answer: "Ctrl + Z",
+    explain:
+      "Ctrl + Z previous action undo pannum."
+  },
+
+  {
+    id: 86,
+    title: "Redo",
+    question: "Undo pannina action thirumba restore panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + R",
+      "Ctrl + Y",
+      "Ctrl + X",
+      "Ctrl + T"
+    ],
+    answer: "Ctrl + Y",
+    explain:
+      "Ctrl + Y undone action-ah restore pannum."
+  },
+
+  {
+    id: 87,
+    title: "Print Document",
+    question: "Document print panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + S",
+      "Ctrl + P",
+      "Ctrl + O",
+      "Ctrl + D"
+    ],
+    answer: "Ctrl + P",
+    explain:
+      "Ctrl + P print dialog open pannum."
+  },
+
+  {
+    id: 88,
+    title: "Open Document",
+    question: "Existing file open panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + N",
+      "Ctrl + O",
+      "Ctrl + L",
+      "Ctrl + H"
+    ],
+    answer: "Ctrl + O",
+    explain:
+      "Ctrl + O existing document open panna use pannuvanga."
+  },
+
+  {
+    id: 89,
+    title: "New Document",
+    question: "New document create panna use pannura shortcut edhu?",
+    options: [
+      "Ctrl + N",
+      "Ctrl + P",
+      "Ctrl + A",
+      "Ctrl + W"
+    ],
+    answer: "Ctrl + N",
+    explain:
+      "Ctrl + N pudhu document create pannum."
+  },
+
+  {
+    id: 90,
+    title: "Excel Formula",
+    question: "Excel formulas eppadi start aagum?",
+    options: [
+      "+",
+      "-",
+      "=",
+      "*"
+    ],
+    answer: "=",
+    explain:
+      "Excel formulas '=' symbol-lendhu start aagum."
+  },
+
+  {
+    id: 91,
+    title: "Chart",
+    question: "Data graphical-ah display panna use pannura feature edhu?",
+    options: [
+      "Table",
+      "Chart",
+      "Formula",
+      "Cell"
+    ],
+    answer: "Chart",
+    explain:
+      "Charts data visual representation provide pannum."
+  },
+
+  {
+    id: 92,
+    title: "Excel Rows",
+    question: "Excel rows eppadi identify pannuvanga?",
+    options: [
+      "Letters",
+      "Numbers",
+      "Symbols",
+      "Colors"
+    ],
+    answer: "Numbers",
+    explain:
+      "Rows numbers use pannitu identify pannuvanga."
+  },
+
+  {
+    id: 93,
+    title: "Excel Columns",
+    question: "Excel columns eppadi identify pannuvanga?",
+    options: [
+      "Letters",
+      "Numbers",
+      "Shapes",
+      "Codes"
+    ],
+    answer: "Letters",
+    explain:
+      "Columns alphabet letters use pannitu identify pannuvanga."
+  },
+
+  {
+    id: 94,
+    title: "Merge Cells",
+    question: "Multiple cells combine panna use pannura feature edhu?",
+    options: [
+      "Split Cells",
+      "Merge Cells",
+      "Group Cells",
+      "Align Cells"
+    ],
+    answer: "Merge Cells",
+    explain:
+      "Merge Cells multiple cells-ah single cell-ah combine pannum."
+  },
+
+  {
+    id: 95,
+    title: "Freeze Panes",
+    question: "Scrolling pannumbodhum specific rows visible-ah irukka use pannura feature edhu?",
+    options: [
+      "Freeze Panes",
+      "Split View",
+      "Zoom",
+      "Filter"
+    ],
+    answer: "Freeze Panes",
+    explain:
+      "Freeze Panes important rows/columns visible-ah maintain pannum."
+  },
+
+  {
+    id: 96,
+    title: "Slide Layout",
+    question: "Slide content arrangement set panna use pannura feature edhu?",
+    options: [
+      "Layout",
+      "Animation",
+      "Transition",
+      "Theme"
+    ],
+    answer: "Layout",
+    explain:
+      "Layout slide objects positioning set pannum."
+  },
+
+  {
+    id: 97,
+    title: "Presentation Theme",
+    question: "Entire presentation-ku common style apply panna use pannura feature edhu?",
+    options: [
+      "Animation",
+      "Theme",
+      "Transition",
+      "Chart"
+    ],
+    answer: "Theme",
+    explain:
+      "Themes presentation consistent design kudukkum."
+  },
+
+  {
+    id: 98,
+    title: "Slide Transition",
+    question: "Slides change aagumbodhu visual effect create panna use pannura feature edhu?",
+    options: [
+      "Animation",
+      "Transition",
+      "Formatting",
+      "Grouping"
+    ],
+    answer: "Transition",
+    explain:
+      "Transitions slides changing effects create pannum."
+  },
+
+  {
+    id: 99,
+    title: "Animation Effect",
+    question: "Objects movement effect create panna use pannura feature edhu?",
+    options: [
+      "Animation",
+      "Theme",
+      "Header",
+      "Chart"
+    ],
+    answer: "Animation",
+    explain:
+      "Animations objects-ku motion effects add pannum."
+  },
+
+  {
+    id: 100,
+    title: "DCA Complete",
+    question: "DCA course-la MS Word, Excel, PowerPoint topics cover pannuvangala?",
+    options: [
+      "Yes",
+      "No",
+      "Only Excel",
+      "Only Word"
+    ],
+    answer: "Yes",
+    explain:
+      "DCA course basic office applications full-ah cover pannum."
+  }
 ]
