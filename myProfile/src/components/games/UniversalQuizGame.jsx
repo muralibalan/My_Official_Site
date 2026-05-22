@@ -67,6 +67,11 @@ function UniversalQuizGame() {
       color: '#dab11e',
       dataArray: allData.dcaTasks,
     },
+     tally: {
+      name: 'TALLY',
+      color: '#7ce96f',
+      dataArray: allData.tallyQuestions,
+    },
   };
 
   const currentConfig = subjectRegistry[selectedSubject];

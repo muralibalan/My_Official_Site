@@ -11294,4 +11294,1404 @@ export const dcaTasks = [
     explain:
       "DCA course basic office applications full-ah cover pannum."
   }
-]
+];
+
+export const tallyQuestions = [
+
+  {
+    id: 1,
+    question: "Tally Prime என்பது எந்த வகை software?",
+    options: [
+      "Video Editing",
+      "Accounting Software",
+      "Gaming Software",
+      "Design Software"
+    ],
+    answer: "Accounting Software",
+    explain:
+      "Tally Prime accounting மற்றும் taxation purposes-க்கு பயன்படுத்தப்படும் software."
+  },
+
+  {
+    id: 2,
+    question: "Tally Prime-ல் Company உருவாக்க எந்த option பயன்படுத்தப்படுகிறது?",
+    options: [
+      "Create Company",
+      "Gateway",
+      "Display",
+      "Voucher"
+    ],
+    answer: "Create Company",
+    explain:
+      "புதிய company create செய்ய Create Company option பயன்படுத்தப்படுகிறது."
+  },
+
+  {
+    id: 3,
+    question: "Accounting-ன் Golden Rules எத்தனை?",
+    options: [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    answer: "3",
+    explain:
+      "Accounting-ல் Personal, Real, Nominal என 3 golden rules உள்ளன."
+  },
+
+  {
+    id: 4,
+    question: "Debit the receiver என்பது எந்த account rule?",
+    options: [
+      "Real Account",
+      "Personal Account",
+      "Nominal Account",
+      "Cash Account"
+    ],
+    answer: "Personal Account",
+    explain:
+      "Personal Account rule : Debit the receiver, Credit the giver."
+  },
+
+  {
+    id: 5,
+    question: "Debit what comes in என்பது எந்த account rule?",
+    options: [
+      "Nominal Account",
+      "Real Account",
+      "Personal Account",
+      "Ledger"
+    ],
+    answer: "Real Account",
+    explain:
+      "Real account rule : Debit what comes in, Credit what goes out."
+  },
+
+  {
+    id: 6,
+    question: "Nominal account rule என்ன?",
+    options: [
+      "Debit receiver",
+      "Credit expenses",
+      "Debit all expenses and losses",
+      "Credit what comes in"
+    ],
+    answer: "Debit all expenses and losses",
+    explain:
+      "Nominal account-ல் expenses/losses debit செய்யப்படும்."
+  },
+
+  {
+    id: 7,
+    question: "Ledger என்பது என்ன?",
+    options: [
+      "Voucher type",
+      "Final account book",
+      "Group of accounts",
+      "Tax"
+    ],
+    answer: "Final account book",
+    explain:
+      "Ledger accounts individual transaction records வைத்திருக்கும்."
+  },
+
+  {
+    id: 8,
+    question: "Tally Prime-ல் vouchers பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Games",
+      "Transactions entry",
+      "Formatting",
+      "Charts"
+    ],
+    answer: "Transactions entry",
+    explain:
+      "All accounting entries vouchers மூலம் பதிவு செய்யப்படும்."
+  },
+
+  {
+    id: 9,
+    question: "Purchase transaction பதிவு செய்ய எந்த voucher பயன்படுத்தப்படுகிறது?",
+    options: [
+      "Sales Voucher",
+      "Receipt Voucher",
+      "Purchase Voucher",
+      "Contra Voucher"
+    ],
+    answer: "Purchase Voucher",
+    explain:
+      "Purchase entry பதிவு செய்ய Purchase Voucher பயன்படுத்தப்படும்."
+  },
+
+  {
+    id: 10,
+    question: "Sales entry பதிவு செய்ய எந்த voucher பயன்படுத்தப்படுகிறது?",
+    options: [
+      "Purchase Voucher",
+      "Sales Voucher",
+      "Payment Voucher",
+      "Journal Voucher"
+    ],
+    answer: "Sales Voucher",
+    explain:
+      "Sales transactions sales voucher மூலம் பதிவு செய்யப்படும்."
+  },
+
+  {
+    id: 11,
+    question: "Payment entry பதிவு செய்ய எந்த voucher பயன்படுத்தப்படுகிறது?",
+    options: [
+      "Receipt Voucher",
+      "Payment Voucher",
+      "Sales Voucher",
+      "Contra Voucher"
+    ],
+    answer: "Payment Voucher",
+    explain:
+      "Cash payment entries Payment Voucher மூலம் பதிவு செய்யப்படும்."
+  },
+
+  {
+    id: 12,
+    question: "Cash deposited into bank entry எந்த voucher?",
+    options: [
+      "Contra Voucher",
+      "Sales Voucher",
+      "Journal Voucher",
+      "Purchase Voucher"
+    ],
+    answer: "Contra Voucher",
+    explain:
+      "Cash மற்றும் bank transactions Contra voucher-ல் வரும்."
+  },
+
+  {
+    id: 13,
+    question: "Group creation பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Tax calculation",
+      "Account classification",
+      "Printing",
+      "Backup"
+    ],
+    answer: "Account classification",
+    explain:
+      "Ledger accounts classify செய்ய groups பயன்படுத்தப்படும்."
+  },
+
+  {
+    id: 14,
+    question: "Budget creation பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Future planning",
+      "Printing",
+      "Voucher entry",
+      "Backup"
+    ],
+    answer: "Future planning",
+    explain:
+      "Budget future financial planning-க்கு பயன்படும்."
+  },
+
+  {
+    id: 15,
+    question: "Security control பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Games",
+      "Data protection",
+      "Music",
+      "Formatting"
+    ],
+    answer: "Data protection",
+    explain:
+      "Unauthorized access தவிர்க்க security control பயன்படும்."
+  },
+
+  {
+    id: 16,
+    question: "Stock items create செய்யப்படும் module எது?",
+    options: [
+      "Accounting",
+      "Inventory",
+      "Taxation",
+      "Payroll"
+    ],
+    answer: "Inventory",
+    explain:
+      "Inventory module stock management-க்கு பயன்படும்."
+  },
+
+  {
+    id: 17,
+    question: "Unit of Measure பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Tax",
+      "Quantity measurement",
+      "Discount",
+      "Salary"
+    ],
+    answer: "Quantity measurement",
+    explain:
+      "Kg, litre, pieces போன்ற units define செய்ய பயன்படும்."
+  },
+
+  {
+    id: 18,
+    question: "Godown பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Tax storage",
+      "Stock storage location",
+      "Salary details",
+      "Voucher"
+    ],
+    answer: "Stock storage location",
+    explain:
+      "Goods stored location godown எனப்படும்."
+  },
+
+  {
+    id: 19,
+    question: "Batch & Expiry feature அதிகம் பயன்படுத்தப்படுவது எந்த business?",
+    options: [
+      "Medical shop",
+      "Bank",
+      "School",
+      "Hotel"
+    ],
+    answer: "Medical shop",
+    explain:
+      "Expiry date maintain செய்ய batch feature பயன்படும்."
+  },
+
+  {
+    id: 20,
+    question: "Price list பயன்படுத்தப்படுவது எதற்காக?",
+    options: [
+      "Tax",
+      "Different selling prices",
+      "Salary",
+      "Voucher"
+    ],
+    answer: "Different selling prices",
+    explain:
+      "Multiple customer pricing maintain செய்ய பயன்படும்."
+  },
+  {
+  id: 21,
+  question: "Stock Group create panna use pannuradhu ethukku?",
+  options: [
+    "Voucher entry",
+    "Stock classify panna",
+    "Tax calculate panna",
+    "Salary entry"
+  ],
+  answer: "Stock classify panna",
+  explain:
+    "Stock items-ah category wise organize panna stock group use pannuvanga."
+},
+
+{
+  id: 22,
+  question: "Tally Prime-la stock item create pannuradhu etharkaga?",
+  options: [
+    "Employee details",
+    "Inventory maintain panna",
+    "Tax entry",
+    "Backup edukka"
+  ],
+  answer: "Inventory maintain panna",
+  explain:
+    "Products and goods maintain panna stock item create pannuvanga."
+},
+
+{
+  id: 23,
+  question: "Reorder level use pannuradhu etharkaga?",
+  options: [
+    "Tax calculate panna",
+    "Low stock identify panna",
+    "Salary process panna",
+    "Voucher print panna"
+  ],
+  answer: "Low stock identify panna",
+  explain:
+    "Minimum stock level reach aana identify panna reorder level use pannuvanga."
+},
+
+{
+  id: 24,
+  question: "Purchase Order processing use pannuradhu etharkaga?",
+  options: [
+    "Customer payment",
+    "Supplier-kitta order place panna",
+    "Salary entry",
+    "GST filing"
+  ],
+  answer: "Supplier-kitta order place panna",
+  explain:
+    "Supplier-kitta goods order panna purchase order use pannuvanga."
+},
+
+{
+  id: 25,
+  question: "Sales Order processing use pannuradhu etharkaga?",
+  options: [
+    "Customer order maintain panna",
+    "Tax calculate panna",
+    "Bank entry",
+    "Attendance maintain panna"
+  ],
+  answer: "Customer order maintain panna",
+  explain:
+    "Customer sales orders maintain panna sales order use pannuvanga."
+},
+
+{
+  id: 26,
+  question: "Rejection inward entry use pannuradhu etharkaga?",
+  options: [
+    "Returned purchase goods",
+    "Sales report",
+    "Payroll",
+    "GST"
+  ],
+  answer: "Returned purchase goods",
+  explain:
+    "Supplier-kitta thiruppi anuppura goods reject inward-la varum."
+},
+
+{
+  id: 27,
+  question: "Rejection outward entry use pannuradhu etharkaga?",
+  options: [
+    "Customer returns",
+    "Salary process",
+    "Stock transfer",
+    "Discount"
+  ],
+  answer: "Customer returns",
+  explain:
+    "Customer return pannura goods rejection outward-la maintain pannuvanga."
+},
+
+{
+  id: 28,
+  question: "Bill of Materials (BOM) use pannuradhu etharkaga?",
+  options: [
+    "Manufacturing process",
+    "Salary calculation",
+    "Voucher print",
+    "Tax report"
+  ],
+  answer: "Manufacturing process",
+  explain:
+    "Product manufacture panna required materials BOM-la maintain pannuvanga."
+},
+
+{
+  id: 29,
+  question: "Backup edukka use pannuradhu etharkaga?",
+  options: [
+    "Data safety",
+    "Tax filing",
+    "Printing",
+    "Attendance"
+  ],
+  answer: "Data safety",
+  explain:
+    "Company data secure-ah save panna backup use pannuvanga."
+},
+
+{
+  id: 30,
+  question: "Restore option use pannuradhu etharkaga?",
+  options: [
+    "Delete data",
+    "Backup data retrieve panna",
+    "Voucher entry",
+    "Stock transfer"
+  ],
+  answer: "Backup data retrieve panna",
+  explain:
+    "Backup file-lendhu data restore panna restore option use pannuvanga."
+},
+
+{
+  id: 31,
+  question: "Export option use pannuradhu etharkaga?",
+  options: [
+    "Data share panna",
+    "Voucher delete panna",
+    "Salary calculate panna",
+    "Tax reduce panna"
+  ],
+  answer: "Data share panna",
+  explain:
+    "Reports and data export panna export option use pannuvanga."
+},
+
+{
+  id: 32,
+  question: "Import option use pannuradhu etharkaga?",
+  options: [
+    "Data receive panna",
+    "Backup delete panna",
+    "Tax calculate panna",
+    "Employee remove panna"
+  ],
+  answer: "Data receive panna",
+  explain:
+    "External data Tally-kulla import panna use pannuvanga."
+},
+
+{
+  id: 33,
+  question: "Bank reconciliation use pannuradhu etharkaga?",
+  options: [
+    "Bank balance compare panna",
+    "Salary process panna",
+    "Inventory maintain panna",
+    "Voucher delete panna"
+  ],
+  answer: "Bank balance compare panna",
+  explain:
+    "Bank statement and tally balance compare panna BRS use pannuvanga."
+},
+
+{
+  id: 34,
+  question: "Cheque printing feature use pannuradhu etharkaga?",
+  options: [
+    "Invoice print panna",
+    "Cheque print panna",
+    "Salary slip print panna",
+    "Tax report print panna"
+  ],
+  answer: "Cheque print panna",
+  explain:
+    "Direct-ah cheque print panna cheque printing feature use pannuvanga."
+},
+
+{
+  id: 35,
+  question: "Payroll feature use pannuradhu etharkaga?",
+  options: [
+    "Employee salary maintain panna",
+    "Stock manage panna",
+    "Tax entry",
+    "Backup"
+  ],
+  answer: "Employee salary maintain panna",
+  explain:
+    "Employee salary and attendance manage panna payroll use pannuvanga."
+},
+
+{
+  id: 36,
+  question: "Attendance entry use pannuradhu etharkaga?",
+  options: [
+    "Employee presence maintain panna",
+    "Tax filing",
+    "Inventory",
+    "Banking"
+  ],
+  answer: "Employee presence maintain panna",
+  explain:
+    "Employees attendance maintain panna attendance entry use pannuvanga."
+},
+
+{
+  id: 37,
+  question: "GST full form enna?",
+  options: [
+    "Goods and Service Tax",
+    "General Sales Tax",
+    "Government Service Tax",
+    "Goods Sales Trade"
+  ],
+  answer: "Goods and Service Tax",
+  explain:
+    "GST-na Goods and Services Tax."
+},
+
+{
+  id: 38,
+  question: "TDS full form enna?",
+  options: [
+    "Tax Deducted at Source",
+    "Total Data System",
+    "Trade Data Sheet",
+    "Tax Data Service"
+  ],
+  answer: "Tax Deducted at Source",
+  explain:
+    "Income source-lendhe deduct pannura tax TDS."
+},
+
+{
+  id: 39,
+  question: "VAT full form enna?",
+  options: [
+    "Value Added Tax",
+    "Variable Account Tax",
+    "Voucher Added Tax",
+    "Virtual Added Tax"
+  ],
+  answer: "Value Added Tax",
+  explain:
+    "Goods sales mela apply pannura indirect tax VAT."
+},
+
+{
+  id: 40,
+  question: "Multi-currency feature use pannuradhu etharkaga?",
+  options: [
+    "Different country currency handle panna",
+    "Stock transfer",
+    "Salary print",
+    "Voucher delete"
+  ],
+  answer: "Different country currency handle panna",
+  explain:
+    "Foreign currency transactions manage panna multi-currency feature use pannuvanga."
+},
+{
+  id: 41,
+  question: "Company alter option use pannuradhu etharkaga?",
+  options: [
+    "Company delete panna",
+    "Company details modify panna",
+    "Voucher print panna",
+    "GST calculate panna"
+  ],
+  answer: "Company details modify panna",
+  explain:
+    "Existing company details change panna alter option use pannuvanga."
+},
+
+{
+  id: 42,
+  question: "Shut Company option use pannuradhu etharkaga?",
+  options: [
+    "Company open panna",
+    "Company close panna",
+    "Data export panna",
+    "Payroll process panna"
+  ],
+  answer: "Company close panna",
+  explain:
+    "Current company close panna shut company use pannuvanga."
+},
+
+{
+  id: 43,
+  question: "Display menu use pannuradhu etharkaga?",
+  options: [
+    "Reports paaka",
+    "Stock delete panna",
+    "Tax remove panna",
+    "Backup restore panna"
+  ],
+  answer: "Reports paaka",
+  explain:
+    "Accounting reports and statements display panna display menu use pannuvanga."
+},
+
+{
+  id: 44,
+  question: "Configuration option use pannuradhu etharkaga?",
+  options: [
+    "Settings change panna",
+    "Voucher entry",
+    "Salary process",
+    "Stock transfer"
+  ],
+  answer: "Settings change panna",
+  explain:
+    "Tally settings customize panna configuration option use pannuvanga."
+},
+
+{
+  id: 45,
+  question: "Cost Center use pannuradhu etharkaga?",
+  options: [
+    "Department-wise accounting",
+    "Tax filing",
+    "Voucher print",
+    "Bank entry"
+  ],
+  answer: "Department-wise accounting",
+  explain:
+    "Department or branch-wise expenses track panna cost center use pannuvanga."
+},
+
+{
+  id: 46,
+  question: "Cost Category use pannuradhu etharkaga?",
+  options: [
+    "Multiple cost centers manage panna",
+    "Payroll calculate panna",
+    "Inventory manage panna",
+    "Tax entry"
+  ],
+  answer: "Multiple cost centers manage panna",
+  explain:
+    "Different cost centers group panna cost category use pannuvanga."
+},
+
+{
+  id: 47,
+  question: "Interest calculation use pannuradhu etharkaga?",
+  options: [
+    "Interest amount calculate panna",
+    "Salary maintain panna",
+    "Stock update panna",
+    "Voucher delete panna"
+  ],
+  answer: "Interest amount calculate panna",
+  explain:
+    "Outstanding amount-ku interest calculate panna use pannuvanga."
+},
+
+{
+  id: 48,
+  question: "Discount calculation use pannuradhu etharkaga?",
+  options: [
+    "Offer calculate panna",
+    "Tax filing",
+    "Attendance entry",
+    "Backup"
+  ],
+  answer: "Offer calculate panna",
+  explain:
+    "Customer-ku discount calculate panna use pannuvanga."
+},
+
+{
+  id: 49,
+  question: "Stock Category use pannuradhu etharkaga?",
+  options: [
+    "Stock classify panna",
+    "Voucher print panna",
+    "Salary process panna",
+    "GST filing"
+  ],
+  answer: "Stock classify panna",
+  explain:
+    "Products similar category-wise organize panna stock category use pannuvanga."
+},
+
+{
+  id: 50,
+  question: "Stock transfer use pannuradhu etharkaga?",
+  options: [
+    "One godown lendhu another godown-ku stock move panna",
+    "Salary entry",
+    "Tax payment",
+    "Ledger creation"
+  ],
+  answer: "One godown lendhu another godown-ku stock move panna",
+  explain:
+    "Different godowns-kulla stock transfer panna use pannuvanga."
+},
+
+{
+  id: 51,
+  question: "Price level use pannuradhu etharkaga?",
+  options: [
+    "Different customer price maintain panna",
+    "Tax calculate panna",
+    "Payroll process panna",
+    "Voucher delete panna"
+  ],
+  answer: "Different customer price maintain panna",
+  explain:
+    "Retail and wholesale rates separate-ah maintain panna use pannuvanga."
+},
+
+{
+  id: 52,
+  question: "Manufacturing company-la BOM use pannuradhu etharkaga?",
+  options: [
+    "Raw materials track panna",
+    "Attendance entry",
+    "GST filing",
+    "Cheque printing"
+  ],
+  answer: "Raw materials track panna",
+  explain:
+    "Manufacturing process-ku required materials maintain panna BOM use pannuvanga."
+},
+
+{
+  id: 53,
+  question: "Sales voucher use pannumbodhu stock enna aagum?",
+  options: [
+    "Increase aagum",
+    "Decrease aagum",
+    "Change aagathu",
+    "Delete aagum"
+  ],
+  answer: "Decrease aagum",
+  explain:
+    "Goods sale pannumbodhu stock reduce aagum."
+},
+
+{
+  id: 54,
+  question: "Purchase voucher use pannumbodhu stock enna aagum?",
+  options: [
+    "Decrease aagum",
+    "Increase aagum",
+    "Delete aagum",
+    "Transfer aagum"
+  ],
+  answer: "Increase aagum",
+  explain:
+    "Goods purchase pannumbodhu stock increase aagum."
+},
+
+{
+  id: 55,
+  question: "Receipt voucher use pannuradhu etharkaga?",
+  options: [
+    "Cash receive panna",
+    "Cash pay panna",
+    "Stock transfer panna",
+    "Attendance maintain panna"
+  ],
+  answer: "Cash receive panna",
+  explain:
+    "Cash or bank receipt entries-ku receipt voucher use pannuvanga."
+},
+
+{
+  id: 56,
+  question: "Journal voucher mostly use pannuradhu etharkaga?",
+  options: [
+    "Adjustment entries",
+    "Sales entry",
+    "Payroll",
+    "Inventory"
+  ],
+  answer: "Adjustment entries",
+  explain:
+    "Non-cash adjustment entries-ku journal voucher use pannuvanga."
+},
+
+{
+  id: 57,
+  question: "Gateway of Tally-na enna?",
+  options: [
+    "Main screen",
+    "Tax report",
+    "Stock item",
+    "Voucher"
+  ],
+  answer: "Main screen",
+  explain:
+    "Tally open pannumbodhu varura main menu Gateway of Tally."
+},
+
+{
+  id: 58,
+  question: "GST entry maintain panna enna enable panna venum?",
+  options: [
+    "Inventory",
+    "Taxation features",
+    "Payroll",
+    "Backup"
+  ],
+  answer: "Taxation features",
+  explain:
+    "GST transactions maintain panna taxation enable panna venum."
+},
+
+{
+  id: 59,
+  question: "Payroll voucher use pannuradhu etharkaga?",
+  options: [
+    "Employee salary entry",
+    "Sales billing",
+    "Stock entry",
+    "Tax filing"
+  ],
+  answer: "Employee salary entry",
+  explain:
+    "Salary transactions payroll voucher-la maintain pannuvanga."
+},
+
+{
+  id: 60,
+  question: "Tally Prime software mostly use pannuradhu yaar?",
+  options: [
+    "Doctors",
+    "Accountants",
+    "Drivers",
+    "Designers"
+  ],
+  answer: "Accountants",
+  explain:
+    "Accounting and taxation professionals Tally Prime use pannuvanga."
+},
+{
+  id: 61,
+  question: "Data migration use pannuradhu etharkaga?",
+  options: [
+    "Old version data convert panna",
+    "Voucher print panna",
+    "Salary calculate panna",
+    "GST delete panna"
+  ],
+  answer: "Old version data convert panna",
+  explain:
+    "Tally ERP 9 data-ah Tally Prime-ku migrate panna migration use pannuvanga."
+},
+
+{
+  id: 62,
+  question: "Tally Prime-la company select panna use pannura option edhu?",
+  options: [
+    "Select Company",
+    "Create Voucher",
+    "Display Report",
+    "Payroll"
+  ],
+  answer: "Select Company",
+  explain:
+    "Already create pannina company open panna select company use pannuvanga."
+},
+
+{
+  id: 63,
+  question: "Inventory management use pannuradhu etharkaga?",
+  options: [
+    "Stock maintain panna",
+    "Salary maintain panna",
+    "Tax delete panna",
+    "Attendance entry"
+  ],
+  answer: "Stock maintain panna",
+  explain:
+    "Goods stock details maintain panna inventory management use pannuvanga."
+},
+
+{
+  id: 64,
+  question: "Godown feature enable pannina enna benefit?",
+  options: [
+    "Multiple storage locations maintain panna",
+    "Salary process panna",
+    "Voucher print panna",
+    "GST filing"
+  ],
+  answer: "Multiple storage locations maintain panna",
+  explain:
+    "Different stock storage places maintain panna godown use pannuvanga."
+},
+
+{
+  id: 65,
+  question: "Batch-wise details mostly use pannuradhu entha business?",
+  options: [
+    "Medical",
+    "Construction",
+    "Transport",
+    "Banking"
+  ],
+  answer: "Medical",
+  explain:
+    "Expiry products maintain panna batch-wise details use pannuvanga."
+},
+
+{
+  id: 66,
+  question: "Payroll-la employee details entry use pannuradhu etharkaga?",
+  options: [
+    "Employee records maintain panna",
+    "Stock entry",
+    "GST filing",
+    "Backup"
+  ],
+  answer: "Employee records maintain panna",
+  explain:
+    "Employees information maintain panna employee details entry use pannuvanga."
+},
+
+{
+  id: 67,
+  question: "Salary calculation feature use pannuradhu etharkaga?",
+  options: [
+    "Employee wages calculate panna",
+    "Tax filing",
+    "Voucher delete panna",
+    "Stock maintain panna"
+  ],
+  answer: "Employee wages calculate panna",
+  explain:
+    "Employees monthly salary calculate panna use pannuvanga."
+},
+
+{
+  id: 68,
+  question: "Attendance record maintain pannuradhu etharkaga?",
+  options: [
+    "Employee working days track panna",
+    "GST filing",
+    "Inventory transfer",
+    "Discount entry"
+  ],
+  answer: "Employee working days track panna",
+  explain:
+    "Attendance records payroll calculation-ku useful."
+},
+
+{
+  id: 69,
+  question: "Service Tax use pannuradhu etharkaga?",
+  options: [
+    "Services mela tax apply panna",
+    "Inventory maintain panna",
+    "Salary process panna",
+    "Voucher delete panna"
+  ],
+  answer: "Services mela tax apply panna",
+  explain:
+    "Service-related business-ku service tax apply pannuvanga."
+},
+
+{
+  id: 70,
+  question: "CST full form enna?",
+  options: [
+    "Central Sales Tax",
+    "Company Sales Tax",
+    "Current Service Tax",
+    "Customer Sales Tax"
+  ],
+  answer: "Central Sales Tax",
+  explain:
+    "Interstate sales mela apply pannura tax CST."
+},
+
+{
+  id: 71,
+  question: "Voucher entry panna shortcut key generally enna?",
+  options: [
+    "F1",
+    "F2",
+    "F7",
+    "F8"
+  ],
+  answer: "F8",
+  explain:
+    "F8 mostly sales voucher entry-ku use pannuvanga."
+},
+
+{
+  id: 72,
+  question: "Purchase voucher shortcut key enna?",
+  options: [
+    "F9",
+    "F5",
+    "F4",
+    "F1"
+  ],
+  answer: "F9",
+  explain:
+    "Purchase voucher open panna F9 use pannuvanga."
+},
+
+{
+  id: 73,
+  question: "Contra voucher shortcut key enna?",
+  options: [
+    "F4",
+    "F5",
+    "F8",
+    "F9"
+  ],
+  answer: "F4",
+  explain:
+    "Contra voucher open panna F4 shortcut key."
+},
+
+{
+  id: 74,
+  question: "Payment voucher shortcut key enna?",
+  options: [
+    "F5",
+    "F6",
+    "F7",
+    "F8"
+  ],
+  answer: "F5",
+  explain:
+    "Payment voucher shortcut key F5."
+},
+
+{
+  id: 75,
+  question: "Receipt voucher shortcut key enna?",
+  options: [
+    "F6",
+    "F7",
+    "F8",
+    "F9"
+  ],
+  answer: "F6",
+  explain:
+    "Receipt voucher shortcut key F6."
+},
+
+{
+  id: 76,
+  question: "Journal voucher shortcut key enna?",
+  options: [
+    "F7",
+    "F8",
+    "F9",
+    "F4"
+  ],
+  answer: "F7",
+  explain:
+    "Journal voucher open panna F7 use pannuvanga."
+},
+
+{
+  id: 77,
+  question: "Stock journal use pannuradhu etharkaga?",
+  options: [
+    "Stock transfer and adjustment",
+    "Salary entry",
+    "Tax filing",
+    "Backup"
+  ],
+  answer: "Stock transfer and adjustment",
+  explain:
+    "Stock movement and adjustments maintain panna stock journal use pannuvanga."
+},
+
+{
+  id: 78,
+  question: "Trial Balance use pannuradhu etharkaga?",
+  options: [
+    "Accounts verify panna",
+    "Stock transfer panna",
+    "Attendance maintain panna",
+    "Discount calculate panna"
+  ],
+  answer: "Accounts verify panna",
+  explain:
+    "Debit and credit balances equal-ah irukka verify panna trial balance use pannuvanga."
+},
+
+{
+  id: 79,
+  question: "Profit and Loss account use pannuradhu etharkaga?",
+  options: [
+    "Profit or loss identify panna",
+    "Stock manage panna",
+    "Voucher delete panna",
+    "Payroll maintain panna"
+  ],
+  answer: "Profit or loss identify panna",
+  explain:
+    "Business profit or loss calculate panna P&L account use pannuvanga."
+},
+
+{
+  id: 80,
+  question: "Balance Sheet use pannuradhu etharkaga?",
+  options: [
+    "Financial position kaamika",
+    "Stock transfer panna",
+    "Attendance maintain panna",
+    "Discount entry"
+  ],
+ answer: "Financial position kaamika",
+  explain:
+    "Assets and liabilities show panna balance sheet use pannuvanga."
+},
+{
+  id: 81,
+  question: "Assets-na enna?",
+  options: [
+    "Business-ku value kudukkura properties",
+    "Business expenses",
+    "Tax details",
+    "Employee salary"
+  ],
+  answer: "Business-ku value kudukkura properties",
+  explain:
+    "Cash, building, machinery maari business own pannura valuable things assets."
+},
+
+{
+  id: 82,
+  question: "Liabilities-na enna?",
+  options: [
+    "Business profit",
+    "Business debt",
+    "Inventory",
+    "Discount"
+  ],
+  answer: "Business debt",
+  explain:
+    "Business settle panna vendiya debts liabilities."
+},
+
+{
+  id: 83,
+  question: "Capital account represent pannuradhu enna?",
+  options: [
+    "Owner investment",
+    "Business expense",
+    "Sales entry",
+    "Purchase return"
+  ],
+  answer: "Owner investment",
+  explain:
+    "Owner business-la invest pannura amount capital."
+},
+
+{
+  id: 84,
+  question: "Sundry Debtors-na yaar?",
+  options: [
+    "Cash buyers",
+    "Credit customers",
+    "Employees",
+    "Suppliers"
+  ],
+  answer: "Credit customers",
+  explain:
+    "Credit-la goods வாங்கின customers debtors."
+},
+
+{
+  id: 85,
+  question: "Sundry Creditors-na yaar?",
+  options: [
+    "Cash suppliers",
+    "Credit suppliers",
+    "Employees",
+    "Customers"
+  ],
+  answer: "Credit suppliers",
+  explain:
+    "Credit-la goods kudutha suppliers creditors."
+},
+
+{
+  id: 86,
+  question: "Cash book use pannuradhu etharkaga?",
+  options: [
+    "Cash transactions maintain panna",
+    "Payroll maintain panna",
+    "Stock transfer panna",
+    "GST filing"
+  ],
+  answer: "Cash transactions maintain panna",
+  explain:
+    "Cash receipts and payments cash book-la maintain pannuvanga."
+},
+
+{
+  id: 87,
+  question: "Day book use pannuradhu etharkaga?",
+  options: [
+    "Daily transactions maintain panna",
+    "Salary process panna",
+    "Inventory transfer panna",
+    "Discount calculate panna"
+  ],
+  answer: "Daily transactions maintain panna",
+  explain:
+    "All daily accounting entries day book-la maintain pannuvanga."
+},
+
+{
+  id: 88,
+  question: "Outstanding expense-na enna?",
+  options: [
+    "Already paid expense",
+    "Pay panna baki irukkura expense",
+    "Future income",
+    "Cash sales"
+  ],
+  answer: "Pay panna baki irukkura expense",
+  explain:
+    "Innum pay pannaadha expense outstanding expense."
+},
+
+{
+  id: 89,
+  question: "Prepaid expense-na enna?",
+  options: [
+    "Already advance-ah paid pannina expense",
+    "Unpaid salary",
+    "Tax amount",
+    "Sales amount"
+  ],
+  answer: "Already advance-ah paid pannina expense",
+  explain:
+    "Future use-kaga munnaadiye pay pannina expense prepaid expense."
+},
+
+{
+  id: 90,
+  question: "Depreciation-na enna?",
+  options: [
+    "Asset value decrease",
+    "Profit increase",
+    "Tax reduction",
+    "Salary increase"
+  ],
+  answer: "Asset value decrease",
+  explain:
+    "Usage nala asset value koraiyuradhu depreciation."
+},
+
+{
+  id: 91,
+  question: "GST invoice create panna enna mandatory?",
+  options: [
+    "GST number",
+    "Employee ID",
+    "Bank passbook",
+    "Attendance"
+  ],
+  answer: "GST number",
+  explain:
+    "GST billing-ku GSTIN mandatory."
+},
+
+{
+  id: 92,
+  question: "Input GST-na enna?",
+  options: [
+    "Purchase mela paid GST",
+    "Sales mela collected GST",
+    "Salary GST",
+    "Discount GST"
+  ],
+  answer: "Purchase mela paid GST",
+  explain:
+    "Purchase pannumbodhu pay pannura GST input tax."
+},
+
+{
+  id: 93,
+  question: "Output GST-na enna?",
+  options: [
+    "Purchase GST",
+    "Sales mela collect pannura GST",
+    "Salary GST",
+    "Payroll GST"
+  ],
+  answer: "Sales mela collect pannura GST",
+  explain:
+    "Sales pannumbodhu customer-kitta collect pannura GST output GST."
+},
+
+{
+  id: 94,
+  question: "Tally Prime-la reports print panna use pannura shortcut key edhu?",
+  options: [
+    "Ctrl + P",
+    "Ctrl + C",
+    "Ctrl + V",
+    "Ctrl + A"
+  ],
+  answer: "Ctrl + P",
+  explain:
+    "Reports and invoices print panna Ctrl + P use pannuvanga."
+},
+
+{
+  id: 95,
+  question: "Esc key use pannuradhu etharkaga?",
+  options: [
+    "Save panna",
+    "Back or exit panna",
+    "Print panna",
+    "Delete panna"
+  ],
+  answer: "Back or exit panna",
+  explain:
+    "Current screen lendhu back vara Esc key use pannuvanga."
+},
+
+{
+  id: 96,
+  question: "GST mostly enna type tax?",
+  options: [
+    "Direct tax",
+    "Indirect tax",
+    "Income tax",
+    "Property tax"
+  ],
+  answer: "Indirect tax",
+  explain:
+    "GST indirect tax category-la varum."
+},
+
+{
+  id: 97,
+  question: "Inventory valuation use pannuradhu etharkaga?",
+  options: [
+    "Stock value calculate panna",
+    "Salary process panna",
+    "Attendance maintain panna",
+    "Voucher delete panna"
+  ],
+  answer: "Stock value calculate panna",
+  explain:
+    "Closing stock value identify panna inventory valuation use pannuvanga."
+},
+
+{
+  id: 98,
+  question: "Voucher deletion panna mostly enna key use pannuvanga?",
+  options: [
+    "Alt + D",
+    "Ctrl + D",
+    "Shift + D",
+    "Alt + F4"
+  ],
+  answer: "Alt + D",
+  explain:
+    "Voucher delete panna Alt + D shortcut use pannuvanga."
+},
+
+{
+  id: 99,
+  question: "Tally Prime software-oda main advantage enna?",
+  options: [
+    "Easy accounting",
+    "Video editing",
+    "Gaming",
+    "Animation"
+  ],
+  answer: "Easy accounting",
+  explain:
+    "Fast and simple accounting process-ku Tally Prime useful."
+},
+
+{
+  id: 100,
+  question: "Tally Prime mostly use pannuradhu entha field-la?",
+  options: [
+    "Accounting and Taxation",
+    "Movie editing",
+    "Graphic designing",
+    "Programming"
+  ],
+  answer: "Accounting and Taxation",
+  explain:
+    "Tally Prime accounting, GST, payroll and taxation-ku widely use pannuvanga."
+}
+
+];
