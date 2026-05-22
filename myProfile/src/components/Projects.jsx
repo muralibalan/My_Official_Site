@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -20,30 +20,29 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // Sample project data with category
 const projects = [
-
   {
     id: 1,
     title: "Variable Validation",
     image: "/projects_Ui/variableVali.png",
-    link: "/variablegame", // Inga internal route path-ah kudukkuran 
+    link: "/variablegame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
-    id: 1,
+    id: 2, // ID duplicate fix panni 2 aakiruken boss
     title: "MERN Stack Snake Game",
     image: "/projects_Ui/mernSnake.png",
-    link: "/mernsnake", // Inga internal route path-ah kudukkuran 
+    link: "/mernsnake", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 3,
     title: "Loop Logic",
     image: "/projects_Ui/loopGame.png",
-    link: "/loopgame", // Inga internal route path-ah kudukkuran 
+    link: "/loopgame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 4,
@@ -87,7 +86,6 @@ const projects = [
     link: "https://production-crm.vercel.app",
     category: "production",
   },
-
   {
     id: 10,
     title: "Green Apple Institue UI",
@@ -106,120 +104,120 @@ const projects = [
     id: 12,
     title: "Array Accessing",
     image: "/projects_Ui/arrayGame.png",
-    link: "/arraygame", // Inga internal route path-ah kudukkuran 
+    link: "/arraygame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 13,
     title: "Sort Accessing",
     image: "/projects_Ui/sortGame.png",
-    link: "/sortgame", // Inga internal route path-ah kudukkuran 
+    link: "/sortgame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 14,
     title: "HOF Game",
     image: "/projects_Ui/HOF.png",
-    link: "/hof", // Inga internal route path-ah kudukkuran 
+    link: "/hof", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 15,
     title: "Flames Logic Game",
     image: "/projects_Ui/flames.png",
-    link: "/flames", // Inga internal route path-ah kudukkuran 
+    link: "/flames", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 16,
     title: "Timer Methods for Js",
     image: "/projects_Ui/timer.png",
-    link: "/timergame", // Inga internal route path-ah kudukkuran 
+    link: "/timergame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 17,
     title: "Condition Game",
     image: "/projects_Ui/condition.png",
-    link: "/conditiongame", // Inga internal route path-ah kudukkuran 
+    link: "/conditiongame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 18,
     title: "Function Game",
     image: "/projects_Ui/jsFunction.png",
-    link: "/functiongame", // Inga internal route path-ah kudukkuran 
+    link: "/functiongame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
-   {
+  {
     id: 19,
     title: "Regex Game",
     image: "/projects_Ui/regex.png",
-    link: "/regex", // Inga internal route path-ah kudukkuran 
+    link: "/regex", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 20,
     title: "Event Loop Game",
     image: "/projects_Ui/eventloop.png",
-    link: "/eventloop", // Inga internal route path-ah kudukkuran 
+    link: "/eventloop", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 21,
     title: "Quiz Game",
     image: "/projects_Ui/quizstill.png",
-    link: "/quizgame", // Inga internal route path-ah kudukkuran 
+    link: "/quizgame", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 22,
     title: "+1 Mega Quiz",
     image: "/projects_Ui/still11th.png",
-    link: "/stateboard", // Inga internal route path-ah kudukkuran 
+    link: "/stateboard", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
   {
     id: 23,
     title: "Learn English",
     image: "/projects_Ui/englishgame.png",
-    link: "/learneng", // Inga internal route path-ah kudukkuran 
+    link: "/learneng", 
     category: "games",
-    isInternal: true, // Idhu internal route-nu identify panna oru flag
+    isInternal: true, 
   },
-  
- 
 ];
 
 function Projects() {
-  const [activeTab, setActiveTab] = useState("business");
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const navigate = useNavigate();
+  // ✅ URL search params vachu tab state maintain panrom
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // URL-la parameter illana default-aa 'business' edukum
+  const activeTab = searchParams.get("tab") || "business";
 
-  const handleChange = (event, newValue) => {
-    setActiveTab(newValue);
+  const handleChangeTab = (newValue) => {
+    // Tab maarும்போது URL query string-ah update pannum (e.g., /projects?tab=games)
+    setSearchParams({ tab: newValue });
   };
 
-  // 3. View handle panna puthiya function
   const handleViewProject = (project) => {
     if (project.isInternal) {
-      // Unga app-kullae irukra component-ku pogum
       navigate(project.link);
     } else {
-      // External website-ku puthu tab-la open aagum
       window.open(project.link, "_blank");
     }
   };
@@ -259,7 +257,7 @@ function Projects() {
           // Mobile view → Select dropdown
           <Select
             value={activeTab}
-            onChange={(e) => setActiveTab(e.target.value)}
+            onChange={(e) => handleChangeTab(e.target.value)}
             sx={{
               bgcolor: "#222",
               color: "white",
@@ -277,7 +275,7 @@ function Projects() {
           // Desktop view → Tabs
           <Tabs
             value={activeTab}
-            onChange={handleChange}
+            onChange={(e, val) => handleChangeTab(val)}
             textColor="inherit"
             TabIndicatorProps={{ style: { backgroundColor: "#09ee24ff" } }}
           >
@@ -322,7 +320,6 @@ function Projects() {
                     {project.title}
                   </Typography>
                   <Tooltip title="View Project">
-
                     <IconButton
                       onClick={() => handleViewProject(project)}
                       sx={{ color: "#09ee24ff" }}

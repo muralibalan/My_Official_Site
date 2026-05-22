@@ -1,39 +1,53 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
 
-// 1. Core Structural Layout & Login (Idhai straight-aa vechukalam seamless rendering-ku)
+// 1. Core Structural Layout & Login
 import Layout from './components/Layout';
 import Login from './components/navigations/Login';
 
-// 2. Navigation Components - Lazy Loaded
-const Home = lazy(() => import('./components/navigations/Home'));
-const About = lazy(() => import('./components/navigations/About'));
-const MyStudents = lazy(() => import('./components/navigations/MyStudents'));
-const Education = lazy(() => import('./components/navigations/Education'));
-const Projects = lazy(() => import('./components/Projects'));
-const MyWorkshops = lazy(() => import('./components/MyWorkshops'));
-const CourseViewer = lazy(() => import('./components/navigations/CourseViewer'));
+// 💡 SAFE LAZY LOADING ENHANCEMENT (Chunk Crash-proof Logic)
+const safeLazy = (importFn) => {
+  return React.lazy(async () => {
+    try {
+      return await importFn();
+    } catch (error) {
+      if (error.name === 'ChunkLoadError' || error.message.includes('Loading chunk')) {
+        window.location.reload(); // Puthu build chunk-ah fetch panna auto refresh
+      }
+      throw error;
+    }
+  });
+};
 
-// 3. Educational Games Components - Lazy Loaded (Intha chunk bundle size-ah romba kuraikkum!)
-const LoopGame = lazy(() => import('./components/games/LoopGame'));
-const VariableGame = lazy(() => import('./components/games/VariableGame'));
-const ArrayAccessGame = lazy(() => import('./components/games/ArrayAccessGame'));
-const SortingGame = lazy(() => import('./components/games/SortingGame'));
-const MernSnake = lazy(() => import('./components/games/MernSnakeFull'));
-const FlamesGame = lazy(() => import('./components/games/FlamesGame'));
-const HOFGame = lazy(() => import('./components/games/HOFGame'));
-const TimersGame = lazy(() => import('./components/games/TimersGame'));
-const ConditionsGame = lazy(() => import('./components/games/ConditionsGame'));
-const FunctionsGame = lazy(() => import('./components/games/FunctionsGame'));
-const RegexGame = lazy(() => import('./components/games/RegexGame'));
-const EventLoopGame = lazy(() => import('./components/games/EventLoopGame'));
-const StudentCardList = lazy(()=> import('./components/StudentCardList'));
-const TextToSpeech = lazy(()=> import('./components/games/TextToSpeech'));
-const UniversalQuizGame = lazy(()=> import('./components/games/UniversalQuizGame'));
-const StateboardMegaQuiz = lazy(()=> import('./components/games/StateboardMegaQuiz'));
-const EnglishQuizWidget = lazy(()=> import('./components/games/EnglishQuizWidget'))
+// 2. Navigation Components - Safe Lazy Loaded
+const Home = safeLazy(() => import('./components/navigations/Home'));
+const About = safeLazy(() => import('./components/navigations/About'));
+const MyStudents = safeLazy(() => import('./components/navigations/MyStudents'));
+const Education = safeLazy(() => import('./components/navigations/Education'));
+const Projects = safeLazy(() => import('./components/Projects'));
+const MyWorkshops = safeLazy(() => import('./components/MyWorkshops'));
+const CourseViewer = safeLazy(() => import('./components/navigations/CourseViewer'));
+
+// 3. Educational Games Components - Safe Lazy Loaded
+const LoopGame = safeLazy(() => import('./components/games/LoopGame'));
+const VariableGame = safeLazy(() => import('./components/games/VariableGame'));
+const ArrayAccessGame = safeLazy(() => import('./components/games/ArrayAccessGame'));
+const SortingGame = safeLazy(() => import('./components/games/SortingGame'));
+const MernSnake = safeLazy(() => import('./components/games/MernSnakeFull'));
+const FlamesGame = safeLazy(() => import('./components/games/FlamesGame'));
+const HOFGame = safeLazy(() => import('./components/games/HOFGame'));
+const TimersGame = safeLazy(() => import('./components/games/TimersGame'));
+const ConditionsGame = safeLazy(() => import('./components/games/ConditionsGame'));
+const FunctionsGame = safeLazy(() => import('./components/games/FunctionsGame'));
+const RegexGame = safeLazy(() => import('./components/games/RegexGame'));
+const EventLoopGame = safeLazy(() => import('./components/games/EventLoopGame'));
+const StudentCardList = safeLazy(()=> import('./components/StudentCardList'));
+const TextToSpeech = safeLazy(()=> import('./components/games/TextToSpeech'));
+const UniversalQuizGame = safeLazy(()=> import('./components/games/UniversalQuizGame'));
+const StateboardMegaQuiz = safeLazy(()=> import('./components/games/StateboardMegaQuiz'));
+const EnglishQuizWidget = safeLazy(()=> import('./components/games/EnglishQuizWidget'));
 
 // Global Fallback Loader Component
 const PageLoader = () => (
@@ -47,17 +61,15 @@ const PageLoader = () => (
       gap: 2
     }}
   >
-    <CircularProgress sx={{ color: '#00ff66' }} /> {/* Neon Green theme fallback */}
+    <CircularProgress sx={{ color: '#00ff66' }} />
   </Box>
 );
 
 function App() {
-  // Login status-ai track panna indha state mukkiyam
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <BrowserRouter>
-      {/* Suspense fallback kulla routing podradhalaa, dynamic chunks download aagum bohuthu loader th தெரியும் */}
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -69,7 +81,7 @@ function App() {
             <Route path='workshop' element={<MyWorkshops />} />
             <Route path='mystudents' element={<StudentCardList />} />
             
-            {/* Lazy Loaded Educational Game Routes */}
+            {/* Safe Lazy Loaded Educational Game Routes */}
             <Route path='loopgame' element={<LoopGame />} />
             <Route path='variablegame' element={<VariableGame />} />
             <Route path='arraygame' element={<ArrayAccessGame />} />

@@ -365,7 +365,7 @@ function EnglishQuizWidget() {
               fontWeight: 700,
             }}
           >
-            SPEAK ENGLISH EASILY 🗣️
+            SPEAK ENGLISH EASILY
           </Typography>
 
           <Typography
@@ -431,11 +431,9 @@ function EnglishQuizWidget() {
               icon={
                 <EmojiEventsIcon />
               }
-              label={`Kelvi ${
-                currentQuestion + 1
-              } / ${
-                englishQuizData.length
-              }`}
+              label={`Kelvi ${currentQuestion + 1
+                } / ${englishQuizData.length
+                }`}
               sx={{
                 bgcolor:
                   "rgba(9,238,36,0.1)",
@@ -476,15 +474,14 @@ function EnglishQuizWidget() {
               bgcolor: "#101a14",
 
               "& .MuiLinearProgress-bar":
-                {
-                  bgcolor:
-                    THEME_COLOR,
-                },
+              {
+                bgcolor:
+                  THEME_COLOR,
+              },
             }}
           />
 
           {/* QUESTION */}
-
           <motion.div
             key={currentQuestion}
             initial={{
@@ -502,20 +499,42 @@ function EnglishQuizWidget() {
             <Typography
               variant="h5"
               sx={{
-                color: "#fff",
-
-                fontWeight: 700,
+                fontWeight: 800,
 
                 mb: 4,
 
-                lineHeight: 1.5,
+                lineHeight: 1.7,
 
-                minHeight: "80px",
+                minHeight: {
+                  xs: "70px",
+                  md: "90px",
+                },
+
+                fontSize: {
+                  xs: "1rem",
+                  sm: "1.25rem",
+                  md: "1.6rem",
+                },
+
+                textAlign: "center",
+
+                background:
+                  "linear-gradient(90deg,#00ff95,#00e5ff,#ffe600)",
+
+                WebkitBackgroundClip: "text",
+
+                WebkitTextFillColor: "transparent",
+
+                textShadow:
+                  "0 0 12px rgba(0,255,149,0.25)",
+
+                px: {
+                  xs: 1,
+                  sm: 2,
+                },
               }}
             >
-              {
-                activeQuiz.question
-              }
+              {activeQuiz.question}
             </Typography>
           </motion.div>
 
@@ -561,7 +580,7 @@ function EnglishQuizWidget() {
                       "pulseGlow 1.2s infinite";
                   } else if (
                     selectedOption?.text ===
-                      option.text &&
+                    option.text &&
                     !option.isCorrect
                   ) {
                     btnBg =
@@ -594,41 +613,41 @@ function EnglishQuizWidget() {
                     whileHover={
                       !isAnswered
                         ? {
-                            scale: 1.02,
-                          }
+                          scale: 1.02,
+                        }
                         : {}
                     }
                     whileTap={
                       !isAnswered
                         ? {
-                            scale: 0.98,
-                          }
+                          scale: 0.98,
+                        }
                         : {}
                     }
                     animate={
                       isAnswered &&
-                      selectedOption?.text ===
+                        selectedOption?.text ===
                         option.text &&
-                      !option.isCorrect
+                        !option.isCorrect
                         ? {
-                            x: [
-                              0,
-                              -15,
-                              15,
-                              -10,
-                              10,
-                              0,
-                            ],
+                          x: [
+                            0,
+                            -15,
+                            15,
+                            -10,
+                            10,
+                            0,
+                          ],
 
-                            rotate: [
-                              0,
-                              -2,
-                              2,
-                              -2,
-                              2,
-                              0,
-                            ],
-                          }
+                          rotate: [
+                            0,
+                            -2,
+                            2,
+                            -2,
+                            2,
+                            0,
+                          ],
+                        }
                         : {}
                     }
                     onClick={() =>
@@ -673,10 +692,10 @@ function EnglishQuizWidget() {
                         "0.3s",
 
                       "&.Mui-disabled":
-                        {
-                          color:
-                            btnColor,
-                        },
+                      {
+                        color:
+                          btnColor,
+                      },
 
                       "&:hover": {
                         bgcolor:
@@ -686,22 +705,22 @@ function EnglishQuizWidget() {
                       },
 
                       "@keyframes pulseGlow":
-                        {
-                          "0%": {
-                            boxShadow:
-                              "0 0 0px #09ee24",
-                          },
-
-                          "50%": {
-                            boxShadow:
-                              "0 0 25px #09ee24",
-                          },
-
-                          "100%": {
-                            boxShadow:
-                              "0 0 0px #09ee24",
-                          },
+                      {
+                        "0%": {
+                          boxShadow:
+                            "0 0 0px #09ee24",
                         },
+
+                        "50%": {
+                          boxShadow:
+                            "0 0 25px #09ee24",
+                        },
+
+                        "100%": {
+                          boxShadow:
+                            "0 0 0px #09ee24",
+                        },
+                      },
                     }}
                   >
                     <Box
@@ -771,7 +790,7 @@ function EnglishQuizWidget() {
 
                       {isAnswered &&
                         selectedOption?.text ===
-                          option.text &&
+                        option.text &&
                         !option.isCorrect && (
                           <HighlightOffIcon />
                         )}
@@ -824,7 +843,7 @@ function EnglishQuizWidget() {
                           fontWeight: 700,
                         }}
                       >
-                        🔥 Super English
+                         Super English
                         Boss!
                       </Typography>
                     </Box>
@@ -872,11 +891,10 @@ function EnglishQuizWidget() {
                       borderRadius:
                         "14px",
 
-                      borderLeft: `4px solid ${
-                        selectedOption?.isCorrect
+                      borderLeft: `4px solid ${selectedOption?.isCorrect
                           ? THEME_COLOR
                           : ERROR_COLOR
-                      }`,
+                        }`,
 
                       mb: 3,
                     }}
@@ -936,17 +954,17 @@ function EnglishQuizWidget() {
                         "1rem",
 
                       "&:hover":
-                        {
-                          bgcolor:
-                            "#06c21d",
-                        },
+                      {
+                        bgcolor:
+                          "#06c21d",
+                      },
                     }}
                   >
                     {currentQuestion ===
-                    englishQuizData.length -
+                      englishQuizData.length -
                       1
                       ? "First la irundhu Arambi 🔄"
-                      : "Adutha Kelviki Po 👉"}
+                      : "Adutha Kelviki Po..."}
                   </Button>
                 </motion.div>
               </Collapse>
