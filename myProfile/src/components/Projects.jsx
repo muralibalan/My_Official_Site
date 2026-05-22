@@ -190,6 +190,14 @@ const projects = [
     category: "games",
     isInternal: true, // Idhu internal route-nu identify panna oru flag
   },
+  {
+    id: 23,
+    title: "Learn English",
+    image: "/projects_Ui/englishgame.png",
+    link: "/learneng", // Inga internal route path-ah kudukkuran 
+    category: "games",
+    isInternal: true, // Idhu internal route-nu identify panna oru flag
+  },
   
  
 ];
