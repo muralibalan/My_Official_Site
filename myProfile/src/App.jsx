@@ -32,7 +32,8 @@ const EventLoopGame = lazy(() => import('./components/games/EventLoopGame'));
 const StudentCardList = lazy(()=> import('./components/StudentCardList'));
 const TextToSpeech = lazy(()=> import('./components/games/TextToSpeech'));
 const UniversalQuizGame = lazy(()=> import('./components/games/UniversalQuizGame'));
-const StateboardMegaQuiz = lazy(()=> import('./components/games/StateboardMegaQuiz'))
+const StateboardMegaQuiz = lazy(()=> import('./components/games/StateboardMegaQuiz'));
+const EnglishQuizWidget = lazy(()=> import('./components/games/EnglishQuizWidget'))
 
 // Global Fallback Loader Component
 const PageLoader = () => (
@@ -84,6 +85,7 @@ function App() {
             <Route path='speech' element={<TextToSpeech />} />
             <Route path='quizgame' element={<UniversalQuizGame />} />
             <Route path='stateboard' element={<StateboardMegaQuiz />} />
+            <Route path='learneng' element={<EnglishQuizWidget />} />
 
             {/* Protected Route Logic */}
             <Route
