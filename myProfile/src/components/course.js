@@ -1,4 +1,4 @@
- export const courseData = [
+ export const reactCourseData = [
     { id: 1, name: "Welcome Page", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
     { id: 2, name: "HTML Introduction", url: "https://docs.google.com/document/d/e/2PACX-1vRGwueb60T4yEflUkjJoCOanXBjTXfPXKtgL4bdqJeHRRzwT6anwHP6V6ygD_wr55Lz4EMbC7ZNPnWm/pub?embedded=true" },
     { id: 3, name: "Elements", url: "https://docs.google.com/document/d/e/2PACX-1vSMrjBIGtJXrD0P-3Ex4P_pXbn8vPXuUlrBJPBZG_GyvGKWJPsP-OalUAdz35SdNIq6Qg84ng17LSed/pub?embedded=true" },
@@ -119,4 +119,15 @@
     { id: 114, name: "Axios", url: "https://docs.google.com/document/d/e/2PACX-1vS_K0A8nbHHLnF8xjIbhbkib_vRqx6FcuiSGBvNj5Z28RN3zBUidec6bo2wqzt18tTDckqEA9W34kaY/pub?embedded=true" },
     { id: 115, name: "Axios Interceptor", url: "https://docs.google.com/document/d/e/2PACX-1vQA4KSCBvGPYFz-nnGYMuZCSzUSwtangKPEzDL-ZIC6_bS-i28XME0Tjyb7L6Nqofu_0NP2uLj__byH/pub?embedded=true" },
     { id: 116, name: "Props Drilling", url: "https://docs.google.com/document/d/e/2PACX-1vRfCUH7sACxWJNk_yNw0C8pAGjXO9Ri8YdwPOdQ6AQ5uwwqSesnUGk3nDeWF6Wjtb-QYHmOH6Swndpd/pub?embedded=true" },
- ]
+ ];
+
+ const pythonCourseData = [
+  { id: 1, name: "Python Welcome Page", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
+  { id: 2, name: "Python Introduction", url: "https://docs.google.com/document/d/e/2PACX-1vSn7YNU0zVsM5BCFjSnTU_xW9Zv64gv4DY6bWUWGkk5j8LYDAgNJAA5gmUwkqFAhSWi0M8u-BmwcIml/pub?embedded=true" },
+  { id: 3, name: "Code Editor + Execution + First Python Program", url: "https://docs.google.com/document/d/e/2PACX-1vR0cfSB6Sa6Nzkcm6jqcpa2g5dtTZxYEuPbe-aW4C453eMLtdrn2Smz4IRjXL7_JFHxEry01vpb8MRR/pub?embedded=true" },
+];
+
+export const courseData = {
+  React: reactCourseData,
+  Python: pythonCourseData
+};

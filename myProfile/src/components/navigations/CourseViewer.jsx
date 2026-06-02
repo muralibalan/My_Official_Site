@@ -2,24 +2,26 @@ import React, { useState } from 'react';
 import { Box, Typography, GlobalStyles, Button, Autocomplete, TextField } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { courseData } from '../course';
-const CourseViewer = ({ setAuth }) => {
+
+// மாற்றப்பட்ட பகுதி: auth ஆப்ஜெக்ட்டை வாங்குகிறோம் (auth.course-ல் 'React' அல்லது 'Python' இருக்கும்)
+const CourseViewer = ({ auth, setAuth }) => {
   
-  const [selectedDoc, setSelectedDoc] = useState(courseData[0]);
+  // மாணவர் படிக்கும் குறிப்பிட்ட கோர்ஸின் டேட்டாவை மட்டும் பிரிக்கிறோம்
+  const standardCourse = (auth && auth.course) ? auth.course : "React";
+  const currentCourseList = courseData[standardCourse] || courseData["React"];
+
+  // லோடாகும் போது அந்தந்த கோர்ஸின் முதல் டாபிக் லோடாகும்
+  const [selectedDoc, setSelectedDoc] = useState(currentCourseList[0]);
 
   const handleLogout = () => {
-    setAuth(false);
+    setAuth({ loggedIn: false, course: '' });
   };
 
   return (
     <Box
       sx={{
-        width: '100%',
-        minHeight: '100vh',
-        bgcolor: '#f0f2f5',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        userSelect: 'none',
+        width: '100%', minHeight: '100vh', bgcolor: '#f0f2f5',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none',
       }}
       onContextMenu={(e) => e.preventDefault()}
     >
@@ -29,11 +31,8 @@ const CourseViewer = ({ setAuth }) => {
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
           <Button 
-            variant="outlined" 
-            color="error" 
-            size="small"
-            startIcon={<LogoutIcon />}
-            onClick={handleLogout}
+            variant="outlined" color="error" size="small"
+            startIcon={<LogoutIcon />} onClick={handleLogout}
             sx={{ fontWeight: 'bold', textTransform: 'none' }}
           >
             Logout
@@ -42,14 +41,14 @@ const CourseViewer = ({ setAuth }) => {
 
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
-            E-Learning Portal
+            E-Learning Portal ({standardCourse})
           </Typography>
 
-          {/* Dropdown Search List */}
+          {/* Dropdown Search List - இப்போது வடிகட்டப்பட்ட லிஸ்ட் மட்டும் காட்டும் */}
           <Box sx={{ display: 'flex', justifyContent: 'center', px: 2 }}>
             <Autocomplete
               disablePortal
-              options={courseData}
+              options={currentCourseList}
               getOptionLabel={(option) => option.name}
               value={selectedDoc}
               onChange={(event, newValue) => {
@@ -65,42 +64,32 @@ const CourseViewer = ({ setAuth }) => {
           </Box>
 
           <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
-            Now Viewing: {selectedDoc.name}
+            Now Viewing: {selectedDoc ? selectedDoc.name : ""}
           </Typography>
         </Box>
       </Box>
 
       <Box
         sx={{
-          position: 'relative',
-          width: { xs: '98%', md: '900px' },
-          height: '12000px', 
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          mb: 5,
+          position: 'relative', width: { xs: '98%', md: '900px' }, height: '12000px', 
+          bgcolor: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', mb: 5,
         }}
       >
         <Box
           sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            background: 'transparent',
-            pointerEvents: 'all',
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+            zIndex: 10, background: 'transparent', pointerEvents: 'all',
           }}
         />
 
-        <iframe
-          key={selectedDoc.id}
-          src={selectedDoc.url}
-          width="100%"
-          height="100%"
-          title={selectedDoc.name}
-          style={{ border: 'none', pointerEvents: 'none' }}
-        />
+        {selectedDoc && (
+          <iframe
+            key={selectedDoc.id}
+            src={selectedDoc.url}
+            width="100%" height="100%" title={selectedDoc.name}
+            style={{ border: 'none', pointerEvents: 'none' }}
+          />
+        )}
       </Box>
     </Box>
   );

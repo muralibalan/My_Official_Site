@@ -12,7 +12,7 @@ import {
 import { motion } from 'framer-motion';
 import { Person, Lock } from '@mui/icons-material';
 
-const THEME_COLOR = '#09ee24ff'; // Portfolio Uniform Color
+const THEME_COLOR = '#09ee24ff';
 
 const Login = ({ setAuth }) => {
   const [user, setUser] = useState("");
@@ -28,14 +28,18 @@ const Login = ({ setAuth }) => {
     setLoading(true);
     setError("");
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxq0on6kC6iOnK4I_ERAdfWknJbQU_smC87oeLf1WnY8WHjLUV9yGlh4dMyZJzklyv8Og/exec"; 
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzT4WDkMATR3e05JFrEc2v58cpWMWF7uc2cIrBK1tNnXkiSLPK24un7X2n-cJ6IZI_cUQ/exec"; 
     
     try {
       const response = await fetch(`${scriptURL}?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`);
       const data = await response.json();
       
       if (data.status === "success") {
-        setAuth(true);
+        // மாற்றப்பட்ட பகுதி: லாகின் ஸ்டேட்டோடு கோர்ஸ் பெயரையும் அனுப்புகிறோம்
+        setAuth({
+          loggedIn: true,
+          course: data.course || "React" // சீட்டில் கோர்ஸ் இல்லை என்றால் Default ஆக React எடுக்கும்
+        });
       } else {
         setError("Invalid Username or Password!");
       }
@@ -46,7 +50,6 @@ const Login = ({ setAuth }) => {
     }
   };
 
-  // Animation Variants
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: { 
@@ -73,33 +76,22 @@ const Login = ({ setAuth }) => {
       }}
     >
       <Container maxWidth="xs">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={cardVariants}
-        >
+        <motion.div initial="hidden" animate="visible" variants={cardVariants}>
           <Paper 
             elevation={0} 
             sx={{ 
-              p: 4, 
-              textAlign: 'center', 
-              bgcolor: 'rgba(255, 255, 255, 0.03)', 
-              backdropFilter: 'blur(15px)',
-              color: '#fff', 
-              borderRadius: '24px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              p: 4, textAlign: 'center', bgcolor: 'rgba(255, 255, 255, 0.03)', backdropFilter: 'blur(15px)',
+              color: '#fff', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 0.08)',
               boxShadow: `0 20px 40px rgba(0,0,0,0.4)`
             }}
           >
-            {/* Logo or Icon Area */}
             <motion.div variants={itemVariants}>
               <Box 
                 sx={{ 
                   width: 60, height: 60, bgcolor: `${THEME_COLOR}22`, 
                   borderRadius: '16px', display: 'flex', alignItems: 'center', 
                   justifyContent: 'center', mx: 'auto', mb: 2,
-                  border: `1px solid ${THEME_COLOR}55`,
-                  boxShadow: `0 0 20px ${THEME_COLOR}33`
+                  border: `1px solid ${THEME_COLOR}55`, boxShadow: `0 0 20px ${THEME_COLOR}33`
                 }}
               >
                 <Lock sx={{ color: THEME_COLOR, fontSize: 30 }} />
@@ -128,15 +120,11 @@ const Login = ({ setAuth }) => {
             <Box component="form" noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
               <motion.div variants={itemVariants}>
                 <TextField 
-                  fullWidth 
-                  placeholder="Username" 
-                  variant="outlined"
+                  fullWidth placeholder="Username" variant="outlined"
                   onChange={(e) => setUser(e.target.value)}
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">
-                        <Person sx={{ color: '#555' }} />
-                      </InputAdornment>
+                      <InputAdornment position="start"><Person sx={{ color: '#555' }} /></InputAdornment>
                     ),
                   }}
                   sx={inputStyle}
@@ -145,17 +133,12 @@ const Login = ({ setAuth }) => {
               
               <motion.div variants={itemVariants}>
                 <TextField 
-                  fullWidth 
-                  placeholder="Password" 
-                  type="password" 
-                  variant="outlined"
+                  fullWidth placeholder="Password" type="password" variant="outlined"
                   onChange={(e) => setPass(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock sx={{ color: '#555' }} />
-                      </InputAdornment>
+                      <InputAdornment position="start"><Lock sx={{ color: '#555' }} /></InputAdornment>
                     ),
                   }}
                   sx={inputStyle}
@@ -164,21 +147,13 @@ const Login = ({ setAuth }) => {
 
               <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button 
-                  variant="contained" 
-                  fullWidth 
-                  onClick={handleLogin}
-                  disabled={loading}
+                  variant="contained" fullWidth onClick={handleLogin} disabled={loading}
                   sx={{ 
-                    bgcolor: THEME_COLOR, 
-                    color: '#000',
+                    bgcolor: THEME_COLOR, color: '#000',
                     '&:hover': { bgcolor: '#07c91f' },
                     '&.Mui-disabled': { bgcolor: 'rgba(9, 238, 36, 0.3)', color: '#000' },
-                    py: 1.8,
-                    borderRadius: '14px',
-                    fontWeight: 800,
-                    fontSize: '1rem',
-                    textTransform: 'none',
-                    boxShadow: `0 10px 20px ${THEME_COLOR}33`
+                    py: 1.8, borderRadius: '14px', fontWeight: 800, fontSize: '1rem',
+                    textTransform: 'none', boxShadow: `0 10px 20px ${THEME_COLOR}33`
                   }}
                 >
                   {loading ? <CircularProgress size={24} sx={{ color: '#000' }} /> : "Sign In"}
@@ -192,13 +167,9 @@ const Login = ({ setAuth }) => {
   );
 };
 
-// Custom styles for Dark Inputs
 const inputStyle = {
   '& .MuiOutlinedInput-root': {
-    color: '#fff',
-    borderRadius: '14px',
-    bgcolor: 'rgba(255,255,255,0.02)',
-    transition: '0.3s',
+    color: '#fff', borderRadius: '14px', bgcolor: 'rgba(255,255,255,0.02)', transition: '0.3s',
     '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
     '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
     '&.Mui-focused fieldset': { borderColor: THEME_COLOR },

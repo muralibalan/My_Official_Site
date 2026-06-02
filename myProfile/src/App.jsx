@@ -66,7 +66,8 @@ const PageLoader = () => (
 );
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 💥 மாற்றப்பட்ட பகுதி: பூலியன் ஸ்டேட்டிற்குப் பதிலாக Object ஆக மாற்றப்பட்டுள்ளது.
+  const [auth, setAuth] = useState({ loggedIn: false, course: '' });
 
   return (
     <BrowserRouter>
@@ -99,14 +100,16 @@ function App() {
             <Route path='stateboard' element={<StateboardMegaQuiz />} />
             <Route path='learneng' element={<EnglishQuizWidget />} />
 
-            {/* Protected Route Logic */}
+            {/* 💥 Protected Route Logic - மாற்றப்பட்ட பகுதி */}
             <Route
               path='study'
               element={
-                isLoggedIn ? (
-                  <CourseViewer setAuth={setIsLoggedIn} />
+                auth.loggedIn ? (
+                  // CourseViewer-க்கு auth (கோர்ஸ் விபரங்கள்) மற்றும் setAuth அனுப்பப்படுகிறது
+                  <CourseViewer auth={auth} setAuth={setAuth} />
                 ) : (
-                  <Login setAuth={setIsLoggedIn} />
+                  // Login-க்கு செட் செய்வதற்குரிய பங்க்ஷன் அனுப்பப்படுகிறது
+                  <Login setAuth={setAuth} />
                 )
               }
             />
