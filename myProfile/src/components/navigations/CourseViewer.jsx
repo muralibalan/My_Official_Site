@@ -5,7 +5,7 @@ import { courseData } from '../course';
 
 // மாற்றப்பட்ட பகுதி: auth ஆப்ஜெக்ட்டை வாங்குகிறோம் (auth.course-ல் 'React' அல்லது 'Python' இருக்கும்)
 const CourseViewer = ({ auth, setAuth }) => {
-  
+
   // மாணவர் படிக்கும் குறிப்பிட்ட கோர்ஸின் டேட்டாவை மட்டும் பிரிக்கிறோம்
   const standardCourse = (auth && auth.course) ? auth.course : "React";
   const currentCourseList = courseData[standardCourse] || courseData["React"];
@@ -28,9 +28,9 @@ const CourseViewer = ({ auth, setAuth }) => {
       <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
 
       <Box sx={{ py: 3, width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
-        
+
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
-          <Button 
+          <Button
             variant="outlined" color="error" size="small"
             startIcon={<LogoutIcon />} onClick={handleLogout}
             sx={{ fontWeight: 'bold', textTransform: 'none' }}
@@ -71,14 +71,25 @@ const CourseViewer = ({ auth, setAuth }) => {
 
       <Box
         sx={{
-          position: 'relative', width: { xs: '98%', md: '900px' }, height: '12000px', 
-          bgcolor: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', mb: 5,
+          position: 'relative',
+          width: { xs: '98%', md: '900px' },
+          height: '24000px', // increase this
+          bgcolor: '#fff',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          mb: 5,
+          overflow: 'hidden',
         }}
       >
         <Box
           sx={{
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-            zIndex: 10, background: 'transparent', pointerEvents: 'all',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 10,
+            background: 'transparent',
+            pointerEvents: 'all',
           }}
         />
 
@@ -86,8 +97,13 @@ const CourseViewer = ({ auth, setAuth }) => {
           <iframe
             key={selectedDoc.id}
             src={selectedDoc.url}
-            width="100%" height="100%" title={selectedDoc.name}
-            style={{ border: 'none', pointerEvents: 'none' }}
+            width="100%"
+            height="100%"
+            title={selectedDoc.name}
+            style={{
+              border: 'none',
+              pointerEvents: 'none',
+            }}
           />
         )}
       </Box>
