@@ -30,6 +30,10 @@ const Projects = safeLazy(() => import('./components/Projects'));
 const MyWorkshops = safeLazy(() => import('./components/MyWorkshops'));
 const CourseViewer = safeLazy(() => import('./components/navigations/CourseViewer'));
 
+// ⚡ New Components Imports - Paths configured perfectly based on file locations
+const ClassScheduleTable = safeLazy(() => import('./components/ClassScheduleTable'));
+const AdminForm = safeLazy(() => import('./components/navigations/AdminForm'));
+
 // 3. Educational Games Components - Safe Lazy Loaded
 const LoopGame = safeLazy(() => import('./components/games/LoopGame'));
 const VariableGame = safeLazy(() => import('./components/games/VariableGame'));
@@ -82,6 +86,13 @@ function App() {
             <Route path='workshop' element={<MyWorkshops />} />
             <Route path='mystudents' element={<StudentCardList />} />
             
+            {/* ⚡ New Public Routes (No Restrictions) */}
+            {/* 1. Schedule View Page */}
+            <Route path='schedule' element={<ClassScheduleTable />} />
+            
+            {/* 2. Admin Form Page (Direct-ah open aagum, Login check pannaathu) */}
+            <Route path='admin-schedule-form' element={<AdminForm />} />
+
             {/* Safe Lazy Loaded Educational Game Routes */}
             <Route path='loopgame' element={<LoopGame />} />
             <Route path='variablegame' element={<VariableGame />} />
