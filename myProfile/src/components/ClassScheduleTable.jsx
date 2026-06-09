@@ -23,20 +23,53 @@ export default function ClassScheduleTable() {
   // =========================
   // FORMAT TIME
   // =========================
-  const formatTime = (time) => {
 
-    if (!time) return '';
+// =========================
+// FORMAT TIME
+// =========================
 
-    const [hour, minute] = time.split(':');
+const formatTime = (time) => {
+
+  if (!time) return '';
+
+  try {
+
+    // IF DATE OBJECT STRING
+    const date = new Date(time);
+
+    // VALID DATE
+    if (!isNaN(date.getTime())) {
+
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    // NORMAL HH:mm FORMAT
+    const [hour, minute] = time
+      .toString()
+      .split(':');
 
     const h = parseInt(hour);
 
-    const ampm = h >= 12 ? 'PM' : 'AM';
+    const ampm = h >= 12
+      ? 'PM'
+      : 'AM';
 
-    const formattedHour = h % 12 || 12;
+    const formattedHour =
+      h % 12 || 12;
 
     return `${formattedHour}:${minute} ${ampm}`;
-  };
+
+  } catch (err) {
+
+    return time;
+  }
+};
+
+
 
   // =========================
   // FETCH CLASSES
