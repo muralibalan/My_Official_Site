@@ -40,7 +40,7 @@ const initialStudents = [
     id: 3,
     name: "Sanjay Kumar R",
     college: "Govt Arts College, Kumbakonam — Bharathidasan University",
-    photo: "/portfolios/sanjaykumar.png",
+    photo: "/portfolios/sanjaynew.png",
     siteLink: "https://sanjaypersonal.vercel.app",
     batch: "ReactJs Developer"
   },
@@ -75,7 +75,23 @@ const initialStudents = [
     photo: "/portfolios/sanjeevi.png",
     siteLink: "https://sanjeevi-official.vercel.app/",
     batch: "ReactJs Developer"
-  }
+  },
+  {
+    id: 8,
+    name: "Mathumita",
+    college: "Vivekananda Arts and Science College for Women",
+    photo: "/portfolios/profile.jpg",
+    siteLink: "https://madhu-portfolio-seven.vercel.app/",
+    batch: "ReactJs Developer"
+  },
+  {
+    id: 9,
+    name: "Shalini",
+    college: "ST.Theresa's Arts And Science College",
+    photo: "/portfolios/image1.png",
+    siteLink: "https://shalini-official.vercel.app/",
+    batch: "ReactJs Developer"
+  },
 ];
 
 function StudentCardList() {
