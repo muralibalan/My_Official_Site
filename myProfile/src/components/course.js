@@ -124,13 +124,20 @@
  const pythonCourseData = [
   { id: 1, name: "Python Welcome Page", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
   { id: 2, name: "Python Introduction", url: "https://docs.google.com/document/d/e/2PACX-1vSn7YNU0zVsM5BCFjSnTU_xW9Zv64gv4DY6bWUWGkk5j8LYDAgNJAA5gmUwkqFAhSWi0M8u-BmwcIml/pub?embedded=true" },
+
   { id: 3, name: "Code Editor + Execution + First Python Program", url: "https://docs.google.com/document/d/e/2PACX-1vR0cfSB6Sa6Nzkcm6jqcpa2g5dtTZxYEuPbe-aW4C453eMLtdrn2Smz4IRjXL7_JFHxEry01vpb8MRR/pub?embedded=true" },
+
   { id: 4, name: "Input & Output for Python", url: "https://docs.google.com/document/d/e/2PACX-1vSoKs5w-Gf5L6Qw9hjn5O1Btn8QVK2RsbddU7B7KdSa7gW8OkEu7iUKXN4-3gSPnKP0v8Q6ChwTIpEp/pub?embedded=true" },
-  { id: 5, name: "Comments & Escape Sequences", url: "https://docs.google.com/document/d/e/2PACX-1vTNFGiwDSH7FsnS2SIsbjQkmRiW9mGse5IzUYS-fXSQ6IWBm5mFRwfuHgDRipFuyGRtcY9fSkJvLPv1/pub?embedded=true" },
-  { id: 6, name: "Python Data Types", url: "https://docs.google.com/document/d/e/2PACX-1vSRQINZSUUjNrgxgaaf3rG30DpCECcKwDvbFp7UPJqHKKK-_ySHnwI0fdqdzdNHCz6sRw4EUV-FVJH7/pub?embedded=true" },
-  { id: 7, name: "CASTING (Type Conversion)", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
-  { id: 8, name: "PYTHON OPERATORS", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
-  { id: 9, name: "Python Conditional Statements (Decision Making)", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
+
+  { id: 5, name: "Variables in Python", url: "https://docs.google.com/document/d/e/2PACX-1vTNFGiwDSH7FsnS2SIsbjQkmRiW9mGse5IzUYS-fXSQ6IWBm5mFRwfuHgDRipFuyGRtcY9fSkJvLPv1/pub?embedded=true" },
+
+  { id: 6, name: "Comments & Escape Sequences", url: "https://docs.google.com/document/d/e/2PACX-1vSRQINZSUUjNrgxgaaf3rG30DpCECcKwDvbFp7UPJqHKKK-_ySHnwI0fdqdzdNHCz6sRw4EUV-FVJH7/pub?embedded=true" },
+  
+  { id: 7, name: "Python Data Types", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
+
+  { id: 8, name: "CASTING (Type Conversion)", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
+  { id: 9, name: "PYTHON OPERATORS", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
+  { id: 10, name: "Python Conditional Statements (Decision Making)", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
 ];
 
 export const courseData = {
