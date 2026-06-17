@@ -135,9 +135,11 @@
   
   { id: 7, name: "Python Data Types", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
 
-  { id: 8, name: "CASTING (Type Conversion)", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
-  { id: 9, name: "PYTHON OPERATORS", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
-  { id: 10, name: "Python Conditional Statements (Decision Making)", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
+  { id: 8, name: "CASTING (Type Conversion)", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
+
+  { id: 9, name: "PYTHON OPERATORS", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
+
+  { id: 10, name: "Python Conditional Statements (Decision Making)", url: "https://docs.google.com/document/d/e/2PACX-1vQYGtsQQD-ipyCL3yV1Ix-Objk2rFkUUn-BXxKEcjepEV92L03B4QnBkUjZCnKILzlFf2NKQzJUzaMl/pub?embedded=true" },
 ];
 
 export const courseData = {
