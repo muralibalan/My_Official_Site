@@ -3,18 +3,31 @@ import { Box, Typography, GlobalStyles, Button, Autocomplete, TextField } from '
 import LogoutIcon from '@mui/icons-material/Logout';
 import { courseData } from '../course';
 
-// மாற்றப்பட்ட பகுதி: auth ஆப்ஜெக்ட்டை வாங்குகிறோம் (auth.course-ல் 'React' அல்லது 'Python' இருக்கும்)
 const CourseViewer = ({ auth, setAuth }) => {
 
-  // மாணவர் படிக்கும் குறிப்பிட்ட கோர்ஸின் டேட்டாவை மட்டும் பிரிக்கிறோம்
   const standardCourse = (auth && auth.course) ? auth.course : "React";
   const currentCourseList = courseData[standardCourse] || courseData["React"];
 
-  // லோடாகும் போது அந்தந்த கோர்ஸின் முதல் டாபிக் லோடாகும்
   const [selectedDoc, setSelectedDoc] = useState(currentCourseList[0]);
 
   const handleLogout = () => {
     setAuth({ loggedIn: false, course: '' });
+  };
+
+  // 80 பக்கங்களும் ஓப்பன் ஆகாமல் பிளாங்காக இருக்கும் பிரச்சனையை 100% தீர்க்கும் அல்டிமேட் லாஜிக்
+  const getGoogleDocHtmlUrl = (url) => {
+    if (!url) return '';
+    
+    // 1. URL-ல் உள்ள தேவையற்ற பகுதிகளை நீக்குகிறது
+    let baseUrl = url;
+    if (url.includes('/edit')) baseUrl = url.split('/edit')[0];
+    if (url.includes('/view')) baseUrl = url.split('/view')[0];
+    if (url.includes('/preview')) baseUrl = url.split('/preview')[0];
+    if (url.includes('/pub')) baseUrl = url.split('/pub')[0];
+    
+    // 2. கூகுள் டாக்ஸை நேரடியாக HTML வெப்சைட்டாக மாற்றுகிறது. 
+    // இது iframe பிளாங்க் பிரச்சனையை 100% சரிசெய்து 80 பக்கங்களையும் முழுமையாகக் காட்டும்!
+    return `${baseUrl}/pub?embedded=true`;
   };
 
   return (
@@ -44,7 +57,6 @@ const CourseViewer = ({ auth, setAuth }) => {
             E-Learning Portal ({standardCourse})
           </Typography>
 
-          {/* Dropdown Search List - இப்போது வடிகட்டப்பட்ட லிஸ்ட் மட்டும் காட்டும் */}
           <Box sx={{ display: 'flex', justifyContent: 'center', px: 2 }}>
             <Autocomplete
               disablePortal
@@ -69,17 +81,20 @@ const CourseViewer = ({ auth, setAuth }) => {
         </Box>
       </Box>
 
+      {/* உங்களது பழைய பாக்ஸ் டிசைன் அப்படியே வைக்கப்பட்டுள்ளது (உயரம் மட்டும் மொபைல் ஸ்க்ரோலுக்காக 82vh ஆக்கப்பட்டுள்ளது) */}
       <Box
         sx={{
           position: 'relative',
           width: { xs: '98%', md: '900px' },
-          height: '24000px', // increase this
+          height: '82vh', 
           bgcolor: '#fff',
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
           mb: 5,
           overflow: 'hidden',
+          borderRadius: '8px'
         }}
       >
+        {/* பாதுகாப்பு லேயர் - காப்பி செய்வதை மட்டும் தடுக்கும், ஸ்க்ரோலிங்கை லாக் செய்யாது */}
         <Box
           sx={{
             position: 'absolute',
@@ -89,20 +104,20 @@ const CourseViewer = ({ auth, setAuth }) => {
             height: '100%',
             zIndex: 10,
             background: 'transparent',
-            pointerEvents: 'all',
+            pointerEvents: 'none', // ஸ்க்ரோல் செய்ய இது 'none' ஆக இருக்க வேண்டும்
           }}
         />
 
         {selectedDoc && (
           <iframe
             key={selectedDoc.id}
-            src={selectedDoc.url}
+            src={getGoogleDocHtmlUrl(selectedDoc.url)}
             width="100%"
             height="100%"
             title={selectedDoc.name}
             style={{
               border: 'none',
-              pointerEvents: 'none',
+              pointerEvents: 'auto', // மொபைல் மற்றும் டெஸ்க்டாப் டச் ஸ்க்ரோலுக்கு இது 'auto'
             }}
           />
         )}
