@@ -1,1102 +1,561 @@
 find . -name '._*' -delete
 
+import React, { useState, useEffect } from 'react';
+import {
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  CircularProgress,
+  Box,
+  Alert,
+  IconButton,
+  Divider,
+  Chip
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import React, { useState } from 'react';
-import { Box, Typography, GlobalStyles, Button, Autocomplete, TextField } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { courseData } from '../course';
+// ========================================================
+// 🌟 வாட்ஸ்அப் குரூப் லிங்க்குகள் (இங்கே உங்கள் லிங்க்குகளை மாற்றவும்)
+// ========================================================
+// ஃபார்மில் கொடுக்கும் 'Batch Name'-ம், இங்கிருக்கும் 'Key'-யும் சரியாக ஒத்துப்போக வேண்டும் (Case-sensitive).
+const GROUP_LINKS = {
+  "Batch 1": "https://chat.whatsapp.com/உங்களின்_Group_1_லிங்க்_இங்கே",
+  "Batch 2": "https://chat.whatsapp.com/உங்களின்_Group_2_லிங்க்_இங்கே",
+  "Batch 3": "https://chat.whatsapp.com/உங்களின்_Group_3_லிங்க்_இங்கே",
+  // எத்தனை பேட்ச் வேண்டுமானாலும் இப்படி கீழே சேர்த்துக்கொண்டே போகலாம்...
+};
 
-const CourseViewer = ({ auth, setAuth }) => {
+// =========================
+// API URL
+// =========================
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbyghq5mIplCYcfAIBvsK7wPHgfS-Dk0f3RFbzcnMPE6jqT3rYYQW366KIt7yPngljgykA/exec";
 
-  const standardCourse = (auth && auth.course) ? auth.course : "React";
-  const currentCourseList = courseData[standardCourse] || courseData["React"];
+// =========================
+// MAIN COMPONENT
+// =========================
+export default function AdminForm() {
 
-  const [selectedDoc, setSelectedDoc] = useState(currentCourseList[0]);
+  // =========================
+  // FORM DATA
+  // =========================
+  const [formData, setFormData] = useState({
+    batchName: '',
+    subject: '',
+    topics: '',
+    classDate: '',
+    timeFrom: '',
+    timeTo: '',
+    classLink: ''
+  });
 
-  const handleLogout = () => {
-    setAuth({ loggedIn: false, course: '' });
-  };
+  // =========================
+  // STATES
+  // =========================
+  const [classes, setClasses] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [tableLoading, setTableLoading] = useState(true);
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  // 80 பக்கங்களும் ஓப்பன் ஆகாமல் பிளாங்காக இருக்கும் பிரச்சனையை 100% தீர்க்கும் அல்டிமேட் லாஜிக்
-  const getGoogleDocHtmlUrl = (url) => {
-    if (!url) return '';
+  // =========================
+  // HELPER: REDIRECT TO SPECIFIC WHATSAPP GROUP DIRECTLY
+  // =========================
+  const sendWhatsAppNotification = (data, isEditMode) => {
+    const header = isEditMode ? `*⚡ CLASS SCHEDULE UPDATED* ⚡` : `*📢 NEW CLASS SCHEDULED* 📢`;
     
-    // 1. URL-ல் உள்ள தேவையற்ற பகுதிகளை நீக்குகிறது
-    let baseUrl = url;
-    if (url.includes('/edit')) baseUrl = url.split('/edit')[0];
-    if (url.includes('/view')) baseUrl = url.split('/view')[0];
-    if (url.includes('/preview')) baseUrl = url.split('/preview')[0];
-    if (url.includes('/pub')) baseUrl = url.split('/pub')[0];
+    const message = `${header}\n\n` +
+      `*Batch:* ${data.batchName}\n` +
+      `*Subject:* ${data.subject}\n` +
+      `*Topics:* ${data.topics}\n` +
+      `*Date:* ${data.classDate}\n` +
+      `*Time:* ${data.timeFrom} To ${data.timeTo}\n\n` +
+      `*🔗 Google Meet Link:* ${data.classLink}\n\n` +
+      `Kindly join the class on time! 👍`;
+
+    const encodedMessage = encodeURIComponent(message);
     
-    // 2. கூகுள் டாக்ஸை நேரடியாக HTML வெப்சைட்டாக மாற்றுகிறது. 
-    // இது iframe பிளாங்க் பிரச்சனையை 100% சரிசெய்து 80 பக்கங்களையும் முழுமையாகக் காட்டும்!
-    return `${baseUrl}/pub?embedded=true`;
-  };
+    // 🌟 கொடுக்கப்பட்ட Batch Name-க்கு தகுந்த குரூப் லிங்க் இருக்கிறதா என்று பார்க்கிறது
+    const baseGroupUrl = GROUP_LINKS[data.batchName.trim()];
 
-  return (
-    <Box
-      sx={{
-        width: '100%', minHeight: '100vh', bgcolor: '#f0f2f5',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none',
-      }}
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
-
-      <Box sx={{ py: 3, width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
-
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
-          <Button
-            variant="outlined" color="error" size="small"
-            startIcon={<LogoutIcon />} onClick={handleLogout}
-            sx={{ fontWeight: 'bold', textTransform: 'none' }}
-          >
-            Logout
-          </Button>
-        </Box>
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
-            E-Learning Portal ({standardCourse})
-          </Typography>
-
-          <Box sx={{ display: 'flex', justifyContent: 'center', px: 2 }}>
-            <Autocomplete
-              disablePortal
-              options={currentCourseList}
-              getOptionLabel={(option) => option.name}
-              value={selectedDoc}
-              onChange={(event, newValue) => {
-                if (newValue) {
-                  setSelectedDoc(newValue);
-                }
-              }}
-              sx={{ width: { xs: '90%', md: '500px' }, bgcolor: '#fff' }}
-              renderInput={(params) => (
-                <TextField {...params} label="Select Topic Name" variant="outlined" />
-              )}
-            />
-          </Box>
-
-          <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
-            Now Viewing: {selectedDoc ? selectedDoc.name : ""}
-          </Typography>
-        </Box>
-      </Box>
-
-      {/* உங்களது பழைய பாக்ஸ் டிசைன் அப்படியே வைக்கப்பட்டுள்ளது (உயரம் மட்டும் மொபைல் ஸ்க்ரோலுக்காக 82vh ஆக்கப்பட்டுள்ளது) */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: { xs: '98%', md: '900px' },
-          height: '82vh', 
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          mb: 5,
-          overflow: 'hidden',
-          borderRadius: '8px'
-        }}
-      >
-        {/* பாதுகாப்பு லேயர் - காப்பி செய்வதை மட்டும் தடுக்கும், ஸ்க்ரோலிங்கை லாக் செய்யாது */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            background: 'transparent',
-            pointerEvents: 'none', // ஸ்க்ரோல் செய்ய இது 'none' ஆக இருக்க வேண்டும்
-          }}
-        />
-
-        {selectedDoc && (
-          <iframe
-            key={selectedDoc.id}
-            src={getGoogleDocHtmlUrl(selectedDoc.url)}
-            width="100%"
-            height="100%"
-            title={selectedDoc.name}
-            style={{
-              border: 'none',
-              pointerEvents: 'auto', // மொபைல் மற்றும் டெஸ்க்டாப் டச் ஸ்க்ரோலுக்கு இது 'auto'
-            }}
-          />
-        )}
-      </Box>
-    </Box>
-  );
-};
-
-export default CourseViewer;
-
-************************************
-
-import React, { useState } from 'react';
-import { Box, Typography, GlobalStyles, Button, Autocomplete, TextField } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { courseData } from '../course';
-
-// மாற்றப்பட்ட பகுதி: auth ஆப்ஜெக்ட்டை வாங்குகிறோம் (auth.course-ல் 'React' அல்லது 'Python' இருக்கும்)
-const CourseViewer = ({ auth, setAuth }) => {
-
-  // மாணவர் படிக்கும் குறிப்பிட்ட கோர்ஸின் டேட்டாவை மட்டும் பிரிக்கிறோம்
-  const standardCourse = (auth && auth.course) ? auth.course : "React";
-  const currentCourseList = courseData[standardCourse] || courseData["React"];
-
-  // லோடாகும் போது அந்தந்த கோர்ஸின் முதல் டாபிக் லோடாகும்
-  const [selectedDoc, setSelectedDoc] = useState(currentCourseList[0]);
-
-  const handleLogout = () => {
-    setAuth({ loggedIn: false, course: '' });
-  };
-
-  return (
-    <Box
-      sx={{
-        width: '100%', minHeight: '100vh', bgcolor: '#f0f2f5',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none',
-      }}
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
-
-      <Box sx={{ py: 3, width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
-
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
-          <Button
-            variant="outlined" color="error" size="small"
-            startIcon={<LogoutIcon />} onClick={handleLogout}
-            sx={{ fontWeight: 'bold', textTransform: 'none' }}
-          >
-            Logout
-          </Button>
-        </Box>
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
-            E-Learning Portal ({standardCourse})
-          </Typography>
-
-          {/* Dropdown Search List - இப்போது வடிகட்டப்பட்ட லிஸ்ட் மட்டும் காட்டும் */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', px: 2 }}>
-            <Autocomplete
-              disablePortal
-              options={currentCourseList}
-              getOptionLabel={(option) => option.name}
-              value={selectedDoc}
-              onChange={(event, newValue) => {
-                if (newValue) {
-                  setSelectedDoc(newValue);
-                }
-              }}
-              sx={{ width: { xs: '90%', md: '500px' }, bgcolor: '#fff' }}
-              renderInput={(params) => (
-                <TextField {...params} label="Select Topic Name" variant="outlined" />
-              )}
-            />
-          </Box>
-
-          <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
-            Now Viewing: {selectedDoc ? selectedDoc.name : ""}
-          </Typography>
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          position: 'relative',
-          width: { xs: '98%', md: '900px' },
-          height: '24000px', // increase this
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          mb: 5,
-          overflow: 'hidden',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            background: 'transparent',
-            pointerEvents: 'all',
-          }}
-        />
-
-        {selectedDoc && (
-          <iframe
-            key={selectedDoc.id}
-            src={selectedDoc.url}
-            width="100%"
-            height="100%"
-            title={selectedDoc.name}
-            style={{
-              border: 'none',
-              pointerEvents: 'none',
-            }}
-          />
-        )}
-      </Box>
-    </Box>
-  );
-};
-
-export default CourseViewer;
-
-
-
-
-*********************************
-import React, { useState } from 'react';
-import { Box, Typography, GlobalStyles, TextField, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-
-const CourseViewer = () => {
-  // 1. Ungaloda ellaa Docs link-aiyum inge add pannunga
-  const courseData = [
-    { id: 1, name: "HTML Introduction", url: "https://docs.google.com/document/d/e/YOUR_LINK_1/pub?embedded=true" },
-    { id: 2, name: "HTML Tags", url: "https://docs.google.com/document/d/e/YOUR_LINK_2/pub?embedded=true" },
-    { id: 3, name: "CSS Selectors", url: "https://docs.google.com/document/d/e/YOUR_LINK_3/pub?embedded=true" },
-    // Ithu pola unga 70+ links-aiyum inge add pannikkalam
-  ];
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDoc, setSelectedDoc] = useState(courseData[0]); // Default-ah first doc kaattum
-
-  // Search handle panna
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-
-    // Exact match moolama doc-ah kandupidippom
-    const found = courseData.find(doc => 
-      doc.name.toLowerCase().includes(value.toLowerCase())
-    );
-
-    if (found) {
-      setSelectedDoc(found);
-    }
-  };
-
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        minHeight: '100vh',
-        bgcolor: '#f0f2f5',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        userSelect: 'none',
-      }}
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
-
-      {/* Header Section */}
-      <Box sx={{ py: 4, textAlign: 'center', width: '100%', bgcolor: '#fff', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
-          E-Learning Content Viewer
-        </Typography>
-
-        {/* Search Input Box */}
-        <TextField
-          variant="outlined"
-          placeholder="Search Document Name (e.g. HTML Tags)"
-          value={searchTerm}
-          onChange={handleSearch}
-          sx={{ width: { xs: '90%', md: '500px' }, bgcolor: '#fff' }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Typography variant="body2" sx={{ mt: 1, color: '#666' }}>
-          Viewing: <b>{selectedDoc.name}</b>
-        </Typography>
-      </Box>
-
-      {/* Document Viewer Section */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: { xs: '98%', md: '900px' },
-          height: '6000px', // Content length-ku yetha maari adjust pannunga
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          mb: 5,
-        }}
-      >
-        {/* NO-COPY SHIELD LAYER */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            background: 'transparent',
-            pointerEvents: 'all',
-          }}
-        />
-
-        <iframe
-          key={selectedDoc.id} // Doc maarumbothu iframe refresh aaga ithu mukkiyam
-          src={selectedDoc.url}
-          width="100%"
-          height="100%"
-          title={selectedDoc.name}
-          style={{ border: 'none', pointerEvents: 'none' }}
-        />
-      </Box>
-    </Box>
-  );
-};
-
-export default CourseViewer;
-
-
-
-
-
-++++++++++
-
-
-
-import React, { useState } from 'react';
-import { Box, Typography, GlobalStyles, TextField, InputAdornment, Button } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import LogoutIcon from '@mui/icons-material/Logout'; // Logout icon
-
-const CourseViewer = ({ setAuth }) => { // setAuth prop-ah vachukonga
-  const courseData = [
-    { id: 1, name: "Callback Function", url: "https://docs.google.com/document/d/e/2PACX-1vRPv6W9HrZ_wPr4G0eW_QfvZm2rQkzO51XP0KSxKuuexkvVWVFw9IziW5ePRHWFvZI8Qsix4G5kOtaY/pub?embedded=true" },
-    { id: 2, name: "HTML Introduction", url: "https://docs.google.com/document/d/e/2PACX-1vRGwueb60T4yEflUkjJoCOanXBjTXfPXKtgL4bdqJeHRRzwT6anwHP6V6ygD_wr55Lz4EMbC7ZNPnWm/pub?embedded=true" },
-    { id: 3, name: "Elements", url: "https://docs.google.com/document/d/e/2PACX-1vSMrjBIGtJXrD0P-3Ex4P_pXbn8vPXuUlrBJPBZG_GyvGKWJPsP-OalUAdz35SdNIq6Qg84ng17LSed/pub?embedded=true" },
-    { id: 4, name: "Block Elements Basics", url: "https://docs.google.com/document/d/e/2PACX-1vTaeyG8vnZQiwSFW9Ib_XcGztoAaV6Jb_1JxQzRk1DHqIaeCJ6yZIJmfSn2iAXOSvszu9zvrqZqaGoV/pub?embedded=true" },
-    { id: 6, name: "Inline Elements", url: "https://docs.google.com/document/d/e/2PACX-1vTh8ONkkEN45eh1mITP0vffjQJBYRHLL-T3HfrULjs2SwiXH5kYVa01c3e_he7F-NCdIQQLKEfo0cln/pub?embedded=true" },
-    { id: 7, name: "Void Elements", url: "https://docs.google.com/document/d/e/2PACX-1vT7ehYJOKD5H3QYJWEGArNtKRajfeWeGrum8JrKnp3dZ2lysbsJNxiiwK-f8pMGsUiOVmRy637kFl6X/pub?embedded=true" },
-    { id: 8, name: "Semantic Elements", url: "https://docs.google.com/document/d/e/2PACX-1vRSECea6psRVlSK8RBs4lAfUVXLhx7MYCKSsBjZYCeHmPmEIjvPSCk4EhcJ_IU8BWrG4dhNl-19kn-0/pub?embedded=true" },
-    { id: 9, name: "Non Semantic Elements", url: "https://docs.google.com/document/d/e/2PACX-1vQltLnjsGzxDFku625M-eXJPZPcaeaozaht1Hn4rLKnyhUJO1GUbHuca6J2K1uPZ1N9AxN939NkC5AR/pub?embedded=true" },
-    { id: 10, name: "Element Attribute", url: "https://docs.google.com/document/d/e/2PACX-1vSNAO6TiwTui2y5LOpqXbAQfbhZgpipLu0ln-QWY_tgD-sMT40CsBJtWneAr24-UcyipW-IhrZcNLW9/pub?embedded=true" },
-    { id: 11, name: "HTML Comments", url: "https://docs.google.com/document/d/e/2PACX-1vTm0jjXhj-aDGnb_qCB7-LhR33trEpwmAs_fMiMleKfdhH7I3ahztAukE8dZYJga1g9aoVGdCaGTanz/pub?embedded=true" },
-    { id: 12, name: "Media Tags", url: "https://docs.google.com/document/d/e/2PACX-1vSmtaI5tLGThphnXmWYpXGO_ar8iDonbBcV8I9_lqYqTBR5Olj6DheLYYftCjBx6jgChVPT7sAJx9vL/pub?embedded=true" },
-    { id: 13, name: "Table Tag", url: "https://docs.google.com/document/d/e/2PACX-1vRLlGSQdYmO3HTHIiPPG8Wu9gtx-8yzdpBcyIuUawLYD3O4rz5eGFlR-v_ocH5rRIhrx3OvQe8LsbBZ/pub?embedded=true" },
-    { id: 14, name: "Form Tag", url: "https://docs.google.com/document/d/e/2PACX-1vSejZQCNmvUhn-_Q99AzFu_JrihWpjU_BPPFcDeWCWj9QqzRygcqEdyKQSKMMg8brxxKe2y2vDI21Re/pub?embedded=true" },
-    { id: 15, name: "DOM Tree", url: "https://docs.google.com/document/d/e/2PACX-1vTixzB_Oc9mBXELdk7M85YNoak2pBsOTBmG4Q1vm0138wtuBQHBP3E5pAn28mi8LmsWyRhwtEeh8LKg/pub?embedded=true" },
-    { id: 16, name: "HTML Entities", url: "https://docs.google.com/document/d/e/2PACX-1vQVyGowRraUPMpolpeisxeI8QLkJuXuCi1xDg4DLI8rIcGl1bAlQhqtzCt8NaNuOmtNPLU0nEv4hVsR/pub?embedded=true" },
-  ];
-
-  const [searchInput, setSearchInput] = useState("");
-  const [selectedDoc, setSelectedDoc] = useState(courseData[0]);
-
-  const executeSearch = () => {
-    const found = courseData.find(doc =>
-      doc.name.toLowerCase() === searchInput.toLowerCase() ||
-      doc.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-
-    if (found) {
-      setSelectedDoc(found);
+    if (baseGroupUrl) {
+      // குரூப் லிங்க் இருந்தால், நேரடியாக அந்த குரூப்பிற்குள் மெசேஜுடன் கூட்டிச் செல்லும்
+      // குறிப்பு: வாட்ஸ்அப் வெப்/ஆப்பில் சில சமயம் நேரடி லிங்க் மெசேஜை பாக்ஸில் காட்ட, குரூப் லிங்க்கின் இறுதியில் மெசேஜை இணைக்கிறோம்
+      const directWhatsappUrl = `${baseGroupUrl}?text=${encodedMessage}`;
+      window.open(directWhatsappUrl, '_blank');
     } else {
-      alert("Sariyaana file name-ai type pannunga!");
+      // ஒருவேளை நீங்கள் கொடுத்த Batch Name-க்கு லிங்க் இல்லை என்றால், பொதுவான வாட்ஸ்அப் ஷேர் பேஜ் ஓபன் ஆகும்
+      alert(`Warning: "${data.batchName}"-க்கு வாட்ஸ்அப் குரூப் லிங்க் செட் செய்யப்படவில்லை. எனவே பொதுவான வாட்ஸ்அப் பக்கம் ஓபன் ஆகிறது!`);
+      window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') executeSearch();
+  // =========================
+  // HELPER: CHECK IF CLASS EXPIRED
+  // =========================
+  const isClassExpired = (classDate, timeTo) => {
+    try {
+      if (!classDate || !timeTo) return false;
+      const now = new Date();
+      const classEndTime = new Date(`${classDate}T${timeTo}`);
+      return now > classEndTime;
+    } catch (e) {
+      console.error("Error parsing date/time:", e);
+      return false;
+    }
   };
 
-  // Logout handle panna
-  const handleLogout = () => {
-    setAuth(false); // State-ah false pannuna login page-kku poyidum
+  // =========================
+  // FETCH SCHEDULE
+  // =========================
+  const fetchSchedule = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}?_=${new Date().getTime()}`
+      );
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        const activeClasses = data.filter(cls => !isClassExpired(cls.classDate, cls.timeTo));
+        setClasses(activeClasses);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setTableLoading(false);
+    }
   };
 
+  useEffect(() => {
+    fetchSchedule();
+
+    const interval = setInterval(() => {
+      setClasses((prevClasses) => 
+        prevClasses.filter(cls => !isClassExpired(cls.classDate, cls.timeTo))
+      );
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // =========================
+  // HANDLE CHANGE
+  // =========================
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // =========================
+  // SUBMIT
+  // =========================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccessMsg('');
+    setErrorMsg('');
+
+    const searchParams = new URLSearchParams();
+    searchParams.append('action', isEditing ? 'edit' : 'add');
+
+    if (isEditing) {
+      searchParams.append('id', editId);
+    }
+
+    Object.keys(formData).forEach(key => {
+      searchParams.append(key, formData[key]);
+    });
+
+    const currentFormData = { ...formData };
+    const currentEditState = isEditing;
+
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: searchParams.toString()
+      });
+
+      setSuccessMsg(
+        currentEditState
+          ? 'Class updated successfully!'
+          : 'New class published successfully!'
+      );
+
+      // 🌟 ஃபார்ம் சப்மிட் ஆனதும் நேரடியாக வாட்ஸ்அப் குரூப்பிற்கு ரீடைரக்ட் செய்கிறது
+      sendWhatsAppNotification(currentFormData, currentEditState);
+
+      // RESET FORM
+      setFormData({
+        batchName: '',
+        subject: '',
+        topics: '',
+        classDate: '',
+        timeFrom: '',
+        timeTo: '',
+        classLink: ''
+      });
+      setIsEditing(false);
+      setEditId(null);
+      fetchSchedule();
+
+    } catch (err) {
+      setErrorMsg('Operation failed. Check network.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =========================
+  // EDIT MODE
+  // =========================
+  const handleEditClick = (cls) => {
+    setIsEditing(true);
+    setEditId(cls.id);
+    setFormData({
+      batchName: cls.batchName,
+      subject: cls.subject,
+      topics: cls.topics,
+      classDate: cls.classDate,
+      timeFrom: cls.timeFrom,
+      timeTo: cls.timeTo,
+      classLink: cls.classLink
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // =========================
+  // DELETE
+  // =========================
+  const handleDeleteClick = async (id) => {
+    if (!window.confirm("Delete this class schedule?")) return;
+
+    setTableLoading(true);
+    const searchParams = new URLSearchParams();
+    searchParams.append('action', 'delete');
+    searchParams.append('id', id);
+
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: searchParams.toString()
+      });
+
+      setSuccessMsg('Class deleted successfully!');
+      fetchSchedule();
+    } catch (err) {
+      setErrorMsg('Delete failed.');
+      setTableLoading(false);
+    }
+  };
+
+  // =========================
+  // RETURN
+  // =========================
   return (
     <Box
       sx={{
-        width: '100%',
-        minHeight: '100vh',
-        bgcolor: '#f0f2f5',
+        p: { xs: 2, sm: 4 },
+        maxWidth: 900,
+        mx: 'auto',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        userSelect: 'none',
+        gap: 4
       }}
-      onContextMenu={(e) => e.preventDefault()}
     >
-      <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
-
-      {/* Header Section */}
-      <Box sx={{ py: 3, width: '100%', bgcolor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', mb: 3 }}>
-        
-        {/* Top bar with Logout */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, mb: 1 }}>
-          <Button 
-            variant="outlined" 
-            color="error" 
-            size="small"
-            startIcon={<LogoutIcon />}
-            onClick={handleLogout}
-            sx={{ fontWeight: 'bold', textTransform: 'none' }}
-          >
-            Logout
-          </Button>
-        </Box>
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', mb: 2 }}>
-            E-Learning Portal
+      {/* FORM SECTION */}
+      <Card
+        sx={{
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          borderRadius: 4,
+          bgcolor: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)'
+        }}
+      >
+        <CardContent>
+          <Typography variant="h5" fontWeight="900" color="#09ee24ff" sx={{ mb: 3 }}>
+            {isEditing ? '⚡ Edit Class Schedule' : '➕ Add New Class'}
           </Typography>
 
-          {/* Search Bar */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, px: 2 }}>
-            <TextField
-              variant="outlined"
-              placeholder="Type File Name..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              onKeyDown={handleKeyPress}
-              sx={{ width: { xs: '70%', md: '500px' }, bgcolor: '#fff' }}
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={executeSearch}
-              sx={{ textTransform: 'none', fontWeight: 'bold' }}
-            >
-              Search
-            </Button>
-          </Box>
+          {successMsg && (
+            <Alert severity="success" sx={{ mb: 3, borderRadius: '12px' }}>
+              {successMsg}
+            </Alert>
+          )}
 
-          <Typography variant="subtitle1" sx={{ mt: 2, color: '#2e7d32', fontWeight: '500' }}>
-            Now Viewing: {selectedDoc.name}
+          {errorMsg && (
+            <Alert severity="error" sx={{ mb: 3, borderRadius: '12px' }}>
+              {errorMsg}
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+              <TextField
+                required
+                fullWidth
+                label="Batch Name"
+                name="batchName"
+                value={formData.batchName}
+                onChange={handleChange}
+                sx={inputStyle}
+                placeholder="Ex: Batch 1"
+              />
+
+              <TextField
+                required
+                fullWidth
+                label="Subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                sx={inputStyle}
+              />
+
+              <TextField
+                required
+                fullWidth
+                multiline
+                rows={3}
+                label="Topics"
+                name="topics"
+                value={formData.topics}
+                onChange={handleChange}
+                sx={inputStyle}
+              />
+
+              <TextField
+                required
+                fullWidth
+                type="date"
+                label="Class Date"
+                name="classDate"
+                value={formData.classDate}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                sx={inputStyle}
+              />
+
+              <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+                <TextField
+                  required
+                  fullWidth
+                  type="time"
+                  label="Time From"
+                  name="timeFrom"
+                  value={formData.timeFrom}
+                  onChange={handleChange}
+                  InputLabelProps={{ shrink: true }}
+                  sx={inputStyle}
+                />
+
+                <TextField
+                  required
+                  fullWidth
+                  type="time"
+                  label="Time To"
+                  name="timeTo"
+                  value={formData.timeTo}
+                  onChange={handleChange}
+                  InputLabelProps={{ shrink: true }}
+                  sx={inputStyle}
+                />
+              </Box>
+
+              <TextField
+                required
+                fullWidth
+                type="url"
+                label="Google Meet Link"
+                name="classLink"
+                value={formData.classLink}
+                onChange={handleChange}
+                sx={inputStyle}
+              />
+
+              <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  disabled={loading}
+                  sx={{
+                    flex: 2,
+                    py: 1.5,
+                    bgcolor: isEditing ? '#ffaa00' : '#09ee24ff',
+                    color: '#000',
+                    fontWeight: '900',
+                    borderRadius: '12px',
+                    '&:hover': { bgcolor: isEditing ? '#cc8800' : '#07c91f' }
+                  }}
+                >
+                  {loading ? (
+                    <CircularProgress size={24} sx={{ color: '#000' }} />
+                  ) : (
+                    isEditing ? 'Update & Share' : 'Publish & Share'
+                  )}
+                </Button>
+
+                {isEditing && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    onClick={() => {
+                      setIsEditing(false);
+                      setFormData({
+                        batchName: '',
+                        subject: '',
+                        topics: '',
+                        classDate: '',
+                        timeFrom: '',
+                        timeTo: '',
+                        classLink: ''
+                      });
+                    }}
+                    sx={{
+                      flex: 1,
+                      borderColor: '#ff4444',
+                      color: '#ff4444',
+                      borderRadius: '12px',
+                      '&:hover': { borderColor: '#cc0000', bgcolor: 'rgba(255,68,68,0.05)' }
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                )}
+              </Box>
+            </Box>
+          </form>
+        </CardContent>
+      </Card>
+
+      {/* TABLE SECTION */}
+      <Card
+        sx={{
+          boxShadow: 3,
+          borderRadius: 4,
+          bgcolor: 'rgba(255,255,255,0.02)',
+          border: '1px solid rgba(255,255,255,0.05)'
+        }}
+      >
+        <CardContent>
+          <Typography variant="h6" fontWeight="900" color="#fff" sx={{ mb: 2 }}>
+            Current Class Dashboard ({classes.length})
           </Typography>
-        </Box>
-      </Box>
 
-      {/* Document View */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: { xs: '98%', md: '900px' },
-          height: '6000px', 
-          bgcolor: '#fff',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          mb: 5,
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-            background: 'transparent',
-            pointerEvents: 'all',
-          }}
-        />
+          <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)', mb: 2 }} />
 
-        <iframe
-          key={selectedDoc.id}
-          src={selectedDoc.url}
-          width="100%"
-          height="100%"
-          title={selectedDoc.name}
-          style={{ border: 'none', pointerEvents: 'none' }}
-        />
-      </Box>
-    </Box>
-  );
-};
-
-export default CourseViewer;
-
-
-
-___________________
-
-import React from 'react';
-import { Box, Typography, Grid, Paper, LinearProgress } from '@mui/material';
-
-const frontSkills = [
-  { name: 'HTML/CSS', value: 95 },
-  { name: 'JavaScript', value: 85 },
-  { name: 'React Js', value: 80 },
-];
-
-const backSkills = [
-  { name: 'Node.js', value: 65 },
-  { name: 'Express Js', value: 60 },
-  { name: 'My SQL', value: 75 },
-  { name: 'Java Programming', value: 67 },
-  { name: 'Python Programming', value: 40 },
-];
-
-const visualizationSkills = [
-  { name: 'Tableau', value: 80 },
-  { name: 'Power BI', value: 85 },
-  { name: 'Excel Analytics', value: 90 },
-  { name: 'Data Storytelling', value: 75 },
-];
-
-
-
-const visualizationPaperStyle = {
-  bgcolor: '#676980ff',
-  width: { xs: '100%', sm: 400, md: 450 },
-  p: { xs: 2, sm: 3, md: 4 },
-  borderRadius: 4,
-  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-};
-
-const workflowSkills = [
-  { name: 'Git & GitHub', value: 90 },
-  { name: 'Vercel Deployment', value: 85 },
-  { name: 'Prompt-based Code Generation', value: 80 },
-];
-
-const SkillProgress = ({ name, value }) => (
-  <Box sx={{ mb: 2, width: '100%' }}>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-      <Typography sx={{ fontWeight: 500, color: 'white', fontSize: { xs: 16, sm: 18, md: 20 } }}>
-        {name}
-      </Typography>
-      <Typography sx={{ fontWeight: 500, color: 'white', fontSize: { xs: 14, sm: 16 } }}>
-        {value}%
-      </Typography>
-    </Box>
-    <LinearProgress
-      variant="determinate"
-      value={value}
-      sx={{
-        height: { xs: 10, sm: 12, md: 15 },
-        borderRadius: 2,
-        bgcolor: '#252525',
-        '& .MuiLinearProgress-bar': {
-          bgcolor: '#fff',
-        },
-      }}
-    />
-  </Box>
-);
-
-function Education() {
-  const skillPaperStyle = {
-    bgcolor: '#676980ff',
-    width: { xs: '100%', sm: 400, md: 450 }, // Responsive width
-    p: { xs: 2, sm: 3, md: 4 }, // Responsive padding
-    borderRadius: 4,
-    boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-  };
-
-  return (
-    <Box sx={{ flex: 1, px: { xs: 2, sm: 4, md: 8 }, py: 4 }}>
-      {/* ______________________Heading____________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: 'center',
-          fontWeight: 700,
-          mb: 2,
-          fontSize: { xs: 20, sm: 24, md: 28 }, // Responsive font size
-        }}
-      >
-        QUALIFICATIONS AND EXPERIENCE
-      </Typography>
-
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <Typography
-          variant="body1"
-          sx={{
-            textAlign: 'center',
-            mb: 3,
-            color: '#ccc',
-            fontSize: { xs: 16, sm: 18, md: 20 },
-            maxWidth: { xs: '100%', sm: 800, md: 1000 },
-          }}
-        >
-          Passionate and experienced Tech Trainer with a strong commitment to teaching, having
-          successfully guided over 1000+ students through practical and industry-relevant technology
-          training.
-        </Typography>
-      </Box>
-
-      {/* ____________________Professional Experience___________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Professional Experience
-      </Typography>
-
-      {/* __________________________Job Present________________________ */}
-      {/*Green Apple  */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Center Head
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          November 2025 – Present | Green Apple Computer Education, Kumbakonam - 612 001
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducting training programs in Java, Web Development, and Computer Fundamentals.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Delivered full-stack MERN training including React.js, Node.js, Express.js, and MongoDB.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted foundational courses in C, C++, Java, JDBC, and Python programming.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Provided Data Science and Analytics training with visualization tools such as Tableau and Power BI.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted skill-oriented training focused on interview preparation and technical confidence building.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Prepared students for interviews through mock tests, coding challenges, and resume reviews.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designed training roadmaps, curriculum delivery plans, and batch schedules.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Tracked student progress and implemented personalized learning strategies.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-
-      {/*ProgramPark */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Apps & Web Developer
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          November 2025 – Present | ProgramPark Technologies Pvt. Ltd Chennai - 33
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designing and developing mobile and web applications in parallel with training commitments.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Working with React, Node.js, and modern tooling for product-based solutions.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* BlueTick Coders */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Front-end Developer
-        </Typography>
-
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          March 2024 – November 2025 | BlueTick Coders Pvt. Ltd, Adambakkam, Chennai - 32.
-        </Typography>
-
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Developed and maintained responsive web applications using React, JavaScript, and REST APIs.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Collaborated with developers on UI components, performance optimization, and code reviews.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Implemented reusable front-end components aligned with design and UX standards.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* Soft Tech Ashram */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Center Head (Training Division)
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          March 2024 – November 2025 | SoftTechAshram (Operated by BlueTick Coders), Chennai - 32.
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Designed and delivered training programs on HTML, CSS, JavaScript, and React,
-                empowering 150+ students to build responsive web applications.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Mentored learners, providing personalized guidance to strengthen their front-end
-                development skills.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Conducted code reviews, offering constructive feedback to improve code quality and
-                adherence to best practices.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Aligned curriculum with industry trends, incorporating modern frameworks and tools to
-                ensure relevance.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Enhanced students’ practical skills through hands-on projects and real-world coding
-                scenarios.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* Job before Soft Tech Ashram */}
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          C, Core Java, HTML, CSS, and JDBC Trainer
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          June 2022 – January 2023 | Green Apple, Mayiladuthurai
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Delivered training sessions on C, Core Java, HTML, CSS, SQL, and JDBC to 30+ students,
-                fostering a strong foundation in programming.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Developed engaging course materials and practical exercises to improve learners’
-                understanding of software development.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Managed team of 8 developers across multiple projects.
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Guided students in building basic applications, focusing on problem-solving and coding
-                efficiency.
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* _____________________Education_________________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Education
-      </Typography>
-
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Master of Science in Computer Science
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          2016 – 2018 | Poompuhar College (Autonomous), Melaiyur, Bharathidasan University
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Programming & Web Technologies (Java, Web Development, Compiler Design)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Algorithms & Advanced Computer Architecture
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Artificial Intelligence, Data Mining & Machine Learning
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Cloud Computing & Distributed Systems
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Mobile & Wireless Computing (including Wireless Sensor Networks & Image Processing)
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      <Box sx={{ textAlign: 'start', mb: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: { xs: 16, sm: 18, md: 20 } }}>
-          Bachelor of Computer Applications
-        </Typography>
-        <Typography variant="subtitle2" sx={{ color: '#aaa', mb: 1, fontSize: { xs: 12, sm: 14 } }}>
-          2013 – 2016 | Poompuhar College (Autonomous), Melaiyur, Bharathidasan University
-        </Typography>
-        <Box sx={{ fontSize: { xs: 14, sm: 16, md: 18 } }}>
-          <ul>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Programming & Data Structures (C, C++, Java, Visual Basic, ASP, HTML)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Database & Information Systems (RDBMS, Financial Accounting, MIS)
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Computer Architecture & Operating Systems
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Software Engineering, Numerical Analysis & Statistics
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1" sx={{ mb: 2, fontSize: 'inherit' }}>
-                Artificial Intelligence, Computer Graphics & Multimedia Technologies
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-
-      {/* _____________________Skills Area_____________________ */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 2,
-          borderBottom: '2px solid #00bfff',
-          pb: 1,
-          fontSize: { xs: 18, sm: 22, md: 26 },
-        }}
-      >
-        Technical & Training Skills
-      </Typography>
-
-      <Box
-        sx={{
-          bgcolor: '#181818',
-          py: { xs: 2, sm: 4 },
-          px: { xs: 2, sm: 4, md: 8 },
-        }}
-      >
-        <Grid container spacing={{ xs: 2, sm: 4, md: 8 }} justifyContent="center">
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Front-end Development
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {frontSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Back-end Development
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {backSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={visualizationPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Data Visualization & BI Tools
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {visualizationSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={5}>
-            <Paper sx={skillPaperStyle}>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, mb: 2, color: 'white', fontSize: { xs: 16, sm: 18 } }}
-              >
-                Workflow & Deployment Tools
-              </Typography>
-              <Box sx={{ borderBottom: '2px solid #fff', width: 45, mb: 2 }} />
-              {workflowSkills.map((skill) => (
-                <SkillProgress key={skill.name} name={skill.name} value={skill.value} />
-              ))}
-            </Paper>
-          </Grid>
-
-        </Grid>
-      </Box>
-
-      {/* Technical Skills */}
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: 700, mb: 2, fontSize: { xs: 16, sm: 18, md: 20 } }}
-      >
-        Technical Skills
-      </Typography>
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {[
-          { skill: 'Tech Mentoring', value: 95 },
-          { skill: 'Develop Course Material', value: 85 },
-          { skill: 'Learn Any Technology', value: 90 },
-          { skill: 'Communications', value: 80 },
-        ].map((item, index) => (
-          <Box
-            key={index}
-            sx={{ mb: 2, width: { xs: '100%', sm: 600, md: 700 } }}
-          >
-            <Typography variant="body2" sx={{ mb: 0.5, fontSize: { xs: 14, sm: 16 } }}>
-              {item.skill}
+          {tableLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+              <CircularProgress sx={{ color: '#09ee24ff' }} />
+            </Box>
+          ) : classes.length === 0 ? (
+            <Typography align="center" sx={{ color: '#666', py: 2 }}>
+              No active classes found.
             </Typography>
-            <LinearProgress
-              variant="determinate"
-              value={item.value}
-              sx={{
-                height: { xs: 10, sm: 12, md: 15 },
-                borderRadius: 5,
-                bgcolor: '#333',
-                '& .MuiLinearProgress-bar': { bgcolor: '#00bfff' },
-              }}
-            />
-          </Box>
-        ))}
-      </Box>
+          ) : (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              {classes.map((cls) => (
+                <Box
+                  key={cls.id}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    p: 2,
+                    bgcolor: 'rgba(255,255,255,0.03)',
+                    borderRadius: '14px',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    gap: 2,
+                    textAlign: { xs: 'center', sm: 'left' }
+                  }}
+                >
+                  {/* LEFT */}
+                  <Box>
+                    <Chip
+                      label={cls.batchName}
+                      sx={{
+                        mb: 1,
+                        backgroundColor: '#09ee2418',
+                        color: '#09ee24ff',
+                        fontWeight: 'bold'
+                      }}
+                    />
+                    <Typography variant="subtitle1" fontWeight="bold" color="#fff">
+                      {cls.subject}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#aaa', mt: 0.5 }}>
+                      📅 {cls.classDate}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#aaa' }}>
+                      🕒 {cls.timeFrom} - {cls.timeTo}
+                    </Typography>
+                  </Box>
+
+                  {/* RIGHT */}
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <IconButton
+                      onClick={() => handleEditClick(cls)}
+                      sx={{
+                        color: '#ffaa00',
+                        bgcolor: 'rgba(255,170,0,0.08)',
+                        '&:hover': { bgcolor: 'rgba(255,170,0,0.18)' }
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+
+                    <IconButton
+                      onClick={() => handleDeleteClick(cls.id)}
+                      sx={{
+                        color: '#ff4444',
+                        bgcolor: 'rgba(255,68,68,0.08)',
+                        '&:hover': { bgcolor: 'rgba(255,68,68,0.18)' }
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </CardContent>
+      </Card>
     </Box>
   );
 }
 
-export default Education;
-
-
-
-
-
-
-&&&&&&&&&&&&&&&&&&&&&&&&&
-
-
-<Box
-        sx={{
-          position: 'relative', width: { xs: '98%', md: '900px' }, height: '12000px', 
-          bgcolor: '#fff', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', mb: 5,
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-            zIndex: 10, background: 'transparent', pointerEvents: 'all',
-          }}
-        />
-
-        {selectedDoc && (
-          <iframe
-            key={selectedDoc.id}
-            src={selectedDoc.url}
-            width="100%" height="100%" title={selectedDoc.name}
-            style={{ border: 'none', pointerEvents: 'none' }}
-          />
-        )}
-      </Box>
-
+// =========================
+// INPUT STYLE
+// =========================
+const inputStyle = {
+  '& .MuiOutlinedInput-root': {
+    color: '#fff',
+    borderRadius: '12px',
+    '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
+    '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
+    '&.Mui-focused fieldset': { borderColor: '#09ee24ff' },
+  },
+  '& .MuiInputLabel-root': { color: '#888' },
+  '& .MuiInputLabel-root.Mui-focused': { color: '#09ee24ff' }
+};

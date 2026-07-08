@@ -51,9 +51,41 @@ export default function AdminForm() {
   const [errorMsg, setErrorMsg] = useState('');
 
   // =========================
+  // HELPER: SEND WHATSAPP NOTIFICATION
+  // =========================
+  const sendWhatsAppNotification = async (data, isEditMode) => {
+    // வாட்ஸ்அப் மெசேஜ் டெம்ப்ளேட் உருவாக்கம்
+    const header = isEditMode ? `*⚡ CLASS SCHEDULE UPDATED* ⚡` : `*📢 NEW CLASS SCHEDULED* 📢`;
+    
+    const message = `${header}\n\n` +
+      `*Batch:* ${data.batchName}\n` +
+      `*Subject:* ${data.subject}\n` +
+      `*Topics:* ${data.topics}\n` +
+      `*Date:* ${data.classDate}\n` +
+      `*Time:* ${data.timeFrom} To ${data.timeTo}\n\n` +
+      `*🔗 Google Meet Link:* ${data.classLink}\n\n` +
+      `Kindly join the class on time! 👍`;
+
+    try {
+      // மெசேஜை சிஸ்டம்/மொபைல் கிளிப்போர்டில் காப்பி செய்கிறது
+      await navigator.clipboard.writeText(message);
+      
+      // யூசருக்கு நினைவூட்டல் அலர்ட்
+      alert(`Message copied for Batch group: "${data.batchName}".\nWhatsApp ஓபன் ஆனதும் இந்த குரூப் பெயரை சர்ச் செய்து Paste செய்யவும்!`);
+      
+      // வாட்ஸ்அப் வெப் ஓபன் செய்தல்
+      window.open('https://web.whatsapp.com/', '_blank');
+    } catch (err) {
+      console.error("Failed to copy message: ", err);
+      // ஒருவேளை கிளிப்போர்டு வேலை செய்யவில்லை எனில் மாற்று வழி மூலம் வாட்ஸ்அப் ஓபன் ஆகும்
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+    }
+  };
+
+  // =========================
   // HELPER: CHECK IF CLASS EXPIRED
   // =========================
-  // இந்த பங்க்ஷன் கிளாஸ் முடிந்ததா இல்லையா என்று சோதிக்கும்
   const isClassExpired = (classDate, timeTo) => {
     try {
       if (!classDate || !timeTo) return false;
@@ -137,6 +169,10 @@ export default function AdminForm() {
       searchParams.append(key, formData[key]);
     });
 
+    // வாட்ஸ்அப் பங்க்ஷனுக்கு அனுப்ப தற்போதைய ஃபார்ம் டேட்டாவை நகல் எடுக்கிறோம்
+    const currentFormData = { ...formData };
+    const currentEditState = isEditing;
+
     try {
       await fetch(API_URL, {
         method: 'POST',
@@ -148,10 +184,13 @@ export default function AdminForm() {
       });
 
       setSuccessMsg(
-        isEditing
+        currentEditState
           ? 'Class updated successfully!'
           : 'New class published successfully!'
       );
+
+      // 🌟 வாட்ஸ்அப்பிற்கு மெசேஜ் அனுப்பும் ஆட்டோமேஷன் பங்க்ஷன்
+      await sendWhatsAppNotification(currentFormData, currentEditState);
 
       // RESET FORM
       setFormData({
@@ -367,7 +406,7 @@ export default function AdminForm() {
                   {loading ? (
                     <CircularProgress size={24} sx={{ color: '#000' }} />
                   ) : (
-                    isEditing ? 'Update Schedule' : 'Publish Schedule'
+                    isEditing ? 'Update & Share' : 'Publish & Share'
                   )}
                 </Button>
 
@@ -421,7 +460,7 @@ export default function AdminForm() {
           <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)', mb: 2 }} />
 
           {tableLoading ? (
-            <Box sx={{ display: 'flex', justifycontent: 'center', py: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
               <CircularProgress sx={{ color: '#09ee24ff' }} />
             </Box>
           ) : classes.length === 0 ? (
