@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 // =========================
 // API URL
@@ -51,35 +52,52 @@ export default function AdminForm() {
   const [errorMsg, setErrorMsg] = useState('');
 
   // =========================
-  // HELPER: SEND WHATSAPP NOTIFICATION
+  // HELPER: FORMAT TIME TO 12-HOUR (AM/PM)
+  // =========================
+  const formatTimeTo12Hour = (timeString) => {
+    if (!timeString) return '';
+    try {
+      const [hourString, minuteString] = timeString.split(':');
+      let hour = parseInt(hourString, 10);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      
+      hour = hour % 12;
+      hour = hour ? hour : 12;
+      
+      const formattedHour = hour < 10 ? `0${hour}` : hour;
+      
+      return `${formattedHour}:${minuteString} ${ampm}`;
+    } catch (e) {
+      console.error("Time format error:", e);
+      return timeString;
+    }
+  };
+
+  // =========================
+  // HELPER: SEND WHATSAPP NOTIFICATION (ONLY COPY)
   // =========================
   const sendWhatsAppNotification = async (data, isEditMode) => {
-    // வாட்ஸ்அப் மெசேஜ் டெம்ப்ளேட் உருவாக்கம்
     const header = isEditMode ? `*⚡ CLASS SCHEDULE UPDATED* ⚡` : `*📢 NEW CLASS SCHEDULED* 📢`;
     
+    const formattedTimeFrom = formatTimeTo12Hour(data.timeFrom);
+    const formattedTimeTo = formatTimeTo12Hour(data.timeTo);
+
     const message = `${header}\n\n` +
       `*Batch:* ${data.batchName}\n` +
       `*Subject:* ${data.subject}\n` +
       `*Topics:* ${data.topics}\n` +
       `*Date:* ${data.classDate}\n` +
-      `*Time:* ${data.timeFrom} To ${data.timeTo}\n\n` +
+      `*Time:* ${formattedTimeFrom} To ${formattedTimeTo}\n\n` +
       `*🔗 Google Meet Link:* ${data.classLink}\n\n` +
       `Kindly join the class on time! 👍`;
 
     try {
-      // மெசேஜை சிஸ்டம்/மொபைல் கிளிப்போர்டில் காப்பி செய்கிறது
+      // 🌟 மெசேஜை கிளிப்போர்டில் காப்பி மட்டும் செய்கிறது (No window.open)
       await navigator.clipboard.writeText(message);
-      
-      // யூசருக்கு நினைவூட்டல் அலர்ட்
-      alert(`Message copied for Batch group: "${data.batchName}".\nWhatsApp ஓபன் ஆனதும் இந்த குரூப் பெயரை சர்ச் செய்து Paste செய்யவும்!`);
-      
-      // வாட்ஸ்அப் வெப் ஓபன் செய்தல்
-      window.open('https://web.whatsapp.com/', '_blank');
+      alert(`Message copied for Batch: "${data.batchName}".\nஇப்போது வாட்ஸ்அப் குரூப்பில் சென்று Paste செய்யவும்!`);
     } catch (err) {
       console.error("Failed to copy message: ", err);
-      // ஒருவேளை கிளிப்போர்டு வேலை செய்யவில்லை எனில் மாற்று வழி மூலம் வாட்ஸ்அப் ஓபன் ஆகும்
-      const encodedMessage = encodeURIComponent(message);
-      window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
+      alert("Copy செய்வதில் சிக்கல்! மேனுவலாக ட்ரை செய்யவும்.");
     }
   };
 
@@ -89,14 +107,8 @@ export default function AdminForm() {
   const isClassExpired = (classDate, timeTo) => {
     try {
       if (!classDate || !timeTo) return false;
-      
-      // தற்போதைய தேதி மற்றும் நேரம்
       const now = new Date();
-      
-      // கிளாஸ் முடியும் நேரம் (YYYY-MM-DDTHH:MM)
       const classEndTime = new Date(`${classDate}T${timeTo}`);
-      
-      // தற்போதைய நேரம் கிளாஸ் முடியும் நேரத்தை விட அதிகமாக இருந்தால் true என மாறும்
       return now > classEndTime;
     } catch (e) {
       console.error("Error parsing date/time:", e);
@@ -115,7 +127,6 @@ export default function AdminForm() {
       const data = await response.json();
 
       if (Array.isArray(data)) {
-        // 🌟 முக்கிய மாற்றம்: முடிந்த வகுப்புகளை வடிகட்டி (Filter), நடக்கவிருக்கும் வகுப்புகளை மட்டும் சேமிக்கும்
         const activeClasses = data.filter(cls => !isClassExpired(cls.classDate, cls.timeTo));
         setClasses(activeClasses);
       }
@@ -126,7 +137,6 @@ export default function AdminForm() {
     }
   };
 
-  // ஒவ்வொரு 1 நிமிடத்திற்கும் தானாகவே காலாவதியான கிளாஸ்களை செக் செய்ய இந்த Interval உதவும்
   useEffect(() => {
     fetchSchedule();
 
@@ -134,7 +144,7 @@ export default function AdminForm() {
       setClasses((prevClasses) => 
         prevClasses.filter(cls => !isClassExpired(cls.classDate, cls.timeTo))
       );
-    }, 60000); // 60 வினாடிகளுக்கு ஒருமுறை செக் செய்யும்
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);
@@ -169,7 +179,6 @@ export default function AdminForm() {
       searchParams.append(key, formData[key]);
     });
 
-    // வாட்ஸ்அப் பங்க்ஷனுக்கு அனுப்ப தற்போதைய ஃபார்ம் டேட்டாவை நகல் எடுக்கிறோம்
     const currentFormData = { ...formData };
     const currentEditState = isEditing;
 
@@ -189,7 +198,6 @@ export default function AdminForm() {
           : 'New class published successfully!'
       );
 
-      // 🌟 வாட்ஸ்அப்பிற்கு மெசேஜ் அனுப்பும் ஆட்டோமேஷன் பங்க்ஷன்
       await sendWhatsAppNotification(currentFormData, currentEditState);
 
       // RESET FORM
@@ -503,12 +511,25 @@ export default function AdminForm() {
                       📅 {cls.classDate}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#aaa' }}>
-                      🕒 {cls.timeFrom} - {cls.timeTo}
+                      🕒 {formatTimeTo12Hour(cls.timeFrom)} - {formatTimeTo12Hour(cls.timeTo)}
                     </Typography>
                   </Box>
 
-                  {/* RIGHT */}
+                  {/* RIGHT - ACTION BUTTONS */}
                   <Box sx={{ display: 'flex', gap: 1 }}>
+                    {/* வாட்ஸ்அப் ஐகான் கிளிக் செய்தால் காப்பி மட்டும் ஆகும் */}
+                    <IconButton
+                      onClick={() => sendWhatsAppNotification(cls, false)}
+                      title="Copy Message for WhatsApp"
+                      sx={{
+                        color: '#25D366',
+                        bgcolor: 'rgba(37,211,102,0.08)',
+                        '&:hover': { bgcolor: 'rgba(37,211,102,0.18)' }
+                      }}
+                    >
+                      <WhatsAppIcon />
+                    </IconButton>
+
                     <IconButton
                       onClick={() => handleEditClick(cls)}
                       sx={{
