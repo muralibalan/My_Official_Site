@@ -135,11 +135,64 @@
   
   { id: 7, name: "Chapter : 3 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vTxclNdITSmz9e3tjNgHe2bFZLaEsaOAx1ttfsF2hTnzLeTCHH2Qp-cDHvZXyzERX0HLGugb-OVnPVN/pub?embedded=true" },
 
-  // { id: 8, name: "CASTING (Type Conversion)", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
+  { id: 8, name: "Chapter 4 – String Handling", url: "https://docs.google.com/document/d/e/2PACX-1vR3SZq_d9VWFgsQFwnxBmqqULSdqSYL9ozNZlfUJRRYX5EpvZ7HgrbT30Xc87BGdfCCIBKjWqGttsAZ/pub?embedded=true" },
 
-  // { id: 9, name: "PYTHON OPERATORS", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
+  { id: 9, name: "Chapter : 4 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vRPXT7S3nxIeiA9NUK8YRaJWaammTwPO1zsGguW4BIi7hJbSAU4sDQ1Sbx3UsjgC-8uClBHWsd-l408/pub?embedded=true" },
 
-  // { id: 10, name: "Python Conditional Statements (Decision Making)", url: "https://docs.google.com/document/d/e/2PACX-1vQYGtsQQD-ipyCL3yV1Ix-Objk2rFkUUn-BXxKEcjepEV92L03B4QnBkUjZCnKILzlFf2NKQzJUzaMl/pub?embedded=true" },
+  { id: 10, name: "Chapter 5 – List Data Structure", url: "https://docs.google.com/document/d/e/2PACX-1vQYGtsQQD-ipyCL3yV1Ix-Objk2rFkUUn-BXxKEcjepEV92L03B4QnBkUjZCnKILzlFf2NKQzJUzaMl/pub?embedded=true" },
+
+  { id: 11, name: "Chapter : 5 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vRlN3SZLf5quCusbDbpZA038dvHOmiPVuKCanNknoF6qlV5MPuIRgqsCIYYejc_6ifly8Zcg49XfWLF/pub?embedded=true" },
+
+  { id: 12, name: "Chapter 6 – Tuple Data Structure", url: "https://docs.google.com/document/d/e/2PACX-1vS2vOPYyqffPTYZ9KNlMnXq2qnDzHsXVlat_LLZj0pgidGS4OXkvb2AG38aCGPvtgYFbQ6A-ypChy1X/pub?embedded=true" },
+
+  { id: 13, name: "Chapter : 6 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vR2-7vskjklhn85vmIWBoG-FpXNyNlj5Gs5hRimoTV4zb0qGpDyHpg_fZWT179ZklY6Ib_Htn6ypZ8y/pub?embedded=true" },
+
+  { id: 14, name: "Chapter 7 – Set Data Structure", url: "https://docs.google.com/document/d/e/2PACX-1vQO1B6coEl0yRUYnb-ZpxkAiwc-TK0aVp_i15sro5_k-y_l5JBU-SbbIE20NF1e2tzkuZZ6xf4CWbQg/pub?embedded=true" },
+
+  { id: 15, name: "Chapter : 7 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vQEsYzUcuF0IuyxnhaOIiRhPO_RG1j8jjyKI41pmZZ9liL7Qp3em_SeOmqkQLGMhrG7IWt0vNiNYO92/pub?embedded=true" },
+
+  { id: 16, name: "Chapter 8 – Dictionary Data Structure", url: "https://docs.google.com/document/d/e/2PACX-1vQivVYRgwwBMAp4SVliB-7ymkYhuI_uFredxR32cWlh0xmNj85qJvKFALyLo8TCV-ZkNbY7pu8cYeeH/pub?embedded=true" },
+
+  { id: 17, name: "Chapter : 8 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vSiJNZ7cb8uOwB9DgfPP2Le1UXhKaME6PlHpPl5GOon9FWXPOLXNoQh3fq5fvnGjSVhgWb04fkN6Q23/pub?embedded=true" },
+
+  { id: 18, name: "Chapter 9 – Functions", url: "https://docs.google.com/document/d/e/2PACX-1vT_vexuD4jbDKPQhdC9cpiefZy1LzBdpKDF9MttznNibFft7GnjGGtkpxDE3l-MlIKmMplDlRXqpqm5/pub?embedded=true" },
+
+  { id: 19, name: "Chapter : 9 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vQpOJJ88VRIyhJpBPUw7Rz_ZzjwfuFGXzZqCLmANYDtWzthh4a8ZjID0kHTEsptg2QqO8haiqvSmUjU/pub?embedded=true" },
+
+  { id: 20, name: "Chapter 10 – Modules & Packages", url: "https://docs.google.com/document/d/e/2PACX-1vSeZuOMCq4kgH6yHUkimhYQLBQaDVkwYTWFmd_rHLtiNMCIrdIiEzzZYNJBNNb25YKSzLfDBIpfVqUo/pub?embedded=true" },
+
+  { id: 21, name: "Chapter : 10 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vRQlKAw7U1Cq00ixIT6IwHsIJKpqQlFmesE8rq4sGhao3XwEdxl9okhkMKJw1P8tpMTNtX_-Z2Zhqm4/pub?embedded=true" },
+
+  { id: 22, name: "Chapter 11 – Advanced Python Concepts", url: "https://docs.google.com/document/d/e/2PACX-1vR9ZQvb4qHGXz8AzvzyHY5Eh2_KtdPJrQKIcdyQ90ZNio0vVIRrT05sRXMHExCfU7erDpcQfa-HCJGA/pub?embedded=true" },
+
+  { id: 23, name: "Chapter : 11 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vRYpBxBffR64KkkwGcQp39u5wg9Kp7P5j6FCqofuZ0SP3E30bV1642mg8lTJBOD2L7cbC-EoXQ3ybRf/pub?embedded=true" },
+
+  { id: 24, name: "Chapter 12 – File Handling", url: "https://docs.google.com/document/d/e/2PACX-1vTwCaSHJ-XFIDe3VNSavFklKpeoj8irBTz-hyxCO_62rRhhFkPeW2hZfkjYzQsBvPedCYHtbsBxAccV/pub?embedded=true" },
+
+  { id: 25, name: "Chapter : 12 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vTUDvQv6IywVAthuUkolByY9VXJBS5OzlWu2p1lHZWFbUz-UqoisLmfovb614AWYZAxIODRkVzIarI7/pub?embedded=true" },
+
+  { id: 26, name: "Chapter 13 – Exception Handling", url: "https://docs.google.com/document/d/e/2PACX-1vSLh_Z6RBv3YohaGzSWrhZkPiCz1BNxc1oQhfRUlWjwyiWKyUr5yC5PXp2-Wx_I6hv9BkdnsUEWGtpR/pub?embedded=true" },
+
+  { id: 27, name: "Chapter : 13 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vTdPsJgDEc5-gGitZlRadOYav0zsb13sx8NncPs0lGs9R6xShAikKzCoQK7RsH2uGtUlxuvXlS_O9Vy/pub?embedded=true" },
+
+  { id: 28, name: "Chapter 14 – Object Oriented Programming (OOP)", url: "https://docs.google.com/document/d/e/2PACX-1vRu2nWkMHPVlgJZ9d0ibVnpagXzdrYhxkWzNmGwpd0sAbD59spx4mjkcEiAn8OKPGuOHZqEoi1TUHPw/pub?embedded=true" },
+
+  { id: 29, name: "Chapter : 14 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vT1kTAtzdhwtwXOV-48t7TEPs1Z2tAKEG6xBTqEOh5J6Fj5xWZfc3ONUiSOwQe9KAeWYzka4qBS6yZ7/pub?embedded=true" },
+
+  { id: 30, name: "Chapter 15 – OOP Advanced Concepts", url: "https://docs.google.com/document/d/e/2PACX-1vSJp5nh7j4UAzD-SxX8T-0oqsh6BqKnnxy9ZpKeWTDTkuUz_MjTMEzRHb2Sofquhs54u4WoMShegcYD/pub?embedded=true" },
+
+  { id: 31, name: "Chapter : 15 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vR26NPD31rr3HcgztGAZVOxnVSNdo11fJQGZxHP-ks_wfAossnZrf0QYWFgexrUI1cGngg5g1qIJM_i/pub?embedded=true" },
+
+  { id: 32, name: "Chapter 16 – Virtual Environment & Regex", url: "https://docs.google.com/document/d/e/2PACX-1vT1IcFsXAuaesuSAnFPcpXFG5Brvw9yARAs3SVL_VyW16TkHH3-u47EmuWE5yMY0qW1W4LJIGTF0SaR/pub?embedded=true" },
+
+  { id: 33, name: "Chapter : 16 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vSm62fapdjt9w9DR-VFIN04427Sbehdk5HeMzcxKYA0VDQ3KSWUul-xa6IhE7iGjFqXIm8QgS7kN4KP/pub?embedded=true" },
+
+  { id: 34, name: "Chapter 17 – Database Connectivity", url: "https://docs.google.com/document/d/e/2PACX-1vTueclMCt4fHVCnh6cW-gK1HYRhAQBcO1ggGDjSi_XuzrdapMCnA4wbXNWQ6sFnXtd9zs9E_HHBAhpW/pub?embedded=true" },
+
+  { id: 35, name: "Chapter : 17 Tasks", url: "https://docs.google.com/document/d/e/2PACX-1vSdE_NVNdxnMhGfV8LZxOy_sJ5OtINKO_ucGJTCmDONu2w9WVjO7LyRW_-c43q-vYLrnlhTu5edpryZ/pub?embedded=true" },
+
+  { id: 36, name: "Chapter 18 – Mini Projects", url: "https://docs.google.com/document/d/e/2PACX-1vSvWVQu1Z-GSyGzigKbg9hu3L8Va0QmwiCZYEWpT6iweOWtX08LEVWumswhQwD1t44wKBd7lby13dDn/pub?embedded=true" },
+  
 ];
 
 export const courseData = {
