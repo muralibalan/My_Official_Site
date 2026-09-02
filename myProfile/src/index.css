@@ -2,3 +2,38 @@ body{
   margin: 0;
   padding: 0;
 }
+
+/* 🌟 Code Box Styling (Dark Blue Background) */
+.simple-code-box {
+  background-color: #0f172a !important; /* Dark Blue / Slate Background */
+  border: 1px solid #334155 !important;
+  border-radius: 10px !important;
+  padding: 16px 20px !important;
+  margin: 20px 0 !important;
+  overflow-x: auto !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.simple-code-box pre {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.simple-code-box code {
+  font-family: 'Courier New', Courier, monospace !important;
+  color: #38bdf8 !important; /* Light Blue Code Text */
+  font-size: 14.5px !important;
+  line-height: 1.7 !important;
+  white-space: pre !important;
+}
+
+/* Responsive Table Wrapper (இருந்தால் அதையும் சேர்த்துக்கொள்ளலாம்) */
+.responsive-table-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 20px 0;
+  border-radius: 10px;
+}

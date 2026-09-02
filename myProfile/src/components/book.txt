@@ -1,561 +1,928 @@
-find . -name '._*' -delete
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
-  TextField,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  CircularProgress,
   Box,
-  Alert,
-  IconButton,
+  Typography,
+  GlobalStyles,
+  Button,
+  Autocomplete,
+  TextField,
+  CircularProgress,
+  Paper,
+  Chip,
   Divider,
-  Chip
+  IconButton,
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useNavigate } from 'react-router-dom';
 
-// ========================================================
-// 🌟 வாட்ஸ்அப் குரூப் லிங்க்குகள் (இங்கே உங்கள் லிங்க்குகளை மாற்றவும்)
-// ========================================================
-// ஃபார்மில் கொடுக்கும் 'Batch Name'-ம், இங்கிருக்கும் 'Key'-யும் சரியாக ஒத்துப்போக வேண்டும் (Case-sensitive).
-const GROUP_LINKS = {
-  "Batch 1": "https://chat.whatsapp.com/உங்களின்_Group_1_லிங்க்_இங்கே",
-  "Batch 2": "https://chat.whatsapp.com/உங்களின்_Group_2_லிங்க்_இங்கே",
-  "Batch 3": "https://chat.whatsapp.com/உங்களின்_Group_3_லிங்க்_இங்கே",
-  // எத்தனை பேட்ச் வேண்டுமானாலும் இப்படி கீழே சேர்த்துக்கொண்டே போகலாம்...
-};
-
-// =========================
-// API URL
-// =========================
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbyghq5mIplCYcfAIBvsK7wPHgfS-Dk0f3RFbzcnMPE6jqT3rYYQW366KIt7yPngljgykA/exec";
-
-// =========================
-// MAIN COMPONENT
-// =========================
-export default function AdminForm() {
-
-  // =========================
-  // FORM DATA
-  // =========================
-  const [formData, setFormData] = useState({
-    batchName: '',
-    subject: '',
-    topics: '',
-    classDate: '',
-    timeFrom: '',
-    timeTo: '',
-    classLink: ''
-  });
-
-  // =========================
-  // STATES
-  // =========================
-  const [classes, setClasses] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editId, setEditId] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [tableLoading, setTableLoading] = useState(true);
-  const [successMsg, setSuccessMsg] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  // =========================
-  // HELPER: REDIRECT TO SPECIFIC WHATSAPP GROUP DIRECTLY
-  // =========================
-  const sendWhatsAppNotification = (data, isEditMode) => {
-    const header = isEditMode ? `*⚡ CLASS SCHEDULE UPDATED* ⚡` : `*📢 NEW CLASS SCHEDULED* 📢`;
-    
-    const message = `${header}\n\n` +
-      `*Batch:* ${data.batchName}\n` +
-      `*Subject:* ${data.subject}\n` +
-      `*Topics:* ${data.topics}\n` +
-      `*Date:* ${data.classDate}\n` +
-      `*Time:* ${data.timeFrom} To ${data.timeTo}\n\n` +
-      `*🔗 Google Meet Link:* ${data.classLink}\n\n` +
-      `Kindly join the class on time! 👍`;
-
-    const encodedMessage = encodeURIComponent(message);
-    
-    // 🌟 கொடுக்கப்பட்ட Batch Name-க்கு தகுந்த குரூப் லிங்க் இருக்கிறதா என்று பார்க்கிறது
-    const baseGroupUrl = GROUP_LINKS[data.batchName.trim()];
-
-    if (baseGroupUrl) {
-      // குரூப் லிங்க் இருந்தால், நேரடியாக அந்த குரூப்பிற்குள் மெசேஜுடன் கூட்டிச் செல்லும்
-      // குறிப்பு: வாட்ஸ்அப் வெப்/ஆப்பில் சில சமயம் நேரடி லிங்க் மெசேஜை பாக்ஸில் காட்ட, குரூப் லிங்க்கின் இறுதியில் மெசேஜை இணைக்கிறோம்
-      const directWhatsappUrl = `${baseGroupUrl}?text=${encodedMessage}`;
-      window.open(directWhatsappUrl, '_blank');
-    } else {
-      // ஒருவேளை நீங்கள் கொடுத்த Batch Name-க்கு லிங்க் இல்லை என்றால், பொதுவான வாட்ஸ்அப் ஷேர் பேஜ் ஓபன் ஆகும்
-      alert(`Warning: "${data.batchName}"-க்கு வாட்ஸ்அப் குரூப் லிங்க் செட் செய்யப்படவில்லை. எனவே பொதுவான வாட்ஸ்அப் பக்கம் ஓபன் ஆகிறது!`);
-      window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
-    }
-  };
-
-  // =========================
-  // HELPER: CHECK IF CLASS EXPIRED
-  // =========================
-  const isClassExpired = (classDate, timeTo) => {
-    try {
-      if (!classDate || !timeTo) return false;
-      const now = new Date();
-      const classEndTime = new Date(`${classDate}T${timeTo}`);
-      return now > classEndTime;
-    } catch (e) {
-      console.error("Error parsing date/time:", e);
-      return false;
-    }
-  };
-
-  // =========================
-  // FETCH SCHEDULE
-  // =========================
-  const fetchSchedule = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}?_=${new Date().getTime()}`
-      );
-      const data = await response.json();
-
-      if (Array.isArray(data)) {
-        const activeClasses = data.filter(cls => !isClassExpired(cls.classDate, cls.timeTo));
-        setClasses(activeClasses);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setTableLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchSchedule();
-
-    const interval = setInterval(() => {
-      setClasses((prevClasses) => 
-        prevClasses.filter(cls => !isClassExpired(cls.classDate, cls.timeTo))
-      );
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // =========================
-  // HANDLE CHANGE
-  // =========================
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // =========================
-  // SUBMIT
-  // =========================
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSuccessMsg('');
-    setErrorMsg('');
-
-    const searchParams = new URLSearchParams();
-    searchParams.append('action', isEditing ? 'edit' : 'add');
-
-    if (isEditing) {
-      searchParams.append('id', editId);
-    }
-
-    Object.keys(formData).forEach(key => {
-      searchParams.append(key, formData[key]);
-    });
-
-    const currentFormData = { ...formData };
-    const currentEditState = isEditing;
-
-    try {
-      await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: searchParams.toString()
-      });
-
-      setSuccessMsg(
-        currentEditState
-          ? 'Class updated successfully!'
-          : 'New class published successfully!'
-      );
-
-      // 🌟 ஃபார்ம் சப்மிட் ஆனதும் நேரடியாக வாட்ஸ்அப் குரூப்பிற்கு ரீடைரக்ட் செய்கிறது
-      sendWhatsAppNotification(currentFormData, currentEditState);
-
-      // RESET FORM
-      setFormData({
-        batchName: '',
-        subject: '',
-        topics: '',
-        classDate: '',
-        timeFrom: '',
-        timeTo: '',
-        classLink: ''
-      });
-      setIsEditing(false);
-      setEditId(null);
-      fetchSchedule();
-
-    } catch (err) {
-      setErrorMsg('Operation failed. Check network.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // =========================
-  // EDIT MODE
-  // =========================
-  const handleEditClick = (cls) => {
-    setIsEditing(true);
-    setEditId(cls.id);
-    setFormData({
-      batchName: cls.batchName,
-      subject: cls.subject,
-      topics: cls.topics,
-      classDate: cls.classDate,
-      timeFrom: cls.timeFrom,
-      timeTo: cls.timeTo,
-      classLink: cls.classLink
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  // =========================
-  // DELETE
-  // =========================
-  const handleDeleteClick = async (id) => {
-    if (!window.confirm("Delete this class schedule?")) return;
-
-    setTableLoading(true);
-    const searchParams = new URLSearchParams();
-    searchParams.append('action', 'delete');
-    searchParams.append('id', id);
-
-    try {
-      await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: searchParams.toString()
-      });
-
-      setSuccessMsg('Class deleted successfully!');
-      fetchSchedule();
-    } catch (err) {
-      setErrorMsg('Delete failed.');
-      setTableLoading(false);
-    }
-  };
-
-  // =========================
-  // RETURN
-  // =========================
-  return (
-    <Box
-      sx={{
-        p: { xs: 2, sm: 4 },
-        maxWidth: 900,
-        mx: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 4
-      }}
-    >
-      {/* FORM SECTION */}
-      <Card
-        sx={{
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          borderRadius: 4,
-          bgcolor: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)'
-        }}
-      >
-        <CardContent>
-          <Typography variant="h5" fontWeight="900" color="#09ee24ff" sx={{ mb: 3 }}>
-            {isEditing ? '⚡ Edit Class Schedule' : '➕ Add New Class'}
-          </Typography>
-
-          {successMsg && (
-            <Alert severity="success" sx={{ mb: 3, borderRadius: '12px' }}>
-              {successMsg}
-            </Alert>
-          )}
-
-          {errorMsg && (
-            <Alert severity="error" sx={{ mb: 3, borderRadius: '12px' }}>
-              {errorMsg}
-            </Alert>
-          )}
-
-          <form onSubmit={handleSubmit}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-              <TextField
-                required
-                fullWidth
-                label="Batch Name"
-                name="batchName"
-                value={formData.batchName}
-                onChange={handleChange}
-                sx={inputStyle}
-                placeholder="Ex: Batch 1"
-              />
-
-              <TextField
-                required
-                fullWidth
-                label="Subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                sx={inputStyle}
-              />
-
-              <TextField
-                required
-                fullWidth
-                multiline
-                rows={3}
-                label="Topics"
-                name="topics"
-                value={formData.topics}
-                onChange={handleChange}
-                sx={inputStyle}
-              />
-
-              <TextField
-                required
-                fullWidth
-                type="date"
-                label="Class Date"
-                name="classDate"
-                value={formData.classDate}
-                onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                sx={inputStyle}
-              />
-
-              <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-                <TextField
-                  required
-                  fullWidth
-                  type="time"
-                  label="Time From"
-                  name="timeFrom"
-                  value={formData.timeFrom}
-                  onChange={handleChange}
-                  InputLabelProps={{ shrink: true }}
-                  sx={inputStyle}
-                />
-
-                <TextField
-                  required
-                  fullWidth
-                  type="time"
-                  label="Time To"
-                  name="timeTo"
-                  value={formData.timeTo}
-                  onChange={handleChange}
-                  InputLabelProps={{ shrink: true }}
-                  sx={inputStyle}
-                />
-              </Box>
-
-              <TextField
-                required
-                fullWidth
-                type="url"
-                label="Google Meet Link"
-                name="classLink"
-                value={formData.classLink}
-                onChange={handleChange}
-                sx={inputStyle}
-              />
-
-              <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                  disabled={loading}
-                  sx={{
-                    flex: 2,
-                    py: 1.5,
-                    bgcolor: isEditing ? '#ffaa00' : '#09ee24ff',
-                    color: '#000',
-                    fontWeight: '900',
-                    borderRadius: '12px',
-                    '&:hover': { bgcolor: isEditing ? '#cc8800' : '#07c91f' }
-                  }}
-                >
-                  {loading ? (
-                    <CircularProgress size={24} sx={{ color: '#000' }} />
-                  ) : (
-                    isEditing ? 'Update & Share' : 'Publish & Share'
-                  )}
-                </Button>
-
-                {isEditing && (
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    onClick={() => {
-                      setIsEditing(false);
-                      setFormData({
-                        batchName: '',
-                        subject: '',
-                        topics: '',
-                        classDate: '',
-                        timeFrom: '',
-                        timeTo: '',
-                        classLink: ''
-                      });
-                    }}
-                    sx={{
-                      flex: 1,
-                      borderColor: '#ff4444',
-                      color: '#ff4444',
-                      borderRadius: '12px',
-                      '&:hover': { borderColor: '#cc0000', bgcolor: 'rgba(255,68,68,0.05)' }
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                )}
-              </Box>
-            </Box>
-          </form>
-        </CardContent>
-      </Card>
-
-      {/* TABLE SECTION */}
-      <Card
-        sx={{
-          boxShadow: 3,
-          borderRadius: 4,
-          bgcolor: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(255,255,255,0.05)'
-        }}
-      >
-        <CardContent>
-          <Typography variant="h6" fontWeight="900" color="#fff" sx={{ mb: 2 }}>
-            Current Class Dashboard ({classes.length})
-          </Typography>
-
-          <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)', mb: 2 }} />
-
-          {tableLoading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-              <CircularProgress sx={{ color: '#09ee24ff' }} />
-            </Box>
-          ) : classes.length === 0 ? (
-            <Typography align="center" sx={{ color: '#666', py: 2 }}>
-              No active classes found.
-            </Typography>
-          ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-              {classes.map((cls) => (
-                <Box
-                  key={cls.id}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    p: 2,
-                    bgcolor: 'rgba(255,255,255,0.03)',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    gap: 2,
-                    textAlign: { xs: 'center', sm: 'left' }
-                  }}
-                >
-                  {/* LEFT */}
-                  <Box>
-                    <Chip
-                      label={cls.batchName}
-                      sx={{
-                        mb: 1,
-                        backgroundColor: '#09ee2418',
-                        color: '#09ee24ff',
-                        fontWeight: 'bold'
-                      }}
-                    />
-                    <Typography variant="subtitle1" fontWeight="bold" color="#fff">
-                      {cls.subject}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: '#aaa', mt: 0.5 }}>
-                      📅 {cls.classDate}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: '#aaa' }}>
-                      🕒 {cls.timeFrom} - {cls.timeTo}
-                    </Typography>
-                  </Box>
-
-                  {/* RIGHT */}
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <IconButton
-                      onClick={() => handleEditClick(cls)}
-                      sx={{
-                        color: '#ffaa00',
-                        bgcolor: 'rgba(255,170,0,0.08)',
-                        '&:hover': { bgcolor: 'rgba(255,170,0,0.18)' }
-                      }}
-                    >
-                      <EditIcon />
-                    </IconButton>
-
-                    <IconButton
-                      onClick={() => handleDeleteClick(cls.id)}
-                      sx={{
-                        color: '#ff4444',
-                        bgcolor: 'rgba(255,68,68,0.08)',
-                        '&:hover': { bgcolor: 'rgba(255,68,68,0.18)' }
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              ))}
-            </Box>
-          )}
-        </CardContent>
-      </Card>
-    </Box>
-  );
+let courseData = {};
+try {
+  const importedData = require('../course');
+  courseData = importedData.courseData || importedData.default || {};
+} catch (e) {
+  courseData = {};
 }
 
-// =========================
-// INPUT STYLE
-// =========================
-const inputStyle = {
-  '& .MuiOutlinedInput-root': {
-    color: '#fff',
-    borderRadius: '12px',
-    '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
-    '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
-    '&.Mui-focused fieldset': { borderColor: '#09ee24ff' },
-  },
-  '& .MuiInputLabel-root': { color: '#888' },
-  '& .MuiInputLabel-root.Mui-focused': { color: '#09ee24ff' }
+const cleanDocFetchUrl = (url) => {
+  if (!url) return '';
+  let baseUrl = url.trim();
+  if (baseUrl.includes('/edit')) baseUrl = baseUrl.split('/edit')[0];
+  if (baseUrl.includes('/view')) baseUrl = baseUrl.split('/view')[0];
+  if (baseUrl.includes('/preview')) baseUrl = baseUrl.split('/preview')[0];
+  if (baseUrl.includes('/pub')) baseUrl = baseUrl.split('/pub')[0];
+
+  if (baseUrl.includes('docs.google.com/document/d/')) {
+    return `${baseUrl}/pub?embedded=true`;
+  }
+  return baseUrl;
 };
+
+const processDocHtml = (rawHtml) => {
+  if (!rawHtml || typeof window === 'undefined') return rawHtml || '';
+
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawHtml, 'text/html');
+
+    // 1. Max Width Setting
+    const allElements = doc.querySelectorAll('*');
+    allElements.forEach((el) => {
+      if (el.style) {
+        el.style.maxWidth = '100%';
+        if (el.style.width && !el.matches('svg, img')) {
+          el.style.width = 'auto';
+        }
+      }
+    });
+
+    // 2. 🌟 1x1 Table (ஒரே ஒரு கட்டம் உள்ள டேபிள்) மட்டும் கோட் பாக்ஸாக மாறுவது
+    const tables = doc.querySelectorAll('table');
+    tables.forEach((table) => {
+      const rows = table.querySelectorAll('tr');
+      
+      // டேபிளில் ஒரேயொரு ரோ (Row) மற்றும் அந்த ரோவில் ஒரேயொரு காலம் (Cell) உள்ளதா எனச் சோதிக்கிறோம்
+      if (rows.length === 1) {
+        const cells = rows[0].querySelectorAll('th, td');
+        
+        if (cells.length === 1) {
+          const codeText = cells[0].textContent.replace(/\u00A0/g, ' ').trim();
+          
+          if (codeText !== '') {
+            const container = doc.createElement('div');
+            container.className = 'vs-code-container';
+            container.innerHTML = `
+              <div class="vs-code-header">
+                <div class="vs-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="vs-code-title"><span>Python / Coding Program</span></div>
+                <div class="vs-code-badge">Active</div>
+              </div>
+              <div class="code-scroll-area">
+                <pre class="vs-code-editor"><code>${escapeCodeHTML(codeText)}</code></pre>
+              </div>
+            `;
+
+            table.parentNode.insertBefore(container, table);
+            table.remove();
+            return; // கோட் பாக்ஸாக மாறியதால் அடுத்த டேபிளுக்குச் சென்றுவிடு
+          }
+        }
+      }
+    });
+
+    // 3. மற்ற பல ரோக்கள்/காலம்கள் கொண்ட சாதாரண டேபிள்களை Responsive ஆக்குவது
+    const remainingTables = doc.querySelectorAll('table');
+    remainingTables.forEach((table) => {
+      if (!table.parentElement.classList.contains('responsive-table-wrapper')) {
+        const wrapper = doc.createElement('div');
+        wrapper.className = 'responsive-table-wrapper';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+    });
+
+    return doc.body.innerHTML;
+  } catch (err) {
+    console.error("Doc Parsing Error:", err);
+    return rawHtml;
+  }
+};
+
+// கோடில் உள்ள ஸ்பேஸ்கள் மற்றும் எழுத்துகள் மாறாமல் இருக்க
+function escapeCodeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+const CourseViewer = ({ auth, setAuth }) => {
+  const navigate = useNavigate();
+
+  // 🌙 Dark Mode State Configuration
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('themeMode') === 'dark';
+  });
+
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem('themeMode', newMode ? 'dark' : 'light');
+      return newMode;
+    });
+  };
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? 'dark' : 'light',
+          primary: {
+            main: '#059669',
+          },
+          background: {
+            default: darkMode ? '#0f172a' : '#f1f5f9',
+            paper: darkMode ? '#1e293b' : '#ffffff',
+          },
+          text: {
+            primary: darkMode ? '#f8fafc' : '#0f172a',
+            secondary: darkMode ? '#94a3b8' : '#64748b',
+          },
+        },
+      }),
+    [darkMode]
+  );
+
+  const standardCourse = auth?.course || localStorage.getItem('userCourse') || 'React';
+
+  const currentCourseList = useMemo(() => {
+    let list = [];
+    if (auth?.topics && Array.isArray(auth.topics) && auth.topics.length > 0) {
+      list = auth.topics;
+    } else {
+      try {
+        const stored = localStorage.getItem('userTopics');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) list = parsed;
+        }
+      } catch (err) {
+        console.error("LocalStorage JSON Parse Error:", err);
+      }
+    }
+
+    if (list.length === 0 && courseData) {
+      list = courseData[standardCourse] || courseData['React'] || [];
+    }
+
+    return Array.isArray(list) ? list : [];
+  }, [auth, standardCourse]);
+
+  const [selectedDoc, setSelectedDoc] = useState(null);
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (currentCourseList.length > 0) {
+      setSelectedDoc(currentCourseList[0]);
+    } else {
+      setSelectedDoc(null);
+    }
+  }, [currentCourseList]);
+
+  useEffect(() => {
+    if (!selectedDoc || !selectedDoc.url) {
+      setContent('');
+      return;
+    }
+
+    const fetchUrl = cleanDocFetchUrl(selectedDoc.url);
+    setLoading(true);
+    setError(null);
+
+    fetch(fetchUrl, { redirect: 'follow' })
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.text();
+      })
+      .then((data) => {
+        setContent(processDocHtml(data));
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Fetch Error:', err);
+        setError('பாடக் குறிப்புகளை ஏற்றுவதில் சிக்கல் ஏற்பட்டது. இணைய இணைப்பைச் சரிபார்க்கவும்.');
+        setLoading(false);
+      });
+  }, [selectedDoc]);
+
+  const getEmbedUrl = (rawUrl) => {
+    if (!rawUrl || typeof rawUrl !== 'string') return '';
+    const cleanUrl = rawUrl.trim();
+    let videoId = '';
+
+    if (cleanUrl.includes('embed/')) {
+      videoId = cleanUrl.split('embed/')[1]?.split('?')[0];
+    } else if (cleanUrl.includes('watch?v=')) {
+      videoId = cleanUrl.split('watch?v=')[1]?.split('&')[0];
+    } else if (cleanUrl.includes('youtu.be/')) {
+      videoId = cleanUrl.split('youtu.be/')[1]?.split('?')[0];
+    }
+
+    if (videoId) {
+      return `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&enablejsapi=1`;
+    }
+    return cleanUrl;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('userCourse');
+    localStorage.removeItem('userTopics');
+    if (setAuth) {
+      setAuth({ loggedIn: false, course: '', topics: [] });
+    }
+    navigate('/');
+  };
+
+  const currentIndex = currentCourseList.findIndex(
+    (item) => (item.name && item.name === selectedDoc?.name) || (item.url && item.url === selectedDoc?.url)
+  );
+
+  const handlePrevTopic = () => {
+    if (currentIndex > 0) {
+      setSelectedDoc(currentCourseList[currentIndex - 1]);
+    }
+  };
+
+  const handleNextTopic = () => {
+    if (currentIndex < currentCourseList.length - 1) {
+      setSelectedDoc(currentCourseList[currentIndex + 1]);
+    }
+  };
+
+  const rawVideoUrl = selectedDoc?.videoUrl || selectedDoc?.video || selectedDoc?.video_url || selectedDoc?.youtubeUrl || '';
+  const hasVideo = Boolean(rawVideoUrl);
+  const videoSrc = getEmbedUrl(rawVideoUrl);
+  const topicTitle = selectedDoc?.name || selectedDoc?.topic || selectedDoc?.topic_name || selectedDoc?.title || 'Topic';
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '100vw',
+          minHeight: '100vh',
+          bgcolor: 'background.default',
+          color: 'text.primary',
+          display: 'flex',
+          flexDirection: 'column',
+          userSelect: 'none',
+          overflowX: 'hidden',
+          boxSizing: 'border-box',
+        }}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <GlobalStyles styles={getCustomCSS(darkMode)} />
+        <GlobalStyles styles={{ '@media print': { body: { display: 'none !important' } } }} />
+
+        {/* Top Navbar */}
+        <Paper
+          elevation={0}
+          sx={{
+            py: 1.5,
+            px: { xs: 1.5, sm: 3, md: 4 },
+            bgcolor: 'background.paper',
+            borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+            position: 'sticky',
+            top: 0,
+            zIndex: 100,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1.5,
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Box
+              sx={{
+                width: { xs: 34, sm: 40 },
+                height: { xs: 34, sm: 40 },
+                borderRadius: '10px',
+                bgcolor: '#059669',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ffffff',
+                flexShrink: 0,
+              }}
+            >
+              <MenuBookIcon fontSize="small" />
+            </Box>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1.2, fontSize: { xs: '0.95rem', sm: '1.2rem' } }}>
+                E-Learning Portal
+              </Typography>
+              <Chip
+                label={standardCourse}
+                size="small"
+                sx={{
+                  height: 18,
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  bgcolor: darkMode ? '#064e3b' : '#ecfdf5',
+                  color: darkMode ? '#34d399' : '#059669',
+                  mt: 0.2,
+                }}
+              />
+            </Box>
+          </Box>
+
+          {/* Search / Topic Selection */}
+          <Box sx={{ order: { xs: 3, sm: 2 }, width: { xs: '100%', sm: 'auto' }, flex: { sm: 1 }, maxWidth: { sm: 450 }, mx: { sm: 2 } }}>
+            <Autocomplete
+              disablePortal
+              size="small"
+              options={currentCourseList}
+              getOptionLabel={(option) => {
+                if (typeof option === 'string') return option;
+                return option?.name || option?.topic || option?.topic_name || option?.title || '';
+              }}
+              value={selectedDoc}
+              isOptionEqualToValue={(option, value) => {
+                if (!option || !value) return false;
+                return (option.name && option.name === value.name) || (option.url && option.url === value.url);
+              }}
+              onChange={(_, newValue) => setSelectedDoc(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder="பாடம் / தலைப்பைத் தேர்ந்தெடுக்கவும்..."
+                  variant="outlined"
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '10px',
+                      bgcolor: darkMode ? '#0f172a' : '#f8fafc',
+                      fontSize: '0.88rem',
+                      '& fieldset': { borderColor: darkMode ? '#475569' : '#cbd5e1' },
+                      '&:hover fieldset': { borderColor: '#059669' },
+                      '&.Mui-focused fieldset': { borderColor: '#059669' },
+                    },
+                  }}
+                />
+              )}
+            />
+          </Box>
+
+          {/* Actions: Dark Mode Toggle & Logout */}
+          <Box sx={{ order: { xs: 2, sm: 3 }, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <IconButton onClick={toggleDarkMode} color="inherit" sx={{ bgcolor: darkMode ? '#334155' : '#f1f5f9', p: 1 }}>
+              {darkMode ? <Brightness7Icon sx={{ color: '#f59e0b' }} /> : <Brightness4Icon sx={{ color: '#475569' }} />}
+            </IconButton>
+
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              startIcon={<LogoutIcon />}
+              onClick={handleLogout}
+              sx={{
+                fontWeight: 600,
+                textTransform: 'none',
+                borderRadius: '8px',
+                px: { xs: 1.5, sm: 2 },
+                fontSize: { xs: '0.8rem', sm: '0.875rem' },
+              }}
+            >
+              Logout
+            </Button>
+          </Box>
+        </Paper>
+
+        {/* Main Grid Layout */}
+        <Box
+          sx={{
+            flex: 1,
+            width: '100%',
+            maxWidth: '1440px',
+            mx: 'auto',
+            p: { xs: 1.5, sm: 2.5, md: 3.5 },
+            display: 'grid',
+            gridTemplateColumns: { xs: '100%', lg: hasVideo ? '360px 1fr' : '100%' },
+            gap: { xs: 2, md: 3.5 },
+            alignItems: 'start',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Left Side: Video Player */}
+          {hasVideo && (
+            <Box
+              sx={{
+                position: { lg: 'sticky' },
+                top: { lg: '85px' },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                width: '100%',
+                minWidth: 0,
+                boxSizing: 'border-box',
+              }}
+            >
+              <Paper
+                elevation={0}
+                sx={{
+                  p: { xs: 1.5, sm: 2 },
+                  borderRadius: '14px',
+                  bgcolor: 'background.paper',
+                  border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+                  boxShadow: '0 4px 15px -3px rgba(0, 0, 0, 0.05)',
+                  boxSizing: 'border-box',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+                  <SmartDisplayIcon sx={{ color: '#059669' }} />
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                    பாட விளக்கம் (Video Tutorial)
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    paddingTop: '56.25%',
+                    borderRadius: '10px',
+                    bgcolor: '#0f172a',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <iframe
+                    key={videoSrc}
+                    src={videoSrc}
+                    title={topicTitle}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      border: 0,
+                    }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </Box>
+              </Paper>
+
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  borderRadius: '12px',
+                  bgcolor: darkMode ? '#064e3b' : '#ecfdf5',
+                  border: darkMode ? '1px dashed #059669' : '1px dashed #6ee7b7',
+                  display: { xs: 'none', sm: 'block' },
+                  boxSizing: 'border-box',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5, color: darkMode ? '#34d399' : '#065f46' }}>
+                  <AutoAwesomeIcon fontSize="small" />
+                  <Typography variant="caption" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                    Reading Guide
+                  </Typography>
+                </Box>
+                <Typography variant="body2" sx={{ color: darkMode ? '#a7f3d0' : '#047857', fontSize: '0.85rem', lineHeight: 1.5 }}>
+                  குறிப்புகளைப் படித்துவிட்டு, கீழே கொடுக்கப்பட்டுள்ள <b>Coding / Program</b> பகுதியில் உள்ள உதாரணங்களைச் செய்து பார்க்கவும்.
+                </Typography>
+              </Paper>
+            </Box>
+          )}
+
+          {/* Right Side: Reader Sheet */}
+          <Paper
+            elevation={0}
+            sx={{
+              borderRadius: { xs: '12px', md: '16px' },
+              bgcolor: 'background.paper',
+              border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+              boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              width: '100%',
+              minWidth: 0,
+              boxSizing: 'border-box',
+            }}
+          >
+            {/* Header */}
+            <Box
+              sx={{
+                p: { xs: 2, sm: 2.5, md: 3 },
+                borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+                bgcolor: darkMode ? '#0f172a' : '#f8fafc',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 1.5,
+                width: '100%',
+                boxSizing: 'border-box',
+              }}
+            >
+              <Box sx={{ maxWidth: { xs: '100%', sm: '70%' }, minWidth: 0 }}>
+                <Typography variant="caption" sx={{ color: '#059669', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8 }}>
+                  CHAPTER {currentIndex >= 0 ? currentIndex + 1 : 1} OF {currentCourseList.length}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 800,
+                    mt: 0.2,
+                    fontSize: { xs: '1.15rem', sm: '1.45rem' },
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {topicTitle}
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  startIcon={<NavigateBeforeIcon />}
+                  onClick={handlePrevTopic}
+                  disabled={currentIndex <= 0}
+                  sx={{ textTransform: 'none', fontWeight: 600, borderRadius: '8px' }}
+                >
+                  Prev
+                </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  endIcon={<NavigateNextIcon />}
+                  onClick={handleNextTopic}
+                  disabled={currentIndex === -1 || currentIndex >= currentCourseList.length - 1}
+                  sx={{
+                    bgcolor: '#059669',
+                    '&:hover': { bgcolor: '#047857' },
+                    textTransform: 'none',
+                    fontWeight: 600,
+                    borderRadius: '8px',
+                  }}
+                >
+                  Next
+                </Button>
+              </Box>
+            </Box>
+
+            {/* Reader Content */}
+            <Box
+              sx={{
+                p: { xs: 1.5, sm: 3, md: 4 },
+                minHeight: '60vh',
+                width: '100%',
+                maxWidth: '100%',
+                boxSizing: 'border-box',
+                overflowX: 'hidden',
+              }}
+            >
+              {loading && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', py: 10 }}>
+                  <CircularProgress color="success" size={38} thickness={4} />
+                  <Typography sx={{ mt: 2, color: 'text.secondary', fontWeight: 500, fontSize: '0.92rem' }}>
+                    பாடக் குறிப்புகள் ஏற்றப்படுகின்றன...
+                  </Typography>
+                </Box>
+              )}
+
+              {error && !loading && (
+                <Box sx={{ textAlign: 'center', py: 8, px: 2 }}>
+                  <Typography variant="h6" sx={{ color: '#dc2626', fontWeight: 600 }}>
+                    {error}
+                  </Typography>
+                </Box>
+              )}
+
+              {!loading && !error && content && (
+                <div
+                  className="custom-doc-content"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+              )}
+
+              {!loading && !error && content && (
+                <>
+                  <Divider sx={{ my: 4 }} />
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.5 }}>
+                    <Button
+                      variant="text"
+                      startIcon={<NavigateBeforeIcon />}
+                      onClick={handlePrevTopic}
+                      disabled={currentIndex <= 0}
+                      sx={{ fontWeight: 600, textTransform: 'none', color: 'text.secondary' }}
+                    >
+                      முந்தைய பாடம்
+                    </Button>
+                    <Button
+                      variant="contained"
+                      endIcon={<NavigateNextIcon />}
+                      onClick={handleNextTopic}
+                      disabled={currentIndex === -1 || currentIndex >= currentCourseList.length - 1}
+                      sx={{
+                        bgcolor: '#059669',
+                        '&:hover': { bgcolor: '#047857' },
+                        fontWeight: 600,
+                        textTransform: 'none',
+                        borderRadius: '8px',
+                        px: 3,
+                      }}
+                    >
+                      அடுத்த பாடம்
+                    </Button>
+                  </Box>
+                </>
+              )}
+            </Box>
+          </Paper>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
+};
+
+// 🌟 Dynamic Dark Mode CSS Injector
+const getCustomCSS = (isDark) => `
+  .custom-doc-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    color: ${isDark ? '#e2e8f0' : '#1e293b'};
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .custom-doc-content * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  @media (max-width: 600px) {
+    .custom-doc-content {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+  }
+
+  .custom-doc-content h1 {
+    color: ${isDark ? '#f8fafc' : '#0f172a'};
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-top: 26px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid ${isDark ? '#334155' : '#f1f5f9'};
+  }
+  .custom-doc-content h2 {
+    color: ${isDark ? '#f8fafc' : '#0f172a'};
+    font-size: 1.3rem;
+    font-weight: 750;
+    margin-top: 22px;
+    margin-bottom: 10px;
+  }
+  .custom-doc-content h3 {
+    color: ${isDark ? '#cbd5e1' : '#1e293b'};
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .custom-doc-content .question-box, 
+  .custom-doc-content .doc-question-title {
+    background: ${isDark ? '#064e3b' : 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%)'};
+    border-left: 5px solid #059669;
+    padding: 12px 16px;
+    margin: 20px 0 14px 0;
+    border-radius: 0 10px 10px 0;
+    color: ${isDark ? '#a7f3d0' : '#065f46'};
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .custom-doc-content p {
+    margin-bottom: 14px;
+    color: ${isDark ? '#cbd5e1' : '#334155'};
+  }
+  .custom-doc-content strong, 
+  .custom-doc-content b {
+    color: ${isDark ? '#f8fafc' : '#0f172a'};
+    font-weight: 700;
+  }
+
+  .custom-doc-content ul, 
+  .custom-doc-content ol {
+    margin: 14px 0 20px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .custom-doc-content ol {
+    counter-reset: custom-counter;
+  }
+  .custom-doc-content ol > li {
+    counter-increment: custom-counter;
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 10px;
+    color: ${isDark ? '#cbd5e1' : '#334155'};
+    font-weight: 500;
+  }
+  .custom-doc-content ol > li::before {
+    content: counter(custom-counter);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    background-color: ${isDark ? '#064e3b' : '#ecfdf5'};
+    color: ${isDark ? '#34d399' : '#059669'};
+    font-weight: 800;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #059669;
+  }
+
+  .custom-doc-content ul > li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    color: ${isDark ? '#cbd5e1' : '#334155'};
+    font-weight: 500;
+  }
+  .custom-doc-content ul > li::before {
+    content: "▪";
+    position: absolute;
+    left: 4px;
+    top: -2px;
+    color: #059669;
+    font-size: 1.3rem;
+  }
+
+  /* 🌟 VS Code Container Styling (Dark Blue Terminal Box) */
+  .custom-doc-content .vs-code-container {
+    background-color: #0f172a !important; /* Dark Blue / Slate Background */
+    border-radius: 12px !important;
+    margin: 24px 0 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid #334155 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+  }
+
+  .custom-doc-content .vs-code-header {
+    background-color: #1e293b;
+    height: 40px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #334155;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .custom-doc-content .vs-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 45px;
+    flex-shrink: 0;
+  }
+
+  .custom-doc-content .vs-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .custom-doc-content .vs-dots .dot.red { background-color: #ff5f56; }
+  .custom-doc-content .vs-dots .dot.yellow { background-color: #ffbd2e; }
+  .custom-doc-content .vs-dots .dot.green { background-color: #27c93f; }
+
+  .custom-doc-content .vs-code-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #38bdf8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .custom-doc-content .vs-code-badge {
+    background-color: #064e3b;
+    color: #34d399;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #059669;
+  }
+
+  .custom-doc-content .code-scroll-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    background-color: #0f172a;
+    box-sizing: border-box;
+  }
+
+  .custom-doc-content .vs-code-editor {
+    background-color: #0f172a !important;
+    padding: 16px 20px !important;
+    margin: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+    color: #38bdf8 !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    tab-size: 4;
+    width: 100% !important;
+    min-width: 100%;
+    box-sizing: border-box !important;
+    border: none !important;
+    font-weight: 600 !important;
+  }
+
+  .custom-doc-content .responsive-table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    margin: 20px 0;
+    border-radius: 10px;
+  }
+
+  .custom-doc-content table {
+    width: 100%;
+    min-width: 450px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid ${isDark ? '#334155' : '#cbd5e1'};
+  }
+
+  .custom-doc-content th {
+    background: #047857 !important;
+    color: #ffffff !important;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 800 !important;
+  }
+
+  .custom-doc-content td {
+    padding: 11px 14px;
+    border-bottom: 1px solid ${isDark ? '#334155' : '#e2e8f0'};
+    color: ${isDark ? '#cbd5e1' : '#334155'};
+    background-color: ${isDark ? '#1e293b' : '#ffffff'};
+  }
+
+  .custom-doc-content tr:nth-of-type(even) td {
+    background-color: ${isDark ? '#0f172a' : '#f8fafc'};
+  }
+`;
+
+export default CourseViewer;
