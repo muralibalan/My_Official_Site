@@ -14,6 +14,7 @@ import {
   ThemeProvider,
   createTheme,
   CssBaseline,
+  ButtonGroup,
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
@@ -22,8 +23,9 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import CampaignIcon from '@mui/icons-material/Campaign';
 import { useNavigate } from 'react-router-dom';
-import Slider from './Slider'; // 🌟 Added Slider import (Since both CourseViewer & Slider are inside components folder)
+import Slider from './Slider';
 
 let courseData = {};
 try {
@@ -54,7 +56,6 @@ const processDocHtml = (rawHtml) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(rawHtml, 'text/html');
 
-    // 1. Max Width Setting
     const allElements = doc.querySelectorAll('*');
     allElements.forEach((el) => {
       if (el.style) {
@@ -65,18 +66,13 @@ const processDocHtml = (rawHtml) => {
       }
     });
 
-    // 2. 🌟 1x1 Table (ஒரே ஒரு கட்டம் உள்ள டேபிள்) மட்டும் கோட் பாக்ஸாக மாறுவது
     const tables = doc.querySelectorAll('table');
     tables.forEach((table) => {
       const rows = table.querySelectorAll('tr');
-      
-      // டேபிளில் ஒரேயொரு ரோ (Row) மற்றும் அந்த ரோவில் ஒரேயொரு காலம் (Cell) உள்ளதா எனச் சோதிக்கிறோம்
       if (rows.length === 1) {
         const cells = rows[0].querySelectorAll('th, td');
-        
         if (cells.length === 1) {
           const codeText = cells[0].textContent.replace(/\u00A0/g, ' ').trim();
-          
           if (codeText !== '') {
             const container = doc.createElement('div');
             container.className = 'vs-code-container';
@@ -94,16 +90,14 @@ const processDocHtml = (rawHtml) => {
                 <pre class="vs-code-editor"><code>${escapeCodeHTML(codeText)}</code></pre>
               </div>
             `;
-
             table.parentNode.insertBefore(container, table);
             table.remove();
-            return; // கோட் பாக்ஸாக மாறியதால் அடுத்த டேபிளுக்குச் சென்றுவிடு
+            return;
           }
         }
       }
     });
 
-    // 3. மற்ற பல ரோக்கள்/காலம்கள் கொண்ட சாதாரண டேபிள்களை Responsive ஆக்குவது
     const remainingTables = doc.querySelectorAll('table');
     remainingTables.forEach((table) => {
       if (!table.parentElement.classList.contains('responsive-table-wrapper')) {
@@ -121,7 +115,6 @@ const processDocHtml = (rawHtml) => {
   }
 };
 
-// கோடில் உள்ள ஸ்பேஸ்கள் மற்றும் எழுத்துகள் மாறாமல் இருக்க
 function escapeCodeHTML(str) {
   return str
     .replace(/&/g, "&amp;")
@@ -132,7 +125,6 @@ function escapeCodeHTML(str) {
 const CourseViewer = ({ auth, setAuth }) => {
   const navigate = useNavigate();
 
-  // 🌙 Dark Mode State Configuration
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('themeMode') === 'dark';
   });
@@ -196,6 +188,8 @@ const CourseViewer = ({ auth, setAuth }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const [mobileTab, setMobileTab] = useState('read');
+
   useEffect(() => {
     if (currentCourseList.length > 0) {
       setSelectedDoc(currentCourseList[0]);
@@ -214,9 +208,16 @@ const CourseViewer = ({ auth, setAuth }) => {
     setLoading(true);
     setError(null);
 
-    fetch(fetchUrl, { redirect: 'follow' })
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+    fetch(fetchUrl, { 
+      redirect: 'follow',
+      signal: controller.signal 
+    })
       .then((res) => {
-        if (!res.ok) throw new Error('Network response was not ok');
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.text();
       })
       .then((data) => {
@@ -224,10 +225,18 @@ const CourseViewer = ({ auth, setAuth }) => {
         setLoading(false);
       })
       .catch((err) => {
+        clearTimeout(timeoutId);
         console.error('Fetch Error:', err);
-        setError('பாடக் குறிப்புகளை ஏற்றுவதில் சிக்கல் ஏற்பட்டது. இணைய இணைப்பைச் சரிபார்க்கவும்.');
+        
+        if (err.name === 'AbortError') {
+          setError('இணைய வேகம் குறைவாக உள்ளது. தயவுசெய்து சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.');
+        } else {
+          setError('Google Server இணைப்பு துண்டிக்கப்பட்டது அல்லது தாமதமானது.');
+        }
         setLoading(false);
       });
+
+    return () => clearTimeout(timeoutId);
   }, [selectedDoc]);
 
   const getEmbedUrl = (rawUrl) => {
@@ -279,21 +288,22 @@ const CourseViewer = ({ auth, setAuth }) => {
   const videoSrc = getEmbedUrl(rawVideoUrl);
   const topicTitle = selectedDoc?.name || selectedDoc?.topic || selectedDoc?.topic_name || selectedDoc?.title || 'Topic';
 
+  const tickerText = `🔥 கல்லூரி மாணவர்களே கவனத்திற்கு! உங்க Coding & Career Skills-ஐ Next Level-க்கு மாற்றுங்கள்! |   💻 C, C++, Java, Python |   🤖 AI & AI Tools |   📊 Data Analytics |   📈 Digital Marketing |   🌐 Full Stack Web Development |   👨‍💻 Real-time Working Developers-இடமிருந்து நேரடி Practical Training! |   🎯 Learn • Build • Get Placed! | 📲 இன்றே உங்களது Course-ஐத் தொடங்குங்கள்! Join Now! Call : 99626 77822`;
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
         sx={{
-          width: '100%',
-          maxWidth: '100vw',
-          minHeight: '100vh',
+          width: '100vw',
+          height: '100vh',
           bgcolor: 'background.default',
           color: 'text.primary',
           display: 'flex',
           flexDirection: 'column',
-          userSelect: 'none',
-          overflowX: 'hidden',
+          overflow: 'hidden',
           boxSizing: 'border-box',
+          pb: '36px',
         }}
         onContextMenu={(e) => e.preventDefault()}
       >
@@ -304,14 +314,16 @@ const CourseViewer = ({ auth, setAuth }) => {
         <Paper
           elevation={0}
           sx={{
-            py: 1.5,
+            py: 1.2,
             px: { xs: 1.5, sm: 3, md: 4 },
             bgcolor: 'background.paper',
             borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
-            position: 'sticky',
-            top: 0,
+            flexShrink: 0,
             zIndex: 100,
-            display: 'flex',
+            display: {
+              xs: mobileTab === 'read' ? 'none' : 'flex',
+              lg: 'flex',
+            },
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
@@ -355,7 +367,6 @@ const CourseViewer = ({ auth, setAuth }) => {
             </Box>
           </Box>
 
-          {/* Search / Topic Selection */}
           <Box sx={{ order: { xs: 3, sm: 2 }, width: { xs: '100%', sm: 'auto' }, flex: { sm: 1 }, maxWidth: { sm: 450 }, mx: { sm: 2 } }}>
             <Autocomplete
               disablePortal
@@ -391,7 +402,6 @@ const CourseViewer = ({ auth, setAuth }) => {
             />
           </Box>
 
-          {/* Actions: Dark Mode Toggle & Logout */}
           <Box sx={{ order: { xs: 2, sm: 3 }, display: 'flex', alignItems: 'center', gap: 1 }}>
             <IconButton onClick={toggleDarkMode} color="inherit" sx={{ bgcolor: darkMode ? '#334155' : '#f1f5f9', p: 1 }}>
               {darkMode ? <Brightness7Icon sx={{ color: '#f59e0b' }} /> : <Brightness4Icon sx={{ color: '#475569' }} />}
@@ -416,34 +426,88 @@ const CourseViewer = ({ auth, setAuth }) => {
           </Box>
         </Paper>
 
-        {/* Main Grid Layout */}
+        {/* Mobile View Toggle Buttons */}
+        {hasVideo && (
+          <Box
+            sx={{
+              display: { xs: 'flex', lg: 'none' },
+              justifyContent: 'center',
+              p: 1,
+              bgcolor: darkMode ? '#1e293b' : '#ffffff',
+              borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+              flexShrink: 0,
+            }}
+          >
+            <ButtonGroup variant="contained" size="small" sx={{ width: '100%', maxWidth: '400px' }}>
+              <Button
+                onClick={() => setMobileTab('read')}
+                sx={{
+                  flex: 1,
+                  bgcolor: mobileTab === 'read' ? '#059669' : (darkMode ? '#334155' : '#e2e8f0'),
+                  color: mobileTab === 'read' ? '#ffffff' : (darkMode ? '#f8fafc' : '#0f172a'),
+                  fontWeight: 700,
+                  '&:hover': { bgcolor: mobileTab === 'read' ? '#047857' : (darkMode ? '#475569' : '#cbd5e1') },
+                }}
+                startIcon={<MenuBookIcon />}
+              >
+                படிக்க (Read)
+              </Button>
+              <Button
+                onClick={() => setMobileTab('video')}
+                sx={{
+                  flex: 1,
+                  bgcolor: mobileTab === 'video' ? '#059669' : (darkMode ? '#334155' : '#e2e8f0'),
+                  color: mobileTab === 'video' ? '#ffffff' : (darkMode ? '#f8fafc' : '#0f172a'),
+                  fontWeight: 700,
+                  '&:hover': { bgcolor: mobileTab === 'video' ? '#047857' : (darkMode ? '#475569' : '#cbd5e1') },
+                }}
+                startIcon={<SmartDisplayIcon />}
+              >
+                வீடியோ (Video)
+              </Button>
+            </ButtonGroup>
+          </Box>
+        )}
+
+        {/* Main Content Layout */}
         <Box
           sx={{
             flex: 1,
-            width: '100%',
+            width: '100vw',
             maxWidth: '1440px',
             mx: 'auto',
-            p: { xs: 1.5, sm: 2.5, md: 3.5 },
+            p: { xs: 1, sm: 2.5, md: 3.5 },
             display: 'grid',
             gridTemplateColumns: { xs: '100%', lg: hasVideo ? '360px 1fr' : '100%' },
-            gap: { xs: 2, md: 3.5 },
+            gap: { xs: 1, md: 3.5 },
             alignItems: 'start',
             boxSizing: 'border-box',
+            height: {
+              xs: hasVideo 
+                ? (mobileTab === 'read' ? 'calc(100vh - 105px)' : 'calc(100vh - 156px)') 
+                : 'calc(100vh - 56px)',
+              lg: 'calc(100vh - 111px)',
+            },
             overflow: 'hidden',
           }}
         >
-          {/* Left Side: Video Player & 3-Image Slider */}
+          {/* Left Side: Video & Slider */}
           {hasVideo && (
             <Box
               sx={{
-                position: { lg: 'sticky' },
-                top: { lg: '85px' },
-                display: 'flex',
+                display: {
+                  xs: mobileTab === 'video' ? 'flex' : 'none',
+                  lg: 'flex',
+                },
                 flexDirection: 'column',
                 gap: 2,
                 width: '100%',
                 minWidth: 0,
+                height: '100%',
+                overflowY: 'auto',
                 boxSizing: 'border-box',
+                '&::-webkit-scrollbar': { width: '4px' },
+                '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(0,0,0,0.2)', borderRadius: '4px' },
               }}
             >
               <Paper
@@ -493,7 +557,6 @@ const CourseViewer = ({ auth, setAuth }) => {
                 </Box>
               </Paper>
 
-              {/* 🌟 3-IMAGE SLIDER (Visible ONLY on Desktop View below video) */}
               <Slider
                 images={[
                   "/images/GALOGO.png",
@@ -509,22 +572,30 @@ const CourseViewer = ({ auth, setAuth }) => {
           <Paper
             elevation={0}
             sx={{
+              display: {
+                xs: mobileTab === 'read' ? 'flex' : 'none',
+                lg: 'flex',
+              },
               borderRadius: { xs: '12px', md: '16px' },
               bgcolor: 'background.paper',
               border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
               boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-              display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden',
               width: '100%',
               minWidth: 0,
+              minHeight: 0,
+              height: '100%',
+              overflowY: 'auto',
               boxSizing: 'border-box',
+              pb: 6,
+              '&::-webkit-scrollbar': { width: '8px' },
+              '&::-webkit-scrollbar-thumb': { backgroundColor: darkMode ? '#334155' : '#cbd5e1', borderRadius: '4px' },
             }}
           >
             {/* Header */}
             <Box
               sx={{
-                p: { xs: 2, sm: 2.5, md: 3 },
+                p: { xs: 1.5, sm: 2.5, md: 3 },
                 borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
                 bgcolor: darkMode ? '#0f172a' : '#f8fafc',
                 display: 'flex',
@@ -545,7 +616,7 @@ const CourseViewer = ({ auth, setAuth }) => {
                   sx={{
                     fontWeight: 800,
                     mt: 0.2,
-                    fontSize: { xs: '1.15rem', sm: '1.45rem' },
+                    fontSize: { xs: '1.05rem', sm: '1.45rem' },
                     wordBreak: 'break-word',
                   }}
                 >
@@ -587,11 +658,11 @@ const CourseViewer = ({ auth, setAuth }) => {
             <Box
               sx={{
                 p: { xs: 1.5, sm: 3, md: 4 },
-                minHeight: '60vh',
                 width: '100%',
                 maxWidth: '100%',
                 boxSizing: 'border-box',
                 overflowX: 'hidden',
+                flex: 1,
               }}
             >
               {loading && (
@@ -605,9 +676,17 @@ const CourseViewer = ({ auth, setAuth }) => {
 
               {error && !loading && (
                 <Box sx={{ textAlign: 'center', py: 8, px: 2 }}>
-                  <Typography variant="h6" sx={{ color: '#dc2626', fontWeight: 600 }}>
+                  <Typography variant="h6" sx={{ color: '#dc2626', fontWeight: 600, mb: 2 }}>
                     {error}
                   </Typography>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => setSelectedDoc({ ...selectedDoc })}
+                    sx={{ fontWeight: 700, borderRadius: '8px', textTransform: 'none' }}
+                  >
+                    மீண்டும் முயல்க (Retry)
+                  </Button>
                 </Box>
               )}
 
@@ -621,7 +700,7 @@ const CourseViewer = ({ auth, setAuth }) => {
               {!loading && !error && content && (
                 <>
                   <Divider sx={{ my: 4 }} />
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.5 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.5, pb: 4 }}>
                     <Button
                       variant="text"
                       startIcon={<NavigateBeforeIcon />}
@@ -653,13 +732,106 @@ const CourseViewer = ({ auth, setAuth }) => {
             </Box>
           </Paper>
         </Box>
+
+        {/* Bottom News Ticker Component */}
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            width: '100vw',
+            height: '36px',
+            bgcolor: darkMode ? '#064e3b' : '#059669',
+            color: '#ffffff',
+            display: 'flex',
+            alignItems: 'center',
+            zIndex: 1000,
+            boxShadow: '0 -2px 10px rgba(0,0,0,0.15)',
+            overflow: 'hidden',
+          }}
+        >
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+              gap: 0.5,
+              px: 1.5,
+              height: '100%',
+              bgcolor: darkMode ? '#022c22' : '#047857',
+              fontWeight: 800,
+              fontSize: '0.78rem',
+              letterSpacing: 0.5,
+              zIndex: 2,
+              boxShadow: '3px 0 6px rgba(0,0,0,0.2)',
+              flexShrink: 0,
+            }}
+          >
+            <CampaignIcon sx={{ fontSize: '1.2rem', color: '#f59e0b' }} />
+            NEWS & UPDATES
+          </Box>
+
+          <Box
+            sx={{
+              flex: 1,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <div className="ticker-track">
+              <span className="ticker-content">{tickerText}</span>
+              <span className="ticker-content">{tickerText}</span>
+            </div>
+          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
   );
 };
 
-// 🌟 Dynamic Dark Mode CSS Injector
 const getCustomCSS = (isDark) => `
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  @keyframes ticker-slide {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: ticker-slide 35s linear infinite;
+  }
+
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+
+  .ticker-content {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding-right: 50px;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+  }
+
   .custom-doc-content {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 16.5px;
@@ -783,9 +955,8 @@ const getCustomCSS = (isDark) => `
     font-size: 1.3rem;
   }
 
-  /* 🌟 VS Code Container Styling (Dark Blue Terminal Box) */
   .custom-doc-content .vs-code-container {
-    background-color: #0f172a !important; /* Dark Blue / Slate Background */
+    background-color: #0f172a !important;
     border-radius: 12px !important;
     margin: 24px 0 !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
