@@ -295,7 +295,7 @@ const CourseViewer = ({ auth, setAuth }) => {
       <CssBaseline />
       <Box
         sx={{
-          width: '100vw',
+          width: '100%',
           height: '100vh',
           bgcolor: 'background.default',
           color: 'text.primary',
@@ -473,12 +473,12 @@ const CourseViewer = ({ auth, setAuth }) => {
         <Box
           sx={{
             flex: 1,
-            width: '100vw',
+            width: '100%',
             maxWidth: '1440px',
             mx: 'auto',
             p: { xs: 1, sm: 2.5, md: 3.5 },
             display: 'grid',
-            gridTemplateColumns: { xs: '100%', lg: hasVideo ? '360px 1fr' : '100%' },
+            gridTemplateColumns: { xs: '100%', lg: hasVideo ? '360px minmax(0, 1fr)' : '100%' },
             gap: { xs: 1, md: 3.5 },
             alignItems: 'start',
             boxSizing: 'border-box',
