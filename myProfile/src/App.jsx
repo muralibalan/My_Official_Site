@@ -53,6 +53,10 @@ const UniversalQuizGame = safeLazy(() => import('./components/games/UniversalQui
 const StateboardMegaQuiz = safeLazy(() => import('./components/games/StateboardMegaQuiz'));
 const EnglishQuizWidget = safeLazy(() => import('./components/games/EnglishQuizWidget'));
 
+// ⚡ Dynamic Concept Quiz Component (noteQuestions.js லிருந்து டேட்டாவை எடுத்து ஒர்க் ஆகும்)
+// App.jsx-ல் இந்த வரியை மாற்றவும்:
+const DynamicConceptQuiz = safeLazy(() => import('./components/games/DynamicConceptQuiz'));
+
 // Global Fallback Loader Component
 const PageLoader = () => (
   <Box 
@@ -121,6 +125,9 @@ function App() {
             <Route path="quizgame" element={<UniversalQuizGame />} />
             <Route path="stateboard" element={<StateboardMegaQuiz />} />
             <Route path="learneng" element={<EnglishQuizWidget />} />
+
+            {/* ⚡ Dynamic Concept Quiz Route (noteQuestions.js connected) */}
+            <Route path="conceptquiz" element={<DynamicConceptQuiz />} />
 
             {/* 💥 Protected Study / CourseViewer Routes */}
             {/* 1. பழைய /study route */}

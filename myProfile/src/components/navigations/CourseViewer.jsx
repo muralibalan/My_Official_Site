@@ -24,6 +24,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CampaignIcon from '@mui/icons-material/Campaign';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { useNavigate } from 'react-router-dom';
 import Slider from './Slider';
 
@@ -158,6 +159,16 @@ const CourseViewer = ({ auth, setAuth }) => {
     [darkMode]
   );
 
+  // Auto-Sync: புதிய Login டேட்டா வரும்போதே LocalStorage-ஐ உடனடியாக அப்டேட் செய்யும் லாஜிக்
+  useEffect(() => {
+    if (auth?.course) {
+      localStorage.setItem('userCourse', auth.course);
+    }
+    if (auth?.topics && Array.isArray(auth.topics) && auth.topics.length > 0) {
+      localStorage.setItem('userTopics', JSON.stringify(auth.topics));
+    }
+  }, [auth]);
+
   const standardCourse = auth?.course || localStorage.getItem('userCourse') || 'React';
 
   const currentCourseList = useMemo(() => {
@@ -198,6 +209,7 @@ const CourseViewer = ({ auth, setAuth }) => {
     }
   }, [currentCourseList]);
 
+ // 🛠️ ஆட்டோ-ரீட்ரை (Auto-Retry) வசதியுடன் கூடிய டாக்குமெண்ட் ஃபெட்ச் லாஜிக்
   useEffect(() => {
     if (!selectedDoc || !selectedDoc.url) {
       setContent('');
@@ -208,35 +220,38 @@ const CourseViewer = ({ auth, setAuth }) => {
     setLoading(true);
     setError(null);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 12000);
+    let isMounted = true;
 
-    fetch(fetchUrl, { 
-      redirect: 'follow',
-      signal: controller.signal 
-    })
-      .then((res) => {
-        clearTimeout(timeoutId);
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.text();
-      })
-      .then((data) => {
-        setContent(processDocHtml(data));
-        setLoading(false);
-      })
-      .catch((err) => {
-        clearTimeout(timeoutId);
-        console.error('Fetch Error:', err);
-        
-        if (err.name === 'AbortError') {
-          setError('இணைய வேகம் குறைவாக உள்ளது. தயவுசெய்து சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.');
-        } else {
-          setError('Google Server இணைப்பு துண்டிக்கப்பட்டது அல்லது தாமதமானது.');
-        }
-        setLoading(false);
-      });
+    const loadDocument = (retryCount = 0) => {
+      fetch(fetchUrl, { redirect: 'follow' })
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          return res.text();
+        })
+        .then((data) => {
+          if (!isMounted) return;
+          setContent(processDocHtml(data));
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (!isMounted) return;
+          console.error('Fetch Error:', err);
+          
+          // ஒருவேளை சர்வர் தற்காலிகமாக ஸ்லோவாக இருந்தால், தானாகவே ஒருமுறை மீண்டும் முயலும் (Auto-Retry)
+          if (retryCount < 1) {
+            setTimeout(() => loadDocument(retryCount + 1), 1500);
+          } else {
+            setError('Google Server இணைப்பு தாமதமானது. மீண்டும் முயற்சிக்கவும்.');
+            setLoading(false);
+          }
+        });
+    };
 
-    return () => clearTimeout(timeoutId);
+    loadDocument();
+
+    return () => {
+      isMounted = false;
+    };
   }, [selectedDoc]);
 
   const getEmbedUrl = (rawUrl) => {
@@ -245,11 +260,13 @@ const CourseViewer = ({ auth, setAuth }) => {
     let videoId = '';
 
     if (cleanUrl.includes('embed/')) {
-      videoId = cleanUrl.split('embed/')[1]?.split('?')[0];
+      videoId = cleanUrl.split('embed/')[1]?.split('?')[0]?.split('/')[0];
     } else if (cleanUrl.includes('watch?v=')) {
       videoId = cleanUrl.split('watch?v=')[1]?.split('&')[0];
     } else if (cleanUrl.includes('youtu.be/')) {
       videoId = cleanUrl.split('youtu.be/')[1]?.split('?')[0];
+    } else {
+      videoId = cleanUrl;
     }
 
     if (videoId) {
@@ -283,7 +300,14 @@ const CourseViewer = ({ auth, setAuth }) => {
     }
   };
 
-  const rawVideoUrl = selectedDoc?.videoUrl || selectedDoc?.video || selectedDoc?.video_url || selectedDoc?.youtubeUrl || '';
+  const rawVideoUrl = selectedDoc?.videoUrl || 
+                      selectedDoc?.video || 
+                      selectedDoc?.video_url || 
+                      selectedDoc?.youtubeUrl || 
+                      selectedDoc?.link || 
+                      selectedDoc?.src || 
+                      '';
+                      
   const hasVideo = Boolean(rawVideoUrl);
   const videoSrc = getEmbedUrl(rawVideoUrl);
   const topicTitle = selectedDoc?.name || selectedDoc?.topic || selectedDoc?.topic_name || selectedDoc?.title || 'Topic';
@@ -565,6 +589,29 @@ const CourseViewer = ({ auth, setAuth }) => {
                 ]}
                 darkMode={darkMode}
               />
+
+              {/* 🎮 Practice Quiz Button */}
+              <Button
+                variant="contained"
+                fullWidth
+                startIcon={<SportsEsportsIcon />}
+                onClick={() => navigate('/conceptquiz')}
+                sx={{
+                  bgcolor: '#059669',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  py: 1.5,
+                  borderRadius: '12px',
+                  textTransform: 'none',
+                  fontSize: '0.95rem',
+                  boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)',
+                  '&:hover': {
+                    bgcolor: '#047857',
+                  },
+                }}
+              >
+                Play Practice Quiz 🎮
+              </Button>
             </Box>
           )}
 
@@ -1080,6 +1127,7 @@ const getCustomCSS = (isDark) => `
   }
 
   .custom-doc-content tr:nth-of-type(even) td {
+    box-sizing: border-box;
     background-color: ${isDark ? '#0f172a' : '#f8fafc'};
   }
 `;
