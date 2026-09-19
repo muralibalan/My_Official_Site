@@ -20,18 +20,20 @@ import {
   useTheme,
   useMediaQuery,
   Divider,
-  Tooltip // Added Tooltip here safely
+  Tooltip
 } from '@mui/material';
 
 import {
   FaGithub,
   FaLinkedin,
   FaInstagram,
-  FaYoutube
+  FaYoutube,
+  FaFacebookF,
+  FaWhatsapp
 } from 'react-icons/fa';
 
 import {
-  MdLiveTv // Included safely
+  MdLiveTv
 } from 'react-icons/md';
 
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -237,21 +239,23 @@ function Layout() {
               </IconButton>
             </motion.div>
 
-           
             {/* DESKTOP SOCIAL ICONS */}
             {!isMobile && (
               <>
                 <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={socialStyle}>
                   <FaGithub />
                 </IconButton>
-                <IconButton component="a" href="https://www.linkedin.com" target="_blank" sx={socialStyle}>
+                <IconButton component="a" href="https://www.linkedin.com/in/muraliriya" target="_blank" sx={socialStyle}>
                   <FaLinkedin />
                 </IconButton>
-                <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={socialStyle}>
+                <IconButton component="a" href="https://www.instagram.com/muraliashram/" target="_blank" sx={socialStyle}>
                   <FaInstagram />
                 </IconButton>
-                <IconButton component="a" href="https://www.youtube.com/@error2win" target="_blank" sx={socialStyle}>
+                <IconButton component="a" href="https://www.youtube.com/@muraliashram" target="_blank" sx={socialStyle}>
                   <FaYoutube />
+                </IconButton>
+                <IconButton component="a" href="https://www.facebook.com/murali.balan.180/" target="_blank" sx={socialStyle}>
+                  <FaFacebookF />
                 </IconButton>
               </>
             )}
@@ -272,6 +276,8 @@ function Layout() {
             background: 'linear-gradient(to bottom,#111,#050505)',
             color: '#fff',
             borderRight: '1px solid rgba(255,255,255,0.08)',
+            display: 'flex',
+            flexDirection: 'column',
           },
         }}
       >
@@ -296,7 +302,7 @@ function Layout() {
         <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
 
         {/* LINKS */}
-        <List sx={{ mt: 2 }}>
+        <List sx={{ mt: 2, flexGrow: 1 }}>
           {navLinks.map((link, index) => {
             const active = location.pathname === link.to;
             return (
@@ -324,6 +330,27 @@ function Layout() {
             );
           })}
         </List>
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
+
+        {/* MOBILE DRAWER SOCIAL ICONS */}
+        <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', gap: 1.5, flexWrap: 'wrap' }}>
+          <IconButton component="a" href="https://github.com/muralibalan" target="_blank" sx={socialStyle}>
+            <FaGithub />
+          </IconButton>
+          <IconButton component="a" href="https://www.linkedin.com/in/muraliriya" target="_blank" sx={socialStyle}>
+            <FaLinkedin />
+          </IconButton>
+          <IconButton component="a" href="https://www.instagram.com/murali_webtrainer/" target="_blank" sx={socialStyle}>
+            <FaInstagram />
+          </IconButton>
+          <IconButton component="a" href="https://www.youtube.com/@muraliashram" target="_blank" sx={socialStyle}>
+            <FaYoutube />
+          </IconButton>
+          <IconButton component="a" href="https://www.facebook.com" target="_blank" sx={socialStyle}>
+            <FaFacebookF />
+          </IconButton>
+        </Box>
       </Drawer>
 
       {/* =========================
@@ -348,32 +375,56 @@ function Layout() {
       </Box>
 
       {/* ====================================
-         FIXED LIVE CLASS BUTTON PLACE HERE
+         FIXED ONLINE CLASS BUTTON WITH LABEL
       ==================================== */}
-      <motion.div
+      <Box
+        component={motion.div}
         animate={{
           y: [0, -10, 0],
-          scale: [1, 1.08, 1],
+          scale: [1, 1.05, 1],
         }}
         transition={{
           duration: 1.8,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        style={{
+        sx={{
           position: 'fixed',
           right: '25px',
-          bottom: '25px',
+          bottom: '105px',
           zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
         }}
       >
-        <Tooltip title="Live Classes">
+        {/* Label on the left of the icon */}
+        <Box
+          sx={{
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(8px)',
+            color: '#fff',
+            px: '12px',
+            py: '6px',
+            borderRadius: '20px',
+            fontSize: '13px',
+            fontWeight: 700,
+            border: '1px solid rgba(255, 145, 0, 0.3)',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+          }}
+        >
+          Online Class
+        </Box>
+
+        <Tooltip title="Online Class">
           <IconButton
             component={Link}
             to="/schedule"
             sx={{
-              width: 65,
-              height: 65,
+              width: 60,
+              height: 60,
               background: 'linear-gradient(135deg,#ff1744,#ff9100)',
               color: '#fff',
               border: '3px solid rgba(255,255,255,0.15)',
@@ -386,10 +437,79 @@ function Layout() {
               },
             }}
           >
-            <MdLiveTv size={34} />
+            <MdLiveTv size={30} />
           </IconButton>
         </Tooltip>
-      </motion.div>
+      </Box>
+
+      {/* ====================================
+         FIXED "CHAT WITH MURALI" BUTTON WITH LABEL
+      ==================================== */}
+      <Box
+        component={motion.div}
+        animate={{
+          y: [0, -8, 0],
+          scale: [1, 1.05, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        sx={{
+          position: 'fixed',
+          right: '25px',
+          bottom: '25px',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        {/* Label on the left of the icon */}
+        <Box
+          sx={{
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(8px)',
+            color: '#fff',
+            px: '12px',
+            py: '6px',
+            borderRadius: '20px',
+            fontSize: '13px',
+            fontWeight: 700,
+            border: '1px solid rgba(37, 211, 102, 0.3)',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+          }}
+        >
+          Chat with Murali
+        </Box>
+
+        <Tooltip title="Chat with Murali">
+          <IconButton
+            component="a"
+            href="https://wa.me/917010777680?text=Hello%20Murali,%20I%20want%20to%20connect%20with%20you!"
+            target="_blank"
+            sx={{
+              width: 65,
+              height: 65,
+              background: 'linear-gradient(135deg,#25D366,#128C7E)',
+              color: '#fff',
+              border: '3px solid rgba(255,255,255,0.15)',
+              boxShadow: '0 0 30px rgba(37,211,102,0.6)',
+              backdropFilter: 'blur(12px)',
+              '&:hover': {
+                transform: 'scale(1.08)',
+                background: 'linear-gradient(135deg,#128C7E,#25D366)',
+                boxShadow: '0 0 40px rgba(37,211,102,0.9)',
+              },
+            }}
+          >
+            <FaWhatsapp size={34} />
+          </IconButton>
+        </Tooltip>
+      </Box>
 
     </Box>
   );
