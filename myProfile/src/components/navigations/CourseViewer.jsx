@@ -209,10 +209,12 @@ const CourseViewer = ({ auth, setAuth }) => {
     }
   }, [currentCourseList]);
 
- // 🛠️ ஆட்டோ-ரீட்ரை (Auto-Retry) வசதியுடன் கூடிய டாக்குமெண்ட் ஃபெட்ச் லாஜிக்
+  // 🛠️ மேம்படுத்தப்பட்ட ஆட்டோ-ரீட்ரை (Auto-Retry) மற்றும் AbortController உடன் கூடிய டாக்குமெண்ட் ஃபெட்ச் லாஜிக்
   useEffect(() => {
     if (!selectedDoc || !selectedDoc.url) {
       setContent('');
+      setLoading(false);
+      setError(null);
       return;
     }
 
@@ -220,37 +222,44 @@ const CourseViewer = ({ auth, setAuth }) => {
     setLoading(true);
     setError(null);
 
+    const controller = new AbortController();
     let isMounted = true;
 
-    const loadDocument = (retryCount = 0) => {
-      fetch(fetchUrl, { redirect: 'follow' })
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          return res.text();
-        })
-        .then((data) => {
-          if (!isMounted) return;
-          setContent(processDocHtml(data));
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (!isMounted) return;
-          console.error('Fetch Error:', err);
-          
-          // ஒருவேளை சர்வர் தற்காலிகமாக ஸ்லோவாக இருந்தால், தானாகவே ஒருமுறை மீண்டும் முயலும் (Auto-Retry)
-          if (retryCount < 1) {
-            setTimeout(() => loadDocument(retryCount + 1), 1500);
-          } else {
-            setError('Google Server இணைப்பு தாமதமானது. மீண்டும் முயற்சிக்கவும்.');
-            setLoading(false);
-          }
+    const loadDocument = async (retryCount = 0) => {
+      try {
+        const res = await fetch(fetchUrl, { 
+          redirect: 'follow', 
+          signal: controller.signal,
+          cache: 'default' 
         });
+
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.text();
+
+        if (!isMounted) return;
+        setContent(processDocHtml(data));
+        setLoading(false);
+      } catch (err) {
+        if (!isMounted || err.name === 'AbortError') return;
+        console.error(`Fetch Error (Attempt ${retryCount + 1}):`, err);
+
+        // டிலே அல்லது நெட்வொர்க் பிரச்சினை இருந்தால் தானாகவே 2 முறை வரை மீண்டும் முயலும்
+        if (retryCount < 2) {
+          setTimeout(() => {
+            if (isMounted) loadDocument(retryCount + 1);
+          }, 1200);
+        } else {
+          setError('Google Server இணைப்பு தாமதமானது. மீண்டும் முயற்சிக்கவும்.');
+          setLoading(false);
+        }
+      }
     };
 
     loadDocument();
 
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, [selectedDoc]);
 

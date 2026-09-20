@@ -9,6 +9,9 @@ import {
   Collapse,
   LinearProgress,
   Chip,
+  FormControl,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
@@ -16,14 +19,24 @@ import useSound from "use-sound";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
-// ⚡ 1. games folder-க்கு உள்ளே இருக்கும் nodeQuestions.js ஃபைலில் இருந்து கரெக்ட்டாக import செய்கிறோம்
-import { nodeTasks } from "./nodeQuestions.js"; 
+// ⚡ games folder-க்கு உள்ளே இருக்கும் nodeQuestions.js ஃபைலில் இருந்து 6 சாப்டர்களின் டேட்டாவையும் இம்போர்ட் செய்கிறோம்
+import { 
+  chapter1Tasks, 
+  chapter2Tasks, 
+  chapter3Tasks, 
+  chapter4Tasks, 
+  chapter5Tasks, 
+  chapter6Tasks 
+} from "./nodeQuestions.js"; 
 
 const THEME_COLOR = "#09ee24";
 const ERROR_COLOR = "#ff2a2a";
 
-export default function DynamicConceptQuiz() {
+export default function DynamicConceptQuiz({ chapterNumber: initialChapter = 1 }) {
+  // ⚡ டிராப் டவுனுக்கான State (Props-லிருந்து வரும் Initial Chapter-ஐ அடிப்படையாகக் கொண்டது)
+  const [selectedChapter, setSelectedChapter] = useState(initialChapter);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -50,19 +63,41 @@ export default function DynamicConceptQuiz() {
     });
   };
 
-  const quizData = nodeTasks || [];
+  // ⚡ டிராப் டவுனில் மாற்றும் போது அந்தந்த சாப்டர் டேட்டாவை ரிட்டர்ன் செய்யும் பங்க்சன்
+  const getChapterData = () => {
+    switch (Number(selectedChapter)) {
+      case 1: return chapter1Tasks;
+      case 2: return chapter2Tasks;
+      case 3: return chapter3Tasks;
+      case 4: return chapter4Tasks;
+      case 5: return chapter5Tasks;
+      case 6: return chapter6Tasks;
+      default: return chapter1Tasks;
+    }
+  };
+
+  const quizData = getChapterData() || [];
+
+  // ⚡ சாப்டரை மாற்றும்போது கொஸ்டின் மற்றும் Score ஐ Reset செய்ய
+  const handleChapterChange = (event) => {
+    setSelectedChapter(event.target.value);
+    setCurrentQuestion(0);
+    setSelectedOption(null);
+    setIsAnswered(false);
+    setScore(0);
+    setQuizFinished(false);
+  };
 
   if (!quizData || quizData.length === 0) {
     return (
       <Box sx={{ bgcolor: "#060c09", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Typography sx={{ color: "#fff", fontWeight: 700 }}>No Questions Found! 😅</Typography>
+        <Typography sx={{ color: "#fff", fontWeight: 700 }}>No Questions Found for this Chapter! 😅</Typography>
       </Box>
     );
   }
 
-  const rawQuiz = quizData[currentQuestion];
+  const rawQuiz = quizData[currentQuestion] || {};
 
-  // ⚡ Auto-map questions to component structure
   const activeQuiz = {
     question: rawQuiz?.question || "",
     options: (rawQuiz?.options || []).map((opt) => ({
@@ -119,24 +154,92 @@ export default function DynamicConceptQuiz() {
         background: "radial-gradient(circle at top,#0b1f15,#050805 80%)",
       }}
     >
+      {/* Background Ambient Glows */}
       <Box sx={{ position: "absolute", width: 300, height: 300, bgcolor: "rgba(9,238,36,0.08)", borderRadius: "50%", filter: "blur(120px)", top: -100, left: -100 }} />
       <Box sx={{ position: "absolute", width: 250, height: 250, bgcolor: "rgba(0,240,255,0.08)", borderRadius: "50%", filter: "blur(120px)", bottom: -100, right: -100 }} />
 
       <Container maxWidth="sm">
+        
+        {/* ⚡ CHAPTER DROPDOWN SELECTION BAR */}
+        <Paper
+          elevation={4}
+          sx={{
+            bgcolor: "rgba(13,22,18,0.85)",
+            backdropFilter: "blur(14px)",
+            borderRadius: "20px",
+            p: 2,
+            mb: 3,
+            border: "1px solid #1c3528",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            <MenuBookIcon sx={{ color: THEME_COLOR }} />
+            <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>
+              Select Chapter:
+            </Typography>
+          </Box>
+
+          <FormControl size="small" sx={{ minWidth: 160 }}>
+            <Select
+              value={selectedChapter}
+              onChange={handleChapterChange}
+              sx={{
+                color: "#fff",
+                bgcolor: "#0c1712",
+                borderRadius: "12px",
+                fontWeight: 700,
+                ".MuiOutlinedInput-notchedOutline": { borderColor: "#1f3d2e" },
+                "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: THEME_COLOR },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: THEME_COLOR },
+                ".MuiSvgIcon-root": { color: THEME_COLOR },
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    bgcolor: "#0d1a14",
+                    color: "#fff",
+                    borderRadius: "12px",
+                    border: "1px solid #1c3528",
+                    "& .MuiMenuItem-root": {
+                      fontWeight: 600,
+                      "&:hover": { bgcolor: "rgba(9,238,36,0.12)", color: THEME_COLOR },
+                      "&.Mui-selected": { bgcolor: "rgba(9,238,36,0.2) !important", color: THEME_COLOR },
+                    },
+                  },
+                },
+              }}
+            >
+              <MenuItem value={1}>Chapter 1</MenuItem>
+              <MenuItem value={2}>Chapter 2</MenuItem>
+              <MenuItem value={3}>Chapter 3</MenuItem>
+              <MenuItem value={4}>Chapter 4</MenuItem>
+              <MenuItem value={5}>Chapter 5</MenuItem>
+              <MenuItem value={6}>Chapter 6</MenuItem>
+            </Select>
+          </FormControl>
+        </Paper>
+
+        {/* Top Info Bar */}
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, px: 1 }}>
           <Typography variant="subtitle2" sx={{ color: "#4d7561", fontWeight: 700 }}>
-            NODE.JS & MYSQL PRACTICE QUIZ
+            CHAPTER {selectedChapter} - PRACTICE QUIZ
           </Typography>
           <Typography sx={{ color: "#fff", fontWeight: 800 }}>Score : {score}</Typography>
         </Box>
 
+        {/* Main Quiz Card */}
         <Paper
           component={motion.div}
-          animate={{ y: [0, -5, 0] }}
+          animate={{ y: [0, -4, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
           elevation={10}
           sx={{
-            bgcolor: "rgba(13,22,18,0.72)",
+            bgcolor: "rgba(13,22,18,0.78)",
             backdropFilter: "blur(16px)",
             borderRadius: "28px",
             p: { xs: 3, md: 4 },
@@ -149,7 +252,7 @@ export default function DynamicConceptQuiz() {
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <Chip
                   icon={<EmojiEventsIcon />}
-                  label={`Kelvi ${currentQuestion + 1} / ${quizData.length}`}
+                  label={`Question ${currentQuestion + 1} / ${quizData.length}`}
                   sx={{ bgcolor: "rgba(9,238,36,0.1)", color: THEME_COLOR, fontWeight: 700 }}
                 />
                 <Typography sx={{ color: THEME_COLOR, fontWeight: 800 }}>Portal Quiz</Typography>
@@ -167,7 +270,7 @@ export default function DynamicConceptQuiz() {
                 }}
               />
 
-              <motion.div key={currentQuestion} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <motion.div key={`${selectedChapter}-${currentQuestion}`} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <Typography
                   variant="h5"
                   sx={{
@@ -175,7 +278,7 @@ export default function DynamicConceptQuiz() {
                     mb: 4,
                     lineHeight: 1.7,
                     minHeight: { xs: "70px", md: "90px" },
-                    fontSize: { xs: "1rem", sm: "1.25rem", md: "1.6rem" },
+                    fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
                     textAlign: "center",
                     background: "linear-gradient(90deg,#00ff95,#00e5ff,#ffe600)",
                     WebkitBackgroundClip: "text",
@@ -239,12 +342,8 @@ export default function DynamicConceptQuiz() {
                         fontSize: "1rem",
                         animation,
                         transition: "0.3s",
-                        "&.Mui-disabled": {
-                          color: btnColor,
-                        },
-                        "&:hover": {
-                          bgcolor: !isAnswered ? "#162a20" : btnBg,
-                        },
+                        "&.Mui-disabled": { color: btnColor },
+                        "&:hover": { bgcolor: !isAnswered ? "#162a20" : btnBg },
                         "@keyframes pulseGlow": {
                           "0%": { boxShadow: "0 0 0px #09ee24" },
                           "50%": { boxShadow: "0 0 25px #09ee24" },
@@ -314,9 +413,7 @@ export default function DynamicConceptQuiz() {
                           py: 1.6,
                           textTransform: "none",
                           fontSize: "1rem",
-                          "&:hover": {
-                            bgcolor: "#06c21d",
-                          },
+                          "&:hover": { bgcolor: "#06c21d" },
                         }}
                       >
                         {currentQuestion === quizData.length - 1 ? "Mudichirom! Complete Pannu 🚀" : "Adutha Kelviki Po..."}
