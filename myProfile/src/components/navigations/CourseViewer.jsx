@@ -594,7 +594,9 @@ const CourseViewer = ({ auth, setAuth }) => {
                 images={[
                   "/images/GALOGO.png",
                   "/images/PPLOGO2.png",
-                  "/images/GALOGO.png",
+                  "/images/mywin.png",
+                  "/images/mywin2.png",
+                  "/images/mywin3.png",
                 ]}
                 darkMode={darkMode}
               />
@@ -619,7 +621,7 @@ const CourseViewer = ({ auth, setAuth }) => {
                   },
                 }}
               >
-                Play Practice Quiz 🎮
+                Play Practice Quiz
               </Button>
             </Box>
           )}
