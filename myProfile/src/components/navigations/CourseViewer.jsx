@@ -25,6 +25,8 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
 import Slider from './Slider';
 
@@ -84,8 +86,23 @@ const processDocHtml = (rawHtml) => {
                   <span class="dot yellow"></span>
                   <span class="dot green"></span>
                 </div>
-                <div class="vs-code-title"><span>Python / Coding Program</span></div>
-                <div class="vs-code-badge">Active</div>
+                <div class="vs-code-title"><span>Coding Area</span></div>
+                <button class="vs-copy-btn" onclick="
+                  const codeEl = this.parentElement.nextElementSibling.querySelector('code');
+                  navigator.clipboard.writeText(codeEl.innerText);
+                  const originalHTML = this.innerHTML;
+                  this.innerHTML = '<svg class=\\'MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1cw4kga\\' focusable=\\'false\\000020\\' aria-hidden=\\'true\\' viewBox=\\'0 0 24 24\\' data-testid=\\'CheckIcon\\' style=\\'font-size: 1rem;\\'><path d=\\'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\\'></path></svg> Copied!';
+                  this.style.background = '#064e3b';
+                  this.style.color = '#34d399';
+                  setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.background = '#1e293b';
+                    this.style.color = '#94a3b8';
+                  }, 2000);
+                ">
+                  <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon" style="font-size: 0.9rem;"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>
+                  Copy Code
+                </button>
               </div>
               <div class="code-scroll-area">
                 <pre class="vs-code-editor"><code>${escapeCodeHTML(codeText)}</code></pre>
@@ -626,7 +643,7 @@ const CourseViewer = ({ auth, setAuth }) => {
             </Box>
           )}
 
-          {/* Right Side: Reader Sheet */}
+          {/* Right Side: Reader Sheet (முழு ரீடிங் ஏரியா) */}
           <Paper
             elevation={0}
             sx={{
@@ -650,72 +667,10 @@ const CourseViewer = ({ auth, setAuth }) => {
               '&::-webkit-scrollbar-thumb': { backgroundColor: darkMode ? '#334155' : '#cbd5e1', borderRadius: '4px' },
             }}
           >
-            {/* Header */}
-            <Box
-              sx={{
-                p: { xs: 1.5, sm: 2.5, md: 3 },
-                borderBottom: darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
-                bgcolor: darkMode ? '#0f172a' : '#f8fafc',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: 1.5,
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
-            >
-              <Box sx={{ maxWidth: { xs: '100%', sm: '70%' }, minWidth: 0 }}>
-                <Typography variant="caption" sx={{ color: '#059669', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.8 }}>
-                  CHAPTER {currentIndex >= 0 ? currentIndex + 1 : 1} OF {currentCourseList.length}
-                </Typography>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 800,
-                    mt: 0.2,
-                    fontSize: { xs: '1.05rem', sm: '1.45rem' },
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  {topicTitle}
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  startIcon={<NavigateBeforeIcon />}
-                  onClick={handlePrevTopic}
-                  disabled={currentIndex <= 0}
-                  sx={{ textTransform: 'none', fontWeight: 600, borderRadius: '8px' }}
-                >
-                  Prev
-                </Button>
-                <Button
-                  variant="contained"
-                  size="small"
-                  endIcon={<NavigateNextIcon />}
-                  onClick={handleNextTopic}
-                  disabled={currentIndex === -1 || currentIndex >= currentCourseList.length - 1}
-                  sx={{
-                    bgcolor: '#059669',
-                    '&:hover': { bgcolor: '#047857' },
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    borderRadius: '8px',
-                  }}
-                >
-                  Next
-                </Button>
-              </Box>
-            </Box>
-
             {/* Reader Content */}
             <Box
               sx={{
-                p: { xs: 1.5, sm: 3, md: 4 },
+                p: { xs: 2, sm: 3, md: 4 },
                 width: '100%',
                 maxWidth: '100%',
                 boxSizing: 'border-box',
@@ -1067,14 +1022,25 @@ const getCustomCSS = (isDark) => `
     letter-spacing: 0.5px;
   }
 
-  .custom-doc-content .vs-code-badge {
-    background-color: #064e3b;
-    color: #34d399;
-    font-size: 0.65rem;
+  .custom-doc-content .vs-copy-btn {
+    background-color: #1e293b;
+    color: #94a3b8;
+    font-size: 0.72rem;
     font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid #059669;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+  }
+
+  .custom-doc-content .vs-copy-btn:hover {
+    background-color: #334155;
+    color: #f8fafc;
+    border-color: #059669;
   }
 
   .custom-doc-content .code-scroll-area {
