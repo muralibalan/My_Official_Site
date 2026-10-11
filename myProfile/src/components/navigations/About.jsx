@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Typography, Avatar, Stack, Divider, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, Stack, useMediaQuery, useTheme } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -26,15 +26,6 @@ const About = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const contactItemStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 1.5,
-    py: 0.8,
-    transition: '0.3s',
-    '&:hover': { color: '#09ee24ff' }
-  };
-
   return (
     <Box
       sx={{
@@ -45,54 +36,140 @@ const About = () => {
         alignItems: 'center',
         justifyContent: 'center',
         px: { xs: 2, md: 5 },
-        py: { xs: 6, md: 0 },
+        py: { xs: 6, md: 4 },
         overflow: 'hidden'
       }}
     >
       <Stack
         direction={{ xs: 'column', md: 'row' }}
-        spacing={{ xs: 5, md: 10 }}
+        spacing={{ xs: 5, md: 8 }}
         sx={{ width: '100%', maxWidth: 1200, alignItems: 'center' }}
       >
-        {/* --- LEFT: Profile --- */}
+        {/* --- LEFT: Portrait Video Card with True Centered Overlay Content --- */}
         <Box
           component={motion.div}
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          sx={{ flex: 1, textAlign: 'center' }}
+          transition={{ duration: 0.6 }}
+          sx={{ flex: 1, textAlign: 'center', width: '100%', maxWidth: 360 }}
         >
-          <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
-            <Avatar
-              src="/images/Murali3.png"
-              alt="Murali"
-              sx={{ 
-                width: { xs: 180, md: 240 }, 
-                height: { xs: 180, md: 240 }, 
-                border: '4px solid #181818',
-                boxShadow: '0 0 30px rgba(9, 238, 36, 0.2)' 
+          {/* Instagram Portrait Ratio Container (9:16) */}
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: { xs: 260, md: 300 },
+              aspectRatio: '9/16',
+              mx: 'auto',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              border: '3px solid #1f1f1f',
+              boxShadow: '0 0 35px rgba(9, 238, 36, 0.25)',
+              bgcolor: '#000'
+            }}
+          >
+            <video
+              src="/videos/About.mp4"
+              autoPlay
+              // muted
+              loop
+              playsInline
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block'
               }}
             />
+
+            {/* Dark Gradient Overlay for Readability */}
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                height: '65%',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.75) 60%, transparent 100%)',
+                zIndex: 1
+              }}
+            />
+
+            {/* Content Overlaid Inside Video Frame at Bottom - Perfectly Centered */}
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                p: 2.5,
+                zIndex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                mx: 'auto'
+              }}
+            >
+              <Typography variant="h5" sx={{ fontWeight: 900, mb: 0.2, color: '#fff', fontSize: '1.4rem', width: '100%' }}>
+                MURALI BALAN
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#09ee24ff', fontWeight: 700, mb: 1.5, letterSpacing: 0.5, fontSize: '0.75rem', width: '100%' }}>
+                SENIOR SKILL ENGINEER
+              </Typography>
+
+              {/* Contact Stack with True Center Alignment */}
+              <Stack spacing={0.6} sx={{ width: '100%', alignItems: 'center' }}>
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: 1, 
+                    color: '#ddd', 
+                    transition: '0.3s',
+                    width: '100%',
+                    '&:hover': { color: '#09ee24ff' } 
+                  }}
+                >
+                  <MailOutlineIcon sx={{ fontSize: 15, opacity: 0.8, flexShrink: 0 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.75rem', textAlign: 'left' }}>muralibalan66@gmail.com</Typography>
+                </Box>
+
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: 1, 
+                    color: '#ddd', 
+                    transition: '0.3s',
+                    width: '100%',
+                    '&:hover': { color: '#09ee24ff' } 
+                  }}
+                >
+                  <PhoneOutlinedIcon sx={{ fontSize: 15, opacity: 0.8, flexShrink: 0 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.75rem', textAlign: 'left' }}>+91 7010777680</Typography>
+                </Box>
+
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: 1, 
+                    color: '#ddd', 
+                    transition: '0.3s',
+                    width: '100%',
+                    '&:hover': { color: '#09ee24ff' } 
+                  }}
+                >
+                  <LocationOnOutlinedIcon sx={{ fontSize: 15, opacity: 0.8, flexShrink: 0 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.75rem', textAlign: 'left' }}>Chennai, Tamil Nadu</Typography>
+                </Box>
+              </Stack>
+            </Box>
           </Box>
-
-          <Typography variant="h4" sx={{ fontWeight: 900, mb: 0.5 }}>MURALI BALAN</Typography>
-          <Typography variant="body1" sx={{ color: '#09ee24ff', fontWeight: 700, mb: 3, letterSpacing: 1 }}>
-            SENIOR SKILL ENGINEER
-          </Typography>
-
-          <Stack sx={{ width: 'fit-content', mx: 'auto', textAlign: 'left' }}>
-            <Box sx={contactItemStyle}>
-              <MailOutlineIcon sx={{ fontSize: 18, opacity: 0.6 }} />
-              <Typography variant="body2">muralibalan66@gmail.com</Typography>
-            </Box>
-            <Box sx={contactItemStyle}>
-              <PhoneOutlinedIcon sx={{ fontSize: 18, opacity: 0.6 }} />
-              <Typography variant="body2">+91 7010777680</Typography>
-            </Box>
-            <Box sx={contactItemStyle}>
-              <LocationOnOutlinedIcon sx={{ fontSize: 18, opacity: 0.6 }} />
-              <Typography variant="body2">Chennai, Tamil Nadu</Typography>
-            </Box>
-          </Stack>
         </Box>
 
         {/* --- RIGHT: Content --- */}
@@ -143,7 +220,7 @@ const About = () => {
               <Typography variant="caption" sx={{ color: '#888', fontWeight: 700 }}>STUDENTS TRAINED</Typography>
             </Box>
             
-            <Divider orientation="vertical" flexItem sx={{ bgcolor: '#333' }} />
+            <Box sx={{ width: '1px', bgcolor: '#333' }} />
 
             <Box sx={{ textAlign: 'center', flex: 1 }}>
               <Typography variant="h4" sx={{ fontWeight: 900, color: '#fff' }}>
@@ -152,7 +229,7 @@ const About = () => {
               <Typography variant="caption" sx={{ color: '#888', fontWeight: 700 }}>YEARS EXP</Typography>
             </Box>
 
-            <Divider orientation="vertical" flexItem sx={{ bgcolor: '#333' }} />
+            <Box sx={{ width: '1px', bgcolor: '#333' }} />
 
             <Box sx={{ textAlign: 'center', flex: 1 }}>
               <Typography variant="h4" sx={{ fontWeight: 900, color: '#fff' }}>

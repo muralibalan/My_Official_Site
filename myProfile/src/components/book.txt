@@ -2388,3 +2388,5 @@ const getCustomCSS = (isDark) => `
 `;
 
 export default CourseViewer;
+
+/videos/AboutVideo.mp4

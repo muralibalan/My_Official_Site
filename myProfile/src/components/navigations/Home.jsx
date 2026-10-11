@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, Stack, Avatar } from '@mui/material';
 import { TypeAnimation } from 'react-type-animation';
 import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Component-க்கு வெளியே வைப்பதால் re-render ஆகும் போது தேவையின்றி recreate ஆகாது
+const MEDIA_ITEMS = [
+  { type: 'image', src: '/images/Murali.png', badge: '1200+ STUDENTS' },
+  { type: 'video', src: '/videos/GATN68.mp4', badge: 'LIVE WORKSHOP 🎥' },
+  { type: 'image', src: '/images/VLogoo.png', badge: 'TECH MENTOR 💻' },
+  { type: 'video', src: '/videos/About.mp4', badge: 'CLASSROOM SESSION 🎬' }
+];
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease: "easeOut" }
+};
 
 function Home() {
   const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Animation Variants
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: "easeOut" }
-  };
+  const currentItem = MEDIA_ITEMS[currentIndex];
+
+  // Dynamic Duration: Video-க்கு 20 வினாடிகள், Image-க்கு 5 வினாடிகள்
+  useEffect(() => {
+    const duration = currentItem.type === 'video' ? 20000 : 5000;
+
+    const timer = setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % MEDIA_ITEMS.length);
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, currentItem.type]);
 
   return (
     <Box
@@ -149,18 +170,15 @@ function Home() {
           </Stack>
         </Box>
 
-        {/* --- RIGHT SIDE: PHOTO DESIGN --- */}
+        {/* --- RIGHT SIDE: 3D ROTATING MEDIA CONTAINER --- */}
         <Box
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
           sx={{
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flex: 1
+            flex: 1,
+            perspective: '1000px'
           }}
         >
           {/* Animated Background Ring */}
@@ -177,53 +195,105 @@ function Home() {
             }}
           />
 
-          {/* Clean Rounded Image Container */}
+          {/* Floating Frame (Slowly moves Up, Down, Left, Right) */}
           <Box
             component={motion.div}
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            animate={{
+              y: [0, -12, 0, 12, 0],
+              x: [0, 8, 0, -8, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
             sx={{
               position: 'relative',
               zIndex: 2,
               p: 1.5,
               bgcolor: '#222',
-              width: { xs: 250, md: 400 },
-              height: { xs: 250, md: 400 },
-              borderRadius: '30px', // Modern clean look
+              width: { xs: 250, md: 380 },
+              height: { xs: 250, md: 380 },
+              borderRadius: '30px',
               border: '1px solid rgba(255,255,255,0.1)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            <Avatar
-              src='/images/Murali.png'
-              alt="Murali Balan"
-              variant="rounded"
-              sx={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '20px',
-                objectFit: 'cover'
-              }}
-            />
+            {/* Animating Inner Content */}
+            <AnimatePresence mode="wait">
+              <Box
+                component={motion.div}
+                key={currentIndex}
+                initial={{ scale: 0.8, rotate: -20, opacity: 0 }}
+                animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                exit={{ scale: 0.8, rotate: 20, opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                {currentItem.type === 'image' ? (
+                  <Avatar
+                    src={currentItem.src}
+                    alt="Murali Balan"
+                    variant="rounded"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '20px',
+                      objectFit: 'cover',
+                      aspectRatio: '1 / 1'
+                    }}
+                  />
+                ) : (
+                  <video
+                    key={currentItem.src}
+                    src={currentItem.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '20px',
+                      objectFit: 'contain',
+                      backgroundColor: '#000'
+                    }}
+                  />
+                )}
 
-            {/* Experience Badge */}
-            <Box
-              sx={{
-                position: 'absolute',
-                bottom: -15,
-                right: { xs: 10, md: -20 },
-                bgcolor: '#09ee24ff',
-                color: '#000',
-                px: 2,
-                py: 1,
-                borderRadius: '10px',
-                fontWeight: 900,
-                fontSize: '0.85rem',
-                boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
-              }}
-            >
-              1200+ STUDENTS
-            </Box>
+                {/* Badge */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 12,
+                    right: 12,
+                    bgcolor: currentItem.type === 'image' ? '#09ee24ff' : 'rgba(0, 0, 0, 0.85)',
+                    color: currentItem.type === 'image' ? '#000' : '#09ee24ff',
+                    px: 2,
+                    py: 1,
+                    borderRadius: '10px',
+                    fontWeight: 800,
+                    fontSize: '0.8rem',
+                    border: currentItem.type === 'video' ? '1px solid #09ee24ff' : 'none',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                    pointerEvents: 'none'
+                  }}
+                >
+                  {currentItem.badge}
+                </Box>
+              </Box>
+            </AnimatePresence>
           </Box>
         </Box>
       </Box>
