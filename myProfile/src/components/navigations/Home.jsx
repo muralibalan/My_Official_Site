@@ -4,12 +4,12 @@ import { TypeAnimation } from 'react-type-animation';
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Component-க்கு வெளியே வைப்பதால் re-render ஆகும் போது தேவையின்றி recreate ஆகாது
+// GATN68.mp4-க்கு மட்டும் full frame-ல் தெரிய isFullCover: true சேர்க்கப்பட்டுள்ளது
 const MEDIA_ITEMS = [
   { type: 'image', src: '/images/Murali.png', badge: '1200+ STUDENTS' },
-  { type: 'video', src: '/videos/GATN68.mp4', badge: 'LIVE WORKSHOP 🎥' },
-  { type: 'image', src: '/images/VLogoo.png', badge: 'TECH MENTOR 💻' },
-  { type: 'video', src: '/videos/About.mp4', badge: 'CLASSROOM SESSION 🎬' }
+  { type: 'video', src: '/videos/TN68.mp4', badge: 'LIVE WORKSHOP ', isFullCover: true },
+  { type: 'image', src: '/images/VLogoo.png', badge: 'TECH MENTOR ' },
+  { type: 'video', src: '/videos/About.mp4', badge: 'ABOUT ME ' }
 ];
 
 const fadeInUp = {
@@ -24,7 +24,6 @@ function Home() {
 
   const currentItem = MEDIA_ITEMS[currentIndex];
 
-  // Dynamic Duration: Video-க்கு 20 வினாடிகள், Image-க்கு 5 வினாடிகள்
   useEffect(() => {
     const duration = currentItem.type === 'video' ? 20000 : 5000;
 
@@ -195,7 +194,7 @@ function Home() {
             }}
           />
 
-          {/* Floating Frame (Slowly moves Up, Down, Left, Right) */}
+          {/* Floating Outer Frame */}
           <Box
             component={motion.div}
             animate={{
@@ -211,19 +210,21 @@ function Home() {
               position: 'relative',
               zIndex: 2,
               p: 1.5,
-              bgcolor: '#222',
+              bgcolor: '#1a1a1a',
               width: { xs: 250, md: 380 },
               height: { xs: 250, md: 380 },
               borderRadius: '30px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+              border: '1.5px solid rgba(255,255,255,0.18)',
+              boxShadow: currentItem.type === 'video'
+                ? '0 0 30px rgba(9, 238, 36, 0.25), 0 0 60px rgba(255, 255, 255, 0.12), 0 25px 50px rgba(0, 0, 0, 0.8)'
+                : '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
               overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              transition: 'box-shadow 0.6s ease'
             }}
           >
-            {/* Animating Inner Content */}
             <AnimatePresence mode="wait">
               <Box
                 component={motion.div}
@@ -236,6 +237,8 @@ function Home() {
                   width: '100%',
                   height: '100%',
                   position: 'relative',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -255,21 +258,61 @@ function Home() {
                     }}
                   />
                 ) : (
-                  <video
-                    key={currentItem.src}
-                    src={currentItem.src}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{
+                  <Box
+                    sx={{
+                      position: 'relative',
                       width: '100%',
                       height: '100%',
                       borderRadius: '20px',
-                      objectFit: 'contain',
-                      backgroundColor: '#000'
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      p: currentItem.isFullCover ? 0 : 1.5 // GATN68-க்கு padding 0 ஆக்கப்பட்டு full frame-க்கு மாறும்
                     }}
-                  />
+                  >
+                    {/* Background Ambient Video (isFullCover இல்லையென்றால் மட்டும் தேவை) */}
+                    {!currentItem.isFullCover && (
+                      <video
+                        key={`${currentItem.src}-bg`}
+                        src={currentItem.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          filter: 'blur(25px) brightness(0.7)',
+                          transform: 'scale(1.25)',
+                          zIndex: 1
+                        }}
+                      />
+                    )}
+
+                    {/* Foreground Video */}
+                    <video
+                      key={currentItem.src}
+                      src={currentItem.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{
+                        position: 'relative',
+                        zIndex: 2,
+                        width: currentItem.isFullCover ? '100%' : '93%',
+                        height: currentItem.isFullCover ? '100%' : '93%',
+                        borderRadius: currentItem.isFullCover ? '20px' : '16px',
+                        objectFit: currentItem.isFullCover ? 'cover' : 'contain', // GATN68 frame-ஐ முழுமையாக நிரப்பும்
+                        boxShadow: currentItem.isFullCover ? 'none' : '0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 255, 255, 0.15)'
+                      }}
+                    />
+                  </Box>
                 )}
 
                 {/* Badge */}
@@ -278,6 +321,7 @@ function Home() {
                     position: 'absolute',
                     bottom: 12,
                     right: 12,
+                    zIndex: 3,
                     bgcolor: currentItem.type === 'image' ? '#09ee24ff' : 'rgba(0, 0, 0, 0.85)',
                     color: currentItem.type === 'image' ? '#000' : '#09ee24ff',
                     px: 2,
